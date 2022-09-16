@@ -5,5 +5,6 @@
 | Sauhaard Walia | waliasau | 1006726483 | sauhaard.walia@mail.utoronto.ca | Email/Discord | Sauhaard#7702 |
 | Alina Buzila | buzilaal | 1007268216 | alina.buzila@mail.utoronto.ca | Email/Discord | Alinaa#9087 |
 | Yuval Kamani | kamaniyu | 1007093404 | yuval.kamani@mail.utoronto.ca | Email/Discord | yvl#3213 |
+| Sayed Mojtaba Hosseini | hosse240 | 1006777427 | mojtaba.hosseini@mail.utoronto.ca | Email/Discord | mojo_hosseini#0935 |
 | | | | | |
 **Discord Chat/Server Invite :** https://discord.gg/uDqfYqjcps
