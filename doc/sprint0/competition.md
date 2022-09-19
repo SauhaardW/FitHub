@@ -5,7 +5,7 @@ Existing Products:
 4. 7 minute workout- given beginners lack motivation and discipline to workout regularly, this app is based on willingness to workout. It does not set a schedule or regular routine. 
 
 Users:
-1. Beginners: provides information specific to the gym (including usage of equipment and workouts that target different sets of muscles and more). Also after choosing their split, they won't be able to change any workout during that week. This will help prevent injuiries and confusion and give the beginners the clarity about workout splits.
+1. Beginners: provides information specific to the gym (including usage of equipment and workouts that target different sets of muscles and more). Also after choosing their split, they won't be able to change any workout during that week. This will help prevent injuries and confusion and give the beginners the clarity about workout splits.
 2. inexperienced tech users: provides an easy way to track progress with various graphs and to access workouts and information efficiently. 
 3. Advanced gymgoer: provides tracking progress relating to all aspects. (eg. weights to number of repetiton, muscle mass etc.) and also provides an option to export their gym history in shareable plain text format.
 
