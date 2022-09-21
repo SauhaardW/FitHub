@@ -17,6 +17,7 @@ FitHub is motivated as a project to be the end-all solution to fitness tracking.
 `cd ../frontend`
 7. Install frontend node modules
 `npm install`
+8. Register your local IP with Mongo to allow access to the DB (you will have to ask Andres)
 
 ## Quickstart
 1. Go to the backend directory
@@ -27,6 +28,7 @@ FitHub is motivated as a project to be the end-all solution to fitness tracking.
 `cd frontend`
 4. Start the server
 `npm start`
+5. (Optional) If you'd like to view the DB using a GUI, download and install [MongoDB Compass](https://www.mongodb.com/products/compass) and connect to the URI provided in the `backend/.env` file
 
 You should now have the website running locally at the address specified by the `npm start` command.
 Any changes you make should be automatically reflected on your browser.
