@@ -1,7 +1,7 @@
 # User Stories
 1. As a young beginner, I would like to have an easy registration flow so that I can get started easily and begin working out.
 2. As an inexperienced tech user, I would like to be able to log in easily so that I can gain access to my workouts quickly.
-3. As an inexperienced tech user, I would like to be able to log out so that my husband can sign into her account from my phone.
+3. As an inexperienced tech user, I would like to be able to log out so that my husband can sign into his account from my phone.
 4. As an inexperienced tech user, I would like to have a profile page so I can see and edit my account’s details.
 5. As a young beginner, I'd like to be able to easily track my progression in terms of my bodyweight, height, BMI from a history page, so that I can know how well I'm doing.
 6. As any gymgoer, I would like to be able to log my current weight, BMI, and height so that I can see my progress at a future date. 
