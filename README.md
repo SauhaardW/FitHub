@@ -33,7 +33,7 @@ Any changes you make should be automatically reflected on your browser.
 
 ## Contribution
 1. Create a branch off of `main`
-`git branch <your_name>/<feature_name>`
+`git checkout -b <your_name>/<feature_name>`
 2. Work on your changes. Make sure to follow the terms outlined in the team contract
 3. Commit your changes with a commit message that explains them
 `git commit -m "Message goes here"`
