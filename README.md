@@ -34,17 +34,21 @@ You should now have the website running locally at the address specified by the 
 Any changes you make should be automatically reflected on your browser.
 
 ## Contribution
-1. Create a branch off of `main`
+1. Pull and checkout develop from repository
+`git fetch origin develop`
+`git checkout develop`
+2. Create a branch off of `develop`
 `git checkout -b <your_name>/<feature_name>`
-2. Work on your changes. Make sure to follow the terms outlined in the team contract
-3. Commit your changes with a commit message that explains them
+3. Work on your changes. Make sure to follow the terms outlined in the team contract
+4. Commit your changes with a commit message that explains them
 `git commit -m "Message goes here"`
-4. Push your changes to your branch
+5. Push your changes to your branch
 `git push origin <your_name>/<feature_name>`
-5. Repeat steps 2-4 until you have finished all work for your branch
-6. Open GitHub on your browser, create a pull request (PR). It'll auto-populate with a template
-7. Fill out the PR template, create the pull request. Request a review from someone on the team
-8. Resolve any requested changes, if there are none, you can merge once you get an approval
+6. Repeat steps 2-4 until you have finished all work for your branch
+7. Open GitHub on your browser, create a pull request (PR), and make sure the base of your PR (the branch you want to merge into) is "develop". It'll auto-populate with a template
+8. Fill out the PR template, create the pull request. Request a review from someone on the team
+9. Resolve any requested changes, if there are none, you can merge once you get an approval
+10. Once develop has been thouroughly tested, and contains all the completed features for one release, create a PR to merge "develop" into "main"
 
 ## Resources
 - [Figma](https://www.figma.com/file/TSdxgEqzZrpvNsVz6VeQoi/FitHub-C01?node-id=0%3A1)
