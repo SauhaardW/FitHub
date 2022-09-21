@@ -1,7 +1,7 @@
 # FitHub
 
 ## Motivation
-FitHub is motivated as a project to be the end-all solution to fitness tracking.
+Build an end-all solution to workout tracking and incorporate the social aspect of going to the gym with friends.
 
 ## Installation
 1. Install nodeJS v.16.17.0 from their [official website](https://nodejs.org/en/download/)
