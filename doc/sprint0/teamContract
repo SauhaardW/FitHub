@@ -1,0 +1,56 @@
+C01 Team Contract 
+
+
+Methods of communication:
+Our main method of communication will be discord. Other methods of communication include whatsapp, text, and email. 
+
+Communication Response Time: 
+We expect a communication response time of 4 hours (to account for delayed response times during possible 3 hour lectures), 
+however, we will do our best to ensure response times fall within 2 hours. We expect everyone’s discord notifications to be on.
+
+Running Meetings/ Meeting attendance:
+We will hold two 40 minute - 1 hour standups a week, attendance being mandatory. The first will take place Mondays from 5-6pm 
+in Bladen Wing (and we will join the class’ discord voice channel as well), however, teammates can also attend the meeting only 
+on discord if they can not make it in person. The second will take place Wednesdays from 8-9pm on discord. 
+
+Meeting Preparation: 
+Each team member should prepare to explain what they have completed since the last standup, what they aim to complete until the next 
+standup, and any blockers they are facing which will be discussed and addressed. 
+
+Additional Meetings: 
+There will be a sprint planning meeting (seperate from standups) at the start of each sprint (date, time, location TBD closer to each 
+date) to identify what work will be completed this sprint, how work will be split up among team members, and the ETAs of each task. 
+No preparation is required and attendance is mandatory.
+
+
+Version Control: 
+Do not commit print statements, console logs, or commented out code in order to keep the codebase clean and easy to read. Commit 
+messages should contain a description of the main things done in the commit. Log messages should be descriptive enough to be understood 
+and useful to other team members without further explanation. You should self review your pull request (PR) before requesting review 
+from others to make sure all unnecessary comments or lines of code where removed and ensure good code quality and cleanliness. A PR 
+template has been made which will automatically be added to PRs and we expect it filled out for all PRs. Lastly, all PRs must get at 
+least one other team members’ approval before merging. 
+
+Division of work: 
+We will divide the work evenly, keeping in mind our strengths and past experiences to ensure we are doing things as efficiently as possible. 
+That being said, we will also consider who wants which task since some may want to take on different tasks and learn a variety of new things. 
+
+Contingency planning: 
+If there is disagreement about any decisions about the application, we will discuss our different ideas and the reasoning behind them and 
+if the disagreement is still not solved, we will put it to a team vote. If a member drops out, we will inform the Professor and TA and proceed 
+by splitting up that members remaining work evenly among the remaining team members, while also keeping in mind who is closest to finishing 
+their work and can get started on the task earliest. If a team member misses a meeting with valid reasoning we will check in with them at a 
+later time to see how their work is going, what they aim to complete by next sprint, and if they have any blockers. If a team member is consistently 
+missing meetings, we will have a group discussion and ask them to start attending meetings as it is crucial our team is able to communicate, work 
+together, and discuss necessary things. If they still are missing meetings we will talk to our TA and professor and decide on a new course of action. 
+If a team member is academically dishonest, we will inform and seek help from the Professor and TA. 
+
+
+Signatures: 
+Alina Buzila,
+Andres Prada,
+Yuval Kamani, 
+Manas Khandelwal, 
+Sauhaard Walia, 
+Sayed Mojtaba Hosseini
+
