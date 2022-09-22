@@ -22,13 +22,15 @@ Build an end-all solution to workout tracking and incorporate the social aspect 
 ## Quickstart
 1. Go to the backend directory
 `cd backend`
-2. Start the server
+2. Install nodemon 
+`npm install -g nodemon`
+3. Start the server
 `nodemon server`
-3. Open a new terminal, go to the frontend directory
+4. Open a new terminal, go to the frontend directory
 `cd frontend`
-4. Start the server
+5. Start the server
 `npm start`
-5. (Optional) If you'd like to view the DB using a GUI, download and install [MongoDB Compass](https://www.mongodb.com/products/compass) and connect to the URI provided in the `backend/.env` file
+6. (Optional) If you'd like to view the DB using a GUI, download and install [MongoDB Compass](https://www.mongodb.com/products/compass) and connect to the URI provided in the `backend/.env` file
 
 You should now have the website running locally at the address specified by the `npm start` command.
 Any changes you make should be automatically reflected on your browser.
