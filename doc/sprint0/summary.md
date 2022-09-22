@@ -13,3 +13,8 @@ Build an end-all solution to workout tracking and incorporating the social aspec
 1. Dwayne is a long-time family friend of Francesca and they meet at least once a week for lunch. One day, Francesca mentioned that she started going to the gym and follows the pre-made workouts on FitHub. However, she was also curious about Dwyane’s workout structure and learn from his workouts, so she can send him a request to schedule a time together.
 2. After an unsatisfying experience with out-dated fitness applications, Dwayne wants a platform he can trust and track his development to make home look even bigger than he is. Additionally, he wants to log his workouts so that he has a record of how many exercises and what weights he does. A clear progression chart would motivate him further to go to the gym consistently and push himself harder.
 3. Barbara Smith’s friend, Ms. Lara, not only recommended her to join a gym, but also introduced her to some inexperienced tech-users that also go to the gym. Together, they use FitHub to schedule a certain time everyday and meet as a group to get fit together. This brings people closer, encourages one to get some exercise, leading to a healthier lifestyle overall. Additionally, the streaks count is a small touch that adds extra motivation because it is a sign of hard work and it is tough to break it.
+
+## Key Principles
+
+1. Easy navigation, smooth design and accessible system for all users.
+2. Thorough testing to neglect all errors and allowing a satisfactory user experience.
