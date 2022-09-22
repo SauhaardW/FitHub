@@ -16,6 +16,6 @@ How FitHub differentiates itself from the competition for users:
 It also provides an option to export their gym history in shareable plain text format so that they can have an offline copy in case they need it or they can also share their history with their friends. They can also work out with other advanced gymgoers by adding them as friends.
 
 
-Fithub is a platform that gives an option of working out with your friends and sharing your workout history with your friends, while also providing other important features like suggesting nearby gyms, recommending workouts, an option of creating your workout, etc, and providing a smooth and easy user experience with graphs and other statistical tools.
+Fithub is a platform that gives an option of working out with your friends and sharing your workout history with your friends, while also providing other important features like recommending workouts, an option of creating multiple workouts daily, etc, and providing a smooth and easy user experience with graphs and other statistical tools.
 While other applications are majorly focused on 1 or 2 of the user mentioned above, we are incorporating the needs of all these users because after some point, users will advance from one category to another, a beginner will eventually turn into an advanced trainee, and it eliminates the need to download an app that provides a routine for a higher level and the need to manually enter their previous progress onto another platform.
 
