@@ -16,5 +16,6 @@ Build an end-all solution to workout tracking and incorporating the social aspec
 
 ## Key Principles
 
-1. Easy navigation, smooth design and accessible system for all users.
-2. Thorough testing to neglect all errors and allowing a satisfactory user experience.
+1. Easy and simple navigation to improve user experience so it can be seamlessly integrated into their daily life.
+2. Promote and encourage fitness in a social manner.
+3. Remove the barrier to entry to starting one’s fitness journey.
