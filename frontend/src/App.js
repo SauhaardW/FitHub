@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import {React, useState} from "react"
+import axios from "axios"
 
-function App() {
+const App = () => {
+  const [input, setInput] = useState({
+    exercise_name: '',
+    exercise_instructions: ''
+  })
+
+  function handleChange(event){
+    const {name, value} = event.target;
+
+    setInput(prevInput => {
+        return {
+            ...prevInput,
+            [name]: value
+
+        }
+    })
+  }
+
+  function handleClick(event){
+    event.preventDefault();
+    const newExercise = {
+        name: input.exercise_name,
+        instructions: input.exercise_instructions
+    }
+    
+    axios.post('http://localhost:5000/api/exercise', newExercise)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+        <form>
+            <div className='form-group'>
+                <input onChange={handleChange} name="exercise_name" placeholder="Excersise name" value={input.exercise_name} autoComplete="off" className="form-control"></input>
+            </div>
+            
+            <div className='form-group'>
+                <textarea onChange={handleChange} name="exercise_instructions" placeholder="Excersise instructions" value={input.exercise_instructions} autoComplete="off" className="form-control"></textarea>
+            </div>
+
+            <button onClick={handleClick} className="btn btn-lg btn-info">Add workout</button>
+        </form>
     </div>
-  );
+    )
 }
 
-export default App;
+export default App
