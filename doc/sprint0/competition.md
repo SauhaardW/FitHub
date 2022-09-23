@@ -5,7 +5,7 @@ Existing Products:
  
 3. MyFitnessPal- mainly focuses on the nutrition progress of an individual. Limited variety of workouts offered and no scheduling workouts. It also doesn't have a weekly workout plan that you can follow, it is more suited for advanced gymgoers only.
 
-4. 7-minute workout- given beginners' lack of motivation and discipline to work out regularly, this app is based on willingness to work out. It does not set a schedule or routine. 
+4. Strong - This app is easy to use as a beginner and allows you to create workouts and track your sets, reps, and weight. However, it does have any friends feature and it does not support scheduling workouts (whether that be an individual workout or workout with another person). This may make it difficult for beginners to keep consistent since they have no schedule. 
 
 How FitHub differentiates itself from the competition for users:
 1. Beginner- Fithub provides everything from workout plans to information about exercises, in the form of tooltip information boxes, which helps a beginner in starting their journey. Fithub also has an option of adding their friend by sending a friend request, which will motivate them as they will have an option of working out together with their friends by scheduling workouts together.
