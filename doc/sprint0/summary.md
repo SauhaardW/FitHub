@@ -5,7 +5,7 @@ Build an end-all solution to workout tracking and incorporating the social aspec
 ## Key Personas
 
 1. **Francesca Audrey -** a 20 year-old student at the University of Toronto Scarborough. She was captain of her highschool cheerleading team and got out of shape due to the immense university workload and other commitments. Her goal is to start going to the gym and track her progress to get back in shape, and get into the university cheerleading team.
-2. **Barbara Jane Smith -** a 78 year-old retired highschool teacher that has not been able to keep up with the technological advancements. She faced a lot of pain in her left ankle and was recommended to incorporate some exercises into her daily life. Due to her inexperience in gym and technology, she wants an easy-to-use application that has all the exercises she needs to do.
+2. **Barbara Jane Smith -** a 78 year-old retired highschool teacher that has not been able to keep up with the technological advancements. She faced a lot of pain in her left knee and was recommended to incorporate some exercises into her daily life. Due to her inexperience in gym and technology, she wants an easy-to-use application that has all the upper body exercises she needs to do, so that her legs can take rest.
 3. **Dwayne Coleman -** a 28 year-old Sales and Trading Analyst working at TD Bank and is an experienced gym-goer for 8 years. Recently, he started to notice that he is unhappy with his progress and his application doesn’t accurately track the muscle group he has been targeting.
 
 ## Key Scenarios
