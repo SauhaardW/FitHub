@@ -8,14 +8,14 @@ Existing Products:
 4. 7-minute workout- given beginners' lack of motivation and discipline to work out regularly, this app is based on willingness to work out. It does not set a schedule or routine. 
 
 How FitHub differentiates itself from the competition for users:
-1. Beginner- Fithub provides everything from workout plans to information about workout splits, in the form of tooltip information boxes, which helps a beginner in starting their journey. Fithub also has an option of adding their friend by sending a friend request, which will motivate them as they will have an option of working out together with their friends.
+1. Beginner- Fithub provides everything from workout plans to information about exercises, in the form of tooltip information boxes, which helps a beginner in starting their journey. Fithub also has an option of adding their friend by sending a friend request, which will motivate them as they will have an option of working out together with their friends by scheduling workouts together.
 
 2. Inexperienced tech users- Fithub provides a simple and easy user experience and registration flow. It's so simple that even inexperienced tech users can use it without needing any tutorial. To make things even easier for them, Fithub provides them with various statistical graphs to track their progress.
-
+ 
 3. Advanced gymgoer- Fithub provides tracking progress efficiently, relating to all aspects of exercising from weights to the number of repetitions, etc.
-It also provides an option to export their gym history in shareable plain text format so that they can have an offline copy in case they need it or they can also share their history with their friends. They can also work out with other advanced gymgoers by adding them as friends.
+It also provides an option to export their gym workout in shareable plain text format so that they can have an offline copy in case they need it or they can also share their workouts with their friends. They can also work out with other advanced gymgoers by adding them as friends.
 
 
-Fithub is a platform that gives an option of working out with your friends and sharing your workout history with your friends, while also providing other important features like recommending workouts, an option of creating multiple workouts daily, etc, and providing a smooth and easy user experience with graphs and other statistical tools.
+Fithub is a platform that gives an option of working out with your friends by scheduling workouts together and sharing your workouts with your friends, while also providing other important features like recommending workouts, an option of creating multiple workouts daily, etc, and providing a smooth and easy user experience with graphs and other statistical tools.
 While other applications are majorly focused on 1 or 2 of the user mentioned above, we are incorporating the needs of all these users because after some point, users will advance from one category to another, a beginner will eventually turn into an advanced trainee, and it eliminates the need to download an app that provides a routine for a higher level and the need to manually enter their previous progress onto another platform.
 
