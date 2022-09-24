@@ -31,7 +31,7 @@ All decisions will be made by hosting meetings. In the case of a discrepancy, a 
 
 # How did you define priority and/or points of user stories?  
 
-For each sprint, the user stories will be pulled to the product backlog. We will then host a meeting wherein a planning poker shall be organized. Fibonacci numbers will be used to assign points for the user stories based on the level of difficulty. All the assigned points will be in comparison to the most basic task, Ex: Frontend for the login page.
+For each sprint, the user stories will be pulled from the product backlog to the to-do category. We will then host a meeting wherein a planning poker shall be organized. Fibonacci numbers will be used to assign points for the user stories based on the level of difficulty. All the assigned points will be in comparison to a task, Ex: Frontend for the login page.
 
 
 # How many rounds of voting (on average) did you need to come to a consensus for the point estimate?  
@@ -43,7 +43,7 @@ On average we have 2 voting rounds. In the case of a discrepancy, we held a disc
 
 We host 2 scrum calls during the week(Monday 5pm-6pm Wednesday 8pm-9pm) to track our progress and discuss future responsibilities.
 
-Apart from the scrum calls, we will host occasional meetings on discord wherein difficulties pertaining to tasks will be resolved by team members. 
+Apart from the scrum calls, we will host occasional meetings on discord wherein difficulties pertaining to tasks will be resolved by team members, if they cannot be easily resolved through text.
 
 Our first scrum call was held on 19th September, where we split the responsibilities for Sprint 0. In our second scrum call, 21st September,  we worked on the UI design of our application on Figma.
 
