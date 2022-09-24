@@ -26,7 +26,7 @@ const App = () => {
         instructions: input.exercise_instructions
     }
     
-    axios.post('http://localhost:5000/api/exercise', newExercise)
+    axios.post('http://localhost:3001/api/exercise', newExercise)
   }
 
   return (
