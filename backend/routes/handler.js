@@ -21,4 +21,18 @@ router.post("/api/exercise", async (req, res) => {
     }
 });
 
+router.get("/api/exercises", async (req, res) => {
+    const exercises = Schemas.Exercises
+
+    try {
+        var allExercises = await exercises.find( {} );
+        res.data = allExercises;
+        res.send(allExercises);
+    } catch (err) {
+        res.statusCode = 500
+        console.log(err);
+        res.send();
+    }
+});
+
 module.exports = router
