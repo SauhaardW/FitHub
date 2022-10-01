@@ -52,4 +52,4 @@ Any changes you make should be automatically reflected on your browser.
 
 ## Resources
 - [Figma](https://www.figma.com/file/TSdxgEqzZrpvNsVz6VeQoi/FitHub-C01?node-id=0%3A1)
-- Jira (N/A yet)
+- [Jira](https://mcsapps.utm.utoronto.ca/jira/projects/FIT/issues/FIT-4?filter=allopenissues)
