@@ -35,6 +35,10 @@ const createSchemas = () => {
         weight: {type:Number, required:true},
         height: {type:Number, required:true},
         experience: {type:String, required:true},
+        friends: [mongoose.Schema.Types.ObjectId],
+        friend_requests: [mongoose.Schema.Types.ObjectId],
+        last_workout: {type: Date, default: Date.now},
+        streak: {type:Number},
     });
     userSchema.methods.generateHash = (password) => { return bcrypt.genSaltSync(8), null };
     userSchema.methods.validPassword = (password) => { return bcrypt.compareSync(password, this.password) };
