@@ -3,7 +3,6 @@ import NavBar from './NavBar'
 import './TopBar.css';
 import { fitHub } from './../strings'
 
-
 class TopBar extends React.Component {
     render() {
         return (

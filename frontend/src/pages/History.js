@@ -4,9 +4,9 @@ import './Pages.css';
 class History extends React.Component {
     render() {
         return (
-            <div className="page-title">
+            <div className="page-title inter-font">
                 HISTORY PAGE
-        </div>
+            </div>
         );
     }
 }

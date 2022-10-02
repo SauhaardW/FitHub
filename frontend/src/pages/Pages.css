@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     color: black;
+    font-family: 'Inter', sans-serif;
 }
 
 .pages{

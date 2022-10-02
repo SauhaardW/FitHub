@@ -4,9 +4,9 @@ import './Pages.css';
 class Friends extends React.Component {
     render() {
         return (
-            <div className="page-title">
+            <div className="page-title inter-font">
                 Friends PAGE
-        </div>
+            </div>
         );
     }
 }

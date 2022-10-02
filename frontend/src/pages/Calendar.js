@@ -4,9 +4,9 @@ import './Pages.css';
 class Calendar extends React.Component {
     render() {
         return (
-            <div className="page-title">
+            <div className="page-title inter-font">
                 Calendar PAGE
-        </div>
+            </div>
         );
     }
 }

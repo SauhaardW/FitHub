@@ -5,7 +5,7 @@
     display: flex;
     justify-content: left;
     position: fixed;
-    top: 0;
+    top: 60px;
     left: -100%;
     transition: 850ms;
 }
@@ -16,17 +16,15 @@
 }
 
 .menu-icon{
-    margin-left: 1rem;
-    top: 0;
     color: white;
-    width: 40px;
-    height: 40px;
+    top: 0;
 }
 
 .nav-bar-items{
     display: flex;
     width: 100%;
     color: white;
+    font-family: 'Inter', sans-serif;
 }
 
 .nav-option{

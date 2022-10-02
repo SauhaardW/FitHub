@@ -5,9 +5,9 @@ import './Pages.css';
 class Home extends React.Component {
     render() {
         return (
-            <span className="page-title">
+            <span className="page-title inter-font">
                 HOME PAGE
-        </span>
+            </span>
         );
     }
 }

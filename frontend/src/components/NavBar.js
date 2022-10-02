@@ -1,5 +1,3 @@
-import { AiOutlineMenu } from "react-icons/ai";
-import { IoIosClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import React from 'react';
 import { NavBarOptions } from './NavBarOptions';
@@ -18,19 +16,14 @@ class NavBar extends React.Component {
     render() {
         return (
             <>
-                <div >
-                    <Link to="#" onClick={this.handleMenuClick} >
-                        <AiOutlineMenu className="menu-icon" />
+                <div>
+                    <Link to="#" onClick={this.handleMenuClick} className="menu-icon" >
+                        <Hamburger />
                     </Link>
                 </div>
 
                 <nav className={this.state.sideBarOpen ? "nav-bar active" : "nav-bar"}>
-                    <ul className="menu" onClick={this.handleMenuClick}>
-                        <li className="nav-bar-items">
-                            <Link to="#">
-                                <IoIosClose className="nav-bar-close" />
-                            </Link>
-                        </li>
+                    <ul className="menu inter-font" onClick={this.handleMenuClick}>
                         {NavBarOptions.map(item => {
                             return (
                                 <li className="nav-bar-items">
@@ -49,40 +42,3 @@ class NavBar extends React.Component {
 }
 
 export default NavBar;
-
-
-
-
-
-
-// render() {
-//     return (
-//         <>
-//             <div >
-//                 <Link to="#" onClick={this.handleMenuClick} >
-//                     <Hamburger className="menu-icon" />
-//                 </Link>
-//             </div>
-
-//             <nav className={this.state.sideBarOpen ? "nav-bar active" : "nav-bar"}>
-//                 <ul className="menu" onClick={this.handleMenuClick}>
-//                     <li className="nav-bar-items">
-//                         <Link to="#">
-//                             <IoIosClose className="nav-bar-close" />
-//                         </Link>
-//                     </li>
-//                     {NavBarOptions.map(item => {
-//                         return (
-//                             <li className="nav-bar-items">
-//                                 <Link to={item.path} className={item.className}>
-//                                     {item.icon}
-//                                     <span className="nav-bar-page-title">{item.pageTitle}</span>
-//                                 </Link>
-//                             </li>
-//                         )
-//                     })}
-//                 </ul>
-//             </nav>
-//         </>
-//     );
-// }
