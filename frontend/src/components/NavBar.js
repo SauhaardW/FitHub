@@ -6,11 +6,11 @@ import Hamburger from 'hamburger-react'
 
 class NavBar extends React.Component {
     state = {
-        sideBarOpen: false,
+        isOpen: false,
     };
 
     handleMenuClick = () => {
-        this.setState({ sideBarOpen: !this.state.sideBarOpen })
+        this.setState({ isOpen: !this.state.isOpen })
     }
 
     render() {
@@ -18,11 +18,11 @@ class NavBar extends React.Component {
             <>
                 <div>
                     <Link to="#" onClick={this.handleMenuClick} className="menu-icon" >
-                        <Hamburger />
+                        <Hamburger toggled={this.state.isOpen} />
                     </Link>
                 </div>
 
-                <nav className={this.state.sideBarOpen ? "nav-bar active" : "nav-bar"}>
+                <nav className={this.state.isOpen ? "nav-bar active" : "nav-bar"}>
                     <ul className="menu inter-font" onClick={this.handleMenuClick}>
                         {NavBarOptions.map(item => {
                             return (
