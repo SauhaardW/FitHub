@@ -1,0 +1,11 @@
+.page-title{
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-family: 'Inter', sans-serif;
+}
+
+.pages{
+    margin-top: 80px;
+}
