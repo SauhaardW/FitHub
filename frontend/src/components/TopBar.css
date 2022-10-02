@@ -10,17 +10,15 @@
 .top-bar-content{
     width: 59%;
     position: fixed;
-    /* display: flex;
-    justify-content: space-between; */
+    display: flex;
+    justify-content: space-between;
     margin-top: 6px;
 }
 
 .app-title{
     font-size: 38px;
     top: 10px;
-    color: yellow;
-    margin-top: -20px;
-    margin-left: 200px;
+    color: white;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
