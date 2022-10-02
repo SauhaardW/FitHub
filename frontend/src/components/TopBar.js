@@ -6,18 +6,14 @@ import { fitHub } from './../strings'
 class TopBar extends React.Component {
     render() {
         return (
-            <>
-                <div className="top-bar">
-                    <div className="top-bar-content">
-                        <NavBar />
-                        <span className="app-title">
-                            {fitHub}
-                        </span>
-                    </div>
+            <div className="top-bar">
+                <div className="top-bar-content">
+                    <NavBar />
+                    <span className="app-title">
+                        {fitHub}
+                    </span>
                 </div>
-
-
-            </>
+            </div>
         );
     }
 }

@@ -23,7 +23,7 @@ class NavBar extends React.Component {
                 </div>
 
                 <nav className={this.state.isOpen ? "nav-bar active" : "nav-bar"}>
-                    <ul className="menu inter-font" onClick={this.handleMenuClick}>
+                    <ul className="menu" onClick={this.handleMenuClick}>
                         {NavBarOptions.map(item => {
                             return (
                                 <li className="nav-bar-items">
