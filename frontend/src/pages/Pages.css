@@ -1,0 +1,10 @@
+.page-title{
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    color: black;
+}
+
+.pages{
+    margin-top: 80px;
+}
