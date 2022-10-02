@@ -1,5 +1,3 @@
-// import {React, useState} from "react"
-// import axios from "axios"
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TopBar from './components/TopBar';
@@ -36,7 +34,10 @@ export default App;
 
 
 
+// DO NOT remove the below code as this will be used as an example/reference in the future
 
+// import {React, useState} from "react"
+// import axios from "axios"
 
 // const App = () => {
 //   const [input, setInput] = useState({

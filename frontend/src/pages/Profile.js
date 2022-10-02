@@ -6,7 +6,7 @@ class Profile extends React.Component {
         return (
             <div className="page-title">
                 PROFILE PAGE
-        </div>
+            </div>
         );
     }
 }
