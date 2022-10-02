@@ -9,6 +9,8 @@ class NavBar extends React.Component {
         isOpen: false,
     };
 
+    // function to handle clicking the hamburger menu icon, or any item/anywhere on the hamburger menu.
+    // Function will reverse the state of the isOpen state property, indicating whether the menu is open
     handleMenuClick = () => {
         this.setState({ isOpen: !this.state.isOpen })
     }
@@ -23,7 +25,11 @@ class NavBar extends React.Component {
                 </div>
 
                 <nav className={this.state.isOpen ? "nav-bar active" : "nav-bar"}>
+                    {/* the ternary operator above, is used to conditionally include different classes depending on the value of this.state.isOpen, 
+                because we want different css when the menu is open vs closed. If the condition is truthy, "nav-bar active" classes will be included, 
+                otherwise "nav-bar" class will be included */}
                     <ul className="menu" onClick={this.handleMenuClick}>
+                        {/* iterates over NavBarOptions and creates a clickable list element for each with the page title and icon.  */}
                         {NavBarOptions.map(item => {
                             return (
                                 <li className="nav-bar-items">
