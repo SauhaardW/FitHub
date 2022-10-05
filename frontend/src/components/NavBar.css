@@ -1,5 +1,5 @@
 .nav-bar{
-    background-color: #3293EE;
+    background-color: rgba(56, 152, 242, 1);
     width: 250px;
     height: 100vh;
     display: flex;
@@ -8,11 +8,15 @@
     top: 60px;
     left: -100%;
     transition: 850ms;
+    padding-top: 50px;
+    padding-left: 5%;
 }
 
 .nav-bar.active{
     left: 0;
     transition: 350ms;
+    padding-top: 50px;
+    padding-left: 5%;
 }
 
 .menu-icon{
@@ -25,14 +29,16 @@
     width: 100%;
     color: white;
     font-family: 'Inter', sans-serif;
-
+    justify-content: left;
 }
 
 .nav-option{
     color: white;
     font-size: 26px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     text-decoration: none;
+    display: flex;
+    align-items:center;
 }
 
 .nav-bar-page-title{

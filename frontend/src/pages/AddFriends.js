@@ -40,7 +40,7 @@ function AddFriends() {
           }}
         />
         <button
-          className="block p-2 m-2 bg-sky-500 outline outline-1 rounded-lg w-2/12 text-white font-semibold"
+          className="block p-2 m-2 bg-default-gradient outline outline-1 rounded-lg w-2/12 text-white font-semibold"
           onClick={() => {
             eventHandler(MOCK_DATA, search);
           }}
@@ -55,7 +55,7 @@ function AddFriends() {
               {data.map((friend) => {
                 return (
                   <li
-                    className="flex p-7 m-2 bg-gray-100 outline outline-1 outline-gray-500 rounded-lg"
+                    className="flex justify-between p-7 m-2 bg-gray-100 outline outline-1 outline-gray-500 rounded-lg"
                     key={friend.id}
                   >
                     <div>
@@ -70,7 +70,7 @@ function AddFriends() {
                       onClick={() => {
                         addUsername(friend.username);
                       }}
-                      className=" p-1 m-2 bg-sky-500 outline outline-1 rounded-lg w-2/12 text-white font-semibold"
+                      className="p-1 m-2 bg-default-gradient outline outline-1 rounded-lg w-2/12 text-white font-semibold"
                     >
                       Add
                     </button>
