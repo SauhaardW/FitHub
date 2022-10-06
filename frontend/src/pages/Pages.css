@@ -1,0 +1,52 @@
+.page-title{
+    font-size: 30px;
+    display: flex;
+}
+
+.page-font{
+    color: black;
+    font-family: 'Inter', sans-serif;
+}
+
+.pages{
+    margin-top: 80px;
+}
+
+
+.input-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-mode-label{
+    font-size: 13px;
+
+}
+
+.display-mode-label{
+    border: none;
+    background-color: inherit;
+    text-align: right;
+    color: #5C5C5C;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.edit-mode-input{
+    border: none;
+    background-color: inherit;
+    font-size: 20px;
+}
+
+.display-mode-input{
+    border: none;
+    background-color: inherit;
+    text-align: right;
+    font-size: 20px;
+    color: black;
+}
+
+.edit-button {
+    color: #777777;
+    font-size: 18px;
+}

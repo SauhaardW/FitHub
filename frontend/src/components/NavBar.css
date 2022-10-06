@@ -1,0 +1,41 @@
+.nav-bar{
+    background-color: #3293EE;
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    justify-content: left;
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    transition: 850ms;
+}
+
+.nav-bar.active{
+    left: 0;
+    transition: 350ms;
+}
+
+.menu-icon{
+    color: white;
+    top: 0;
+}
+
+.nav-bar-items{
+    display: flex;
+    width: 100%;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.nav-option{
+    color: white;
+    font-size: 26px;
+    margin-bottom: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar-page-title{
+    margin-left: 15px;
+}
