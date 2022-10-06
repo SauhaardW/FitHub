@@ -36,8 +36,6 @@ const createSchemas = () => {
         height: {type:Number, required:true},
         experience: {type:String, required:true},
     });
-    userSchema.methods.generateHash = (password) => { return bcrypt.genSaltSync(8), null };
-    userSchema.methods.validPassword = (password) => { return bcrypt.compareSync(password, this.password) };
     const user = mongoose.model("user", userSchema);
     models.user = user;
 }

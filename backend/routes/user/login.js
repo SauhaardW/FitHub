@@ -24,7 +24,7 @@ module.exports.post = (req, res) => {
             }
             
             // Compare the password from body with the user's password
-            bcrypt.compare(password, user.password).then( match => {
+            bcrypt.compare(password, user.password, (match) => {
                 if (match) {
                     // If the passwords match
                     const payload = {
@@ -32,7 +32,23 @@ module.exports.post = (req, res) => {
                         username: data.username
                     }
 
-                    
+                    // Sign JWT
+                    jwt.sign(
+                        payload,
+                        process.env.JWT_SECRET,
+                        {expiresIn: 86400},
+                        (err, token) => {
+                            // If error while signing, server error
+                            if (err) return res.json({success: false, error: err});
+                            // Serve JWT token
+                            console.log(`[${dirName}] Signed in user: ${JSON.stringify(req.body.username)}`);
+                            res.cookie("x-access=token", "Bearer " + token);
+                            return res.json({
+                                success: true,
+                                token: "Bearer " + token
+                            })
+                        }
+                    )
                 } else {
                     // Passwords don't match, serve error
                     return res.json({success: false, error: "Incorrect Username or Password"})
