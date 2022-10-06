@@ -25,6 +25,17 @@ const Friends = () => {
 
     return(<Fragment>
         <div>
+        <ul className='m-5 grid grid-justify-center'>
+            {data.map((friend)=>{
+                return(
+                    <li className='px-4'>
+                    <div key={friend._id} className='m-1 p-5 grid grid-cols-2 bg-gray-300 rounded-md'> 
+                        {friend.name}
+                    </div>
+                    </li>
+                )
+            })}
+        </ul>
     </div>
     </Fragment>);
 }
