@@ -1,38 +1,11 @@
 const express = require("express")
-const router = express.Router()
-const Schemas = require("../models/schemas")
+const router = express.Router();
 
-router.post("/api/exercise", async (req, res) => {
-    const newExercise = new Schemas.Exercises(req.body)
+// require the routes to endpoints in the API
+const exercise = require("./exercise/exercise")
 
-    try {
-        await newExercise.save( async(err, result) => {
-            if (err) {
-                res.statusCode = 500
-                res.end("Error while adding new exercise:" + err);
-            } else {
-                res.end("Successfully added to database" + result);
-            }
-        })
-    } catch (err) {
-        res.statusCode = 500
-        console.log(err);
-        res.end();
-    }
-});
+// route endpoints in API to the correct functions
+router.post("/api/exercise", exercise.post)
+router.get("/api/exercise", exercise.get)
 
-router.get("/api/exercises", async (req, res) => {
-    const exercises = Schemas.Exercises
-
-    try {
-        var allExercises = await exercises.find( {} );
-        res.data = allExercises;
-        res.send(allExercises);
-    } catch (err) {
-        res.statusCode = 500
-        console.log(err);
-        res.send();
-    }
-});
-
-module.exports = router
+module.exports = router; 
