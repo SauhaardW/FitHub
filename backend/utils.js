@@ -6,7 +6,7 @@ const getDirName = (dir_name) => {
 const jwt = require("jsonwebtoken");
 function verifyJWT(req, res, next) {
     // Get token from headers
-    const token = req.headers["x-access=token"]?.split(" ")[1];
+    const token = req.headers["x-access-token"]?.split(" ")[1];
 
     if (token) {
         // If token exists, verify it
