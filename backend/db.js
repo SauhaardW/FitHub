@@ -26,6 +26,20 @@ const createSchemas = () => {
     const exercise = mongoose.model("exercise", exerciseSchema);
     models.exercise = exercise;
 
+    const userSchema = new mongoose.Schema({
+        name: {type:String, required:true},
+        username: {type:String, required:true},
+        password: {type:String, required:true},
+        email: {type:String, required:true},
+        age: {type:Number, required:true},
+        weight: {type:Number, required:true},
+        height: {type:Number, required:true},
+        experience: {type:String, required:true},
+    });
+    userSchema.methods.generateHash = (password) => { return bcrypt.genSaltSync(8), null };
+    userSchema.methods.validPassword = (password) => { return bcrypt.compareSync(password, this.password) };
+    const user = mongoose.model("user", userSchema);
+    models.user = user;
 }
 
 const init = (url) => {
