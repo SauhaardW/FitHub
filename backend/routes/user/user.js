@@ -1,13 +1,17 @@
 const db = require("../../db")
 const utils = require("../../utils")
+const bcrypt = require("bcrypt-nodejs")
 
 const dirName = utils.getDirName(__dirname)
 
 module.exports.post = (req, res) => {
-    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body)}`);
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body.username)}`);
 
-    const user = new db.models.user(req.body);
-    user.password = user.generateHash(req.body.password);
+    var userData = req.body;
+    var salt = bcrypt.genSaltSync(10);
+    userData.password = bcrypt.hashSync(userData.password, salt);
+
+    const user = new db.models.user(userData);
     user.save((err, _) => {
         if (err) {
             console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
