@@ -9,7 +9,7 @@ import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
 
 const experienceOptions = ["Beginner", "Experienced"];
-const id = "633dc2b917d517fdf3541107";
+// const id = "633dc2b917d517fdf3541107";
 
 const Profile = () => {
     const [username, setUsername] = useState("");
