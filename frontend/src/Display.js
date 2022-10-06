@@ -22,6 +22,10 @@ const Display = () => {
             Get Data
         </button>
 
+        <h1 className="text-3xl font-bold underline">
+            Hello world!
+        </h1>
+
         <div>
             {state.map((ex)=>{
                 return(<p key={ex._id}>{JSON.stringify(ex)}</p>)
