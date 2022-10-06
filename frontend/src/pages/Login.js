@@ -1,0 +1,69 @@
+import React, { Fragment } from 'react';
+import axios from 'axios';
+import {useState} from 'react';
+
+const Login = () => {
+
+    const [usernameInput, setUsernameInput] = useState("");
+    const [passwordInput, setPasswordInput] = useState("");
+    const [errorText, setErrorText] = useState("");
+
+    function SubmitLogin() {
+        var payload = {
+            username: usernameInput,
+            password: passwordInput
+        }
+        console.log(payload)
+        axios.post("http://localhost:3001/api/login", payload).then( (res) => {
+            if (res.status === 200) {
+                var data = res.data;
+                if (data.success) {
+                    localStorage.setItem("x-access-token", data.token);
+                    setErrorText("");
+                } else {
+                    setErrorText(data.error);
+                }
+            } else {
+                setErrorText("Failed to log in");
+            }
+            
+        })
+    }
+
+    return (
+        <Fragment>
+            <div className='container px-6 py-12 flex flex-col items-center justify-between w-screen h-[calc(100vh-60px)] g-6 text-gray-800'>
+                <div className='input-container flex flex-col w-full space-y-5'>
+                    <a className='text-black-800 text-4xl font-bold self-center text-center pb-10 pt-10'>
+                        Welcome back, lets get you signed in!
+                    </a>
+
+                    <div className='error-text text-red-800 self-center'>
+                        {errorText}
+                    </div>
+
+                    <div className='flex flex-col mx-10'>
+                        <a className='font-bold text-gray-700'>Username</a>
+                        <input name='username' onChange={event => setUsernameInput(event.target.value)} type='text' className='px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'/>
+                    </div>
+                    <div className='flex flex-col mx-10'>
+                        <a className='font-bold text-gray-700'>Password</a>
+                        <input name='password' onChange={event => setPasswordInput(event.target.value)} type='password' className='px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'/>
+                    </div>
+                    
+                </div>
+                <button
+                    type="submit"
+                    className="block w-full px-7 py-3 bg-default-gradient text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                    data-mdb-ripple="true"
+                    data-mdb-ripple-color="light"
+                    onClick={ event => SubmitLogin() }
+                >
+                    Sign in
+                </button>
+            </div>
+        </Fragment>
+    )
+}
+
+export default Login;

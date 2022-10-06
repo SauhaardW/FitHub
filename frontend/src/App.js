@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
 import History from "./pages/History";
 import Friends from "./pages/Friends";
+import Login from "./pages/Login";
 import './pages/Pages.css';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
                     <Route exact path="/calendar" element={<Calendar />} />
                     <Route exact path="/history" element={<History />} />
                     <Route exact path="/friends" element={<Friends />} />
+                    <Route exact path="/login" element={<Login />} />
                     <Route exact path="/" element={<Home />} />
                 </Routes>
             </div>
