@@ -29,8 +29,8 @@ const Profile = () => {
         axios.get(url).then(res => {
             const userData = res.data.data
 
-            typeof userData.weight != 'undefined' ? setWeight(userData.weight) : setWeight("")
-            typeof userData.height != 'undefined' ? setHeight(userData.height) : setHeight("")
+            userData.weight != null ? setWeight(userData.weight) : setWeight("");
+            userData.height != null ? setHeight(userData.height) : setHeight("");
             setName(userData.name);
             setEmail(userData.email);
             setAge(userData.age);
