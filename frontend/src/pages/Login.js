@@ -21,8 +21,6 @@ const Login = () => {
                 if (data.success) {
                     const cookies = new Cookies();
                     cookies.set('x-access-token', data.token, { path: '/' });
-                    console.log(cookies.get('x-access-token')); // Pacman
-                    // localStorage.setItem("x-access-token", data.token);
                     setErrorText("");
                 } else {
                     setErrorText(data.error);

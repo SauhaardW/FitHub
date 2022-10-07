@@ -7,8 +7,6 @@ const jwt = require("jsonwebtoken");
 function verifyJWT(req, res, next) {
     // Get token from headers
     const token = req.cookies["x-access-token"].split(" ")[1];
-    console.log("cookie______" + token)
-
 
     if (token) {
         // If token exists, verify it
@@ -17,7 +15,7 @@ function verifyJWT(req, res, next) {
             if (err) return res.json({success: false, error: "Not Authorized", loggedIn: false});
 
             // Add JWT_data to request so that other routes can use data
-            req["JWT_data"] = {
+            req.JWT_data = {
                 id: decoded.id,
                 username: decoded.username
             };

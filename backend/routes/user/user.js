@@ -40,7 +40,6 @@ module.exports.get = (req, res) => {
 }
 
 module.exports.getCurrentUserData = (req, res) => {
-    console.log(req.headers);
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
     utils.verifyJWT(req, res, (req, res) => {
         const id = req.JWT_data.id
