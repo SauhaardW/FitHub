@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function AddFriends() {
-  const [search, setSearch] = useState("");
-  const [found, setFound] = useState(false);
-  const [data, setData] = useState([]);
+  const [searchResult, setSearchResult] = useState("");
+  const [searchResultData, setSearchResultData] = useState([]);
 
-  function eventHandler(query) {
-    setFound(false);
-
+  function getSearchResults(query) {
     axios
       .get("http://localhost:3001/api/user", {
         params: {
@@ -16,11 +13,8 @@ function AddFriends() {
         },
       })
       .then((response) => {
-        setData(response.data.data);
-        console.log(response.data.data);
+        setSearchResultData(response.data.data);
       });
-
-    setFound(true);
   }
 
   return (
@@ -33,13 +27,13 @@ function AddFriends() {
           type="text"
           placeholder="Search Username"
           onChange={(event) => {
-            setSearch(event.target.value);
+            setSearchResult(event.target.value);
           }}
         />
         <button
           className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
           onClick={() => {
-            eventHandler(search);
+            getSearchResults(searchResult);
           }}
         >
           Search
@@ -48,7 +42,7 @@ function AddFriends() {
 
       <div className="m-2 p-1">
         <ul>
-          {data.map((friend) => {
+          {searchResultData.map((friend) => {
             return (
               <li
                 key={friend._id}
