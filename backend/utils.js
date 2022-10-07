@@ -5,6 +5,10 @@ const getDirName = (dir_name) => {
 
 const jwt = require("jsonwebtoken");
 function verifyJWT(req, res, next) {
+    if (req.cookies["x-access-token"] === undefined || req.cookies["x-access-token"].split(" ")[1] === undefined) {
+        res.json({success: false, error: "Invalid Authorization Token", loggedIn: false});
+    }
+    
     // Get token from headers
     const token = req.headers["x-access=token"]?.split(" ")[1];
 
