@@ -2,13 +2,10 @@ import React, { Fragment, useEffect } from 'react';
 import './Pages.css';
 import axios from 'axios';
 import { useState} from 'react';
-<<<<<<< Updated upstream
-=======
 import {Link} from "react-router-dom";
 import { friend } from './../strings';
 import { addfriend } from './../strings';
 import { schedule } from './../strings';
->>>>>>> Stashed changes
 const Friends = () => {
 
 
@@ -50,6 +47,8 @@ const Friends = () => {
                     <li className='px-4'>
                     <div key={friend._id} className='m-1 p-5 grid grid-cols-2 bg-gray-300 rounded-md'> 
                         {friend.name}
+                        <button className="p-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-full"
+                        onClick={onScheduleClicked}>{schedule}</button>
                     </div>
                     </li>
                 )
