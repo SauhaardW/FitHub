@@ -18,7 +18,7 @@ const Profile = () => {
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [editMode, setEditMode] = useState("");
-    const [experience, setExperience] = useState("");
+    const [experience, setExperience] = useState(experienceOptions[0]);
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
 
     const [cookies, setCookie, removeCookie] = useCookies();
@@ -28,12 +28,12 @@ const Profile = () => {
         const url = "http://localhost:3001/api/current-user"
         axios.get(url).then(res => {
             const userData = res.data.data
-            setUsername(userData.username)
+
+            typeof userData.weight != 'undefined' ? setWeight(userData.weight) : setWeight("")
+            typeof userData.height != 'undefined' ? setHeight(userData.height) : setHeight("")
             setName(userData.name);
             setEmail(userData.email);
             setAge(userData.age);
-            setWeight(userData.weight);
-            setHeight(userData.height);
             setExperience(userData.experience);
         })
     }, []);
@@ -81,8 +81,8 @@ const Profile = () => {
     };
 
     const userDataIsInvalid = () => {
-        const isInvalid = (name == "" ||  email == "" ||  age == ""
-            ||  weight == "" ||  height == "" ||  experience == "");
+        //allow weight, height to be empty since they are not entered on registration
+        const isInvalid = (name == "" ||  email == "" ||  age == "" ||  experience == "");
         setDisplayInvalidDataMessage(isInvalid);
         return isInvalid;
     };
