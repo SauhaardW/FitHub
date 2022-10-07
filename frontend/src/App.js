@@ -8,14 +8,15 @@ import History from "./pages/History";
 import Friends from "./pages/Friends";
 import Login from "./pages/Login";
 import AddFriends from "./pages/AddFriends";
+import Registration from "./components/Form"
 import "./pages/Pages.css";
 
 const App = () => {
   return (
     <Router>
-      <TopBar />
       <div className="pages">
         <Routes>
+          <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/calendar" element={<Calendar />} />
           <Route exact path="/history" element={<History />} />
