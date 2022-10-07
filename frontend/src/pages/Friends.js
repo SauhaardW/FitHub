@@ -13,7 +13,6 @@ const Friends = () => {
     const url = "http://localhost:3001/api/current-user"
     axios.get(url).then((res) => {
         setData(res.data.data.friends);
-        console.log(res.data.data.friends);
     });
   }
 
