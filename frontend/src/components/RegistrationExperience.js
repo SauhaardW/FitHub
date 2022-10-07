@@ -18,7 +18,7 @@ const RegistrationExperience = ({formData, setFormData}) => {
                   <option>Please select an option:</option>
                   <option>Beginner</option>
                   <option>Intermediate</option>
-                  <option>Experienced Gym Goer</option>
+                  <option>Experienced</option>
               </select>
             </div>
 

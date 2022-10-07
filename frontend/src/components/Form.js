@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import RegistrationAccount from './RegistrationAccount';
 import RegistrationAge from './RegistrationAge';
 import RegistrationExperience from './RegistrationExperience';
@@ -25,11 +25,20 @@ const Form = () => {
   const FormTitles = ["Name", "Age", "Experience", "Account"];
   const nextBtnText = ["Next", "Submit"];
 
+  useEffect( () => {
+    //hide topbar on mount
+    document.getElementById('top-bar').style.display = "none"
+    return () => {
+      //show topbar on unmount
+      document.getElementById('top-bar').style.display = "initial"
+    }
+  }, []);
+
   const registerUser = () => {
     axios.post("http://localhost:3001/api/user", formData).then(res => {
       if (res.status === 200){
         if (res.data.success){
-          navigate('/');
+          navigate('/login');
         }
         else{
           navigate('/registration');
