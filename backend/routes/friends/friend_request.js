@@ -6,7 +6,9 @@ const dirName = utils.getDirName(__dirname)
 module.exports.send_friendRequest = (req, res) => {
     
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body)}`);
-
+    /* The request body must contain the name of the friend to whom the
+       user wants to send a request to
+    */
     const friend_username = req.body.username;
 
     utils.verifyJWT(req, res, (req, res) => {
