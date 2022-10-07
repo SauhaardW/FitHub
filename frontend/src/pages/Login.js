@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
-import Cookies from 'universal-cookie';
+import Cookie from 'universal-cookie';
 
 const Login = () => {
 
@@ -19,8 +19,8 @@ const Login = () => {
             if (res.status === 200) {
                 var data = res.data;
                 if (data.success) {
-                    const cookies = new Cookies();
-                    cookies.set('x-access-token', data.token, { path: '/' });
+                    var cookie = new Cookie();
+                    cookie.set('x-access-token', data.token, { path: '/' });
                     setErrorText("");
                 } else {
                     setErrorText(data.error);
