@@ -34,7 +34,6 @@ const Profile = () => {
             setWeight(userData.weight);
             setHeight(userData.height);
             setExperience(userData.experience);
-            setWeight(userData.weight);
         })
     }, []);
 
