@@ -13,3 +13,6 @@ export const poundsLabel = "lbs"
 export const centimetersLabel = "cm"
 export const logOut = "Log Out"
 export const invalidUserData = "**Please fill in all fields above!**"
+export const friend = "Your Friends";
+export const addfriend = "+ Add Friend";
+export const schedule = "Schedule";
