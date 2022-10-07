@@ -1,0 +1,91 @@
+.test{
+    inset: 0;
+}
+
+.backArrow{
+    inset: 0;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+}
+
+.inputInfo{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+
+    align-items: center;
+
+}
+
+.center{
+    margin: auto;
+}
+
+.footer{
+
+    position:absolute;
+    top:90vh;
+    transform:translateY(-100%);
+    width:100%;
+    border-radius: 6px;
+
+
+}
+
+.cont{
+    display:flex;
+
+}
+
+.backArrow{
+    margin-left: 20px;
+    transform: scale(1.5);
+}
+
+.progressBar{
+    position:absolute;
+    top: 52px;
+    left: calc(50vw - 130px);
+    width: 60%;
+    height: 6px;
+    margin: auto;
+    border-radius: 6px;
+
+
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.progressBar div {
+    width: 20%;
+    height: 100%;
+    border-radius: 6px;
+    background-color:darkgray;
+    margin: 1px;
+}
+
+.registration_container{
+    margin-top: 75px;
+}
+
+.registration_container h1{
+    text-align: center;
+    font-size:x-large;
+    
+    font-weight: bold;
+}
+
+.registration_container input{
+    text-align: center;
+    border-radius: 8px;
+    width: 70%;
+    margin: auto;
+
+
+}
+
