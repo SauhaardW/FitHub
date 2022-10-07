@@ -1,6 +1,6 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import TopBar from "./components/TopBar";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TopBar from './components/TopBar';
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
