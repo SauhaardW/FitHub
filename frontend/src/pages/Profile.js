@@ -268,7 +268,7 @@ const Profile = () => {
                data-mdb-ripple-color="light"
                onClick={ (event) => {
                 removeCookie("x-access-token");
-                navigate("/");
+                navigate("/login");
                } }
             >Log Out</button>
         </div >
