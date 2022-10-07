@@ -10,9 +10,9 @@ const friends = require("./friends/friends")
 router.post("/api/exercise", exercise.post)
 router.get("/api/exercise", exercise.get)
 
-router.post("/api/friend_request", friend_request.send_friendRequest)
-router.post("/api/friend_request", friend_request.accept_friendRequest)
-router.get("/api/friends_request", friend_request.get)
+router.post("/api/send_friend_request", friend_request.send_friendRequest)
+router.post("/api/accept_friend_request", friend_request.accept_friendRequest)
+router.get("/api/friend_request", friend_request.get)
 
 router.get("/api/friends", friends.get)
 

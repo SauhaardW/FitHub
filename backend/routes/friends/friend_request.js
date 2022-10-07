@@ -73,14 +73,14 @@ module.exports.get = (req, res) => {
     // We do not need any query params
     console.log(`[${dirName}] ${req.method} all friend requests`);
 
-    db.models.user.find({}, (err, data) => {
+    db.models.user.findOne({}, (err, data) => {
         if (err) {
-            console.log(`[${dirName}] ERROR: Failed to get ${JSON.stringify(req.query)}`);
+            console.log(`[${dirName}] ERROR: Failed to get all friends`);
             console.log(err);
             res.send({success: false, error: err});
         } else {
             console.log(`[${dirName}] Getting all friend requests was successful`);
-            res.send({success: true, data: data.friend_requests});
+            res.send({success: true, "data": data["friend_requests"]});
         }
     });
 }
