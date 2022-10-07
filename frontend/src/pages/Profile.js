@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import { MdEdit } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usernameLabel, nameLabel, logOut, invalidUserData, emailLabel, ageLabel, weightLabel, heightLabel, experienceLabel, editLabel, doneLabel, myAccountLabel, poundsLabel, centimetersLabel } from './../strings'
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
-import Cookies from 'universal-cookie';
+import { useCookies } from "react-cookie";
 
 const experienceOptions = ["Beginner", "Experienced"];
 
@@ -21,6 +20,8 @@ const Profile = () => {
     const [editMode, setEditMode] = useState("");
     const [experience, setExperience] = useState("");
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
+
+    const [cookies, setCookie, removeCookie] = useCookies();
 
     useEffect( () => {
         // Anything in here is fired on component mount.
@@ -36,6 +37,8 @@ const Profile = () => {
             setExperience(userData.experience);
         })
     }, []);
+
+    const navigate = useNavigate();
 
     const handleSetUsername = (newUsername) => {
         setUsername(newUsername)
@@ -257,6 +260,17 @@ const Profile = () => {
                     {invalidUserData}
                 </div>}
             </div>
+
+            <button
+               type="submit"
+               className="absolute bottom-5 left-[17vw] mx-auto block w-2/3 px-7 py-3 bg-slate-50 border-2 border-red-600 text-red-600 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+               data-mdb-ripple="true"
+               data-mdb-ripple-color="light"
+               onClick={ (event) => {
+                removeCookie("x-access-token");
+                navigate("/login");
+               } }
+            >Log Out</button>
         </div >
 
     );

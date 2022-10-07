@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
 import Cookies from 'universal-cookie';
-import {signIn} from './../strings'
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -23,8 +21,8 @@ const Login = () => {
             if (res.status === 200) {
                 var data = res.data;
                 if (data.success) {
-                    const cookies = new Cookies();
-                    cookies.set('x-access-token', data.token, { path: '/' });
+                    var cookie = new Cookie();
+                    cookie.set('x-access-token', data.token, { path: '/' });
                     setErrorText("");
                     navigate('/');
                 } else {

@@ -10,6 +10,10 @@ import Login from "./pages/Login";
 import AddFriends from "./pages/AddFriends";
 import Registration from "./components/Form"
 import "./pages/Pages.css";
+import axios from "axios";
+
+// Use cookies in requests
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
