@@ -28,12 +28,12 @@ const Profile = () => {
         const url = "http://localhost:3001/api/current-user"
         axios.get(url).then(res => {
             const userData = res.data.data
-            setUsername(userData.username)
+
+            userData.weight != null ? setWeight(userData.weight) : setWeight("");
+            userData.height != null ? setHeight(userData.height) : setHeight("");
             setName(userData.name);
             setEmail(userData.email);
             setAge(userData.age);
-            setWeight(userData.weight);
-            setHeight(userData.height);
             setExperience(userData.experience);
         })
     }, []);
@@ -81,8 +81,8 @@ const Profile = () => {
     };
 
     const userDataIsInvalid = () => {
-        const isInvalid = (name == "" ||  email == "" ||  age == ""
-            ||  weight == "" ||  height == "" ||  experience == "");
+        //allow weight, height to be empty since they are not entered on registration
+        const isInvalid = (name == "" ||  email == "" ||  age == "" ||  experience == "");
         setDisplayInvalidDataMessage(isInvalid);
         return isInvalid;
     };
