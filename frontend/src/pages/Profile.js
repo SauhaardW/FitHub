@@ -63,10 +63,8 @@ const Profile = () => {
 
 
     const userDataIsInvalid = () => {
-        let regex = new RegExp('[A-Za-z][^@]*@[^@\.][^@]*');
         const isInvalid = (name == "" ||  email == "" ||  age == ""
-            ||  weight == "" ||  height == "" ||  experience == "" ||
-            !regex.test(email));
+            ||  weight == "" ||  height == "" ||  experience == "");
         setDisplayInvalidDataMessage(isInvalid);
         return isInvalid;
     };
