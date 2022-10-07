@@ -11,6 +11,9 @@ function AddFriends() {
           type="text"
           placeholder="Search Username"
         />
+        <button className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold">
+          Search
+        </button>
       </div>
     </div>
   );
