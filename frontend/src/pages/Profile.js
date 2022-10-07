@@ -8,7 +8,7 @@ import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
 import { useCookies } from "react-cookie";
 
-const experienceOptions = ["Beginner", "Experienced"];
+const experienceOptions = ["Beginner", "Intermediate", "Experienced"];
 
 const Profile = () => {
     const [username, setUsername] = useState("");
@@ -253,6 +253,7 @@ const Profile = () => {
                     >
                         <option value={experienceOptions[0]}>{experienceOptions[0]}</option>
                         <option value={experienceOptions[1]}>{experienceOptions[1]}</option>
+                        <option value={experienceOptions[2]}>{experienceOptions[2]}</option>
                     </select>
                 </div>
 

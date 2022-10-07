@@ -18,11 +18,11 @@ module.exports.post = (req, res) => {
             console.log(err);
             res.send({success: false, error: err});
         } else {
-            if (data === undefined) {
+            if (data === null) {
                 // If the data is empty, there is no user, serve error
                 return res.json({success: false, error: "User does not exist"})
             }
-            
+
             // Compare the password from body with the user's password
             bcrypt.compare(password, data.password, (err, match) => {
                 if (match) {

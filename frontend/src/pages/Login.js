@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
 import Cookie from 'universal-cookie';
@@ -10,6 +10,16 @@ const Login = () => {
     const [passwordInput, setPasswordInput] = useState("");
     const [errorText, setErrorText] = useState("");
     let navigate = useNavigate();
+
+    useEffect( () => {
+        //hide topbar on mount
+        document.getElementById('top-bar').style.display = "none"
+        return () => {
+            //show topbar on unmount
+            document.getElementById('top-bar').style.display = "initial"
+        }
+    }, []);
+
 
     const SubmitLogin = () => {
         var payload = {
