@@ -17,12 +17,10 @@ function AddFriends() {
       });
   }
 
-  function sendFriendRequest(name) {
-    axios
-      .post("http://localhost:3001/api/send-friend-request", name)
-      .then((res) => {
-        console.log("Sent post request for friend request", { name });
-      });
+  function sendFriendRequest(username) {
+    axios.post("http://localhost:3001/api/send-friend-request", {
+      username: username,
+    });
   }
 
   return (
@@ -67,7 +65,7 @@ function AddFriends() {
                 <button
                   className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
                   onClick={() => {
-                    sendFriendRequest(friend.name);
+                    sendFriendRequest(friend.username);
                   }}
                 >
                   Add
