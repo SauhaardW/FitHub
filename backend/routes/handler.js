@@ -18,6 +18,6 @@ router.patch("/api/current-user", user.patchCurrentUser);
 
 router.post("/api/login", login.post);
 
-router.post("/api/send_friend_request", friend_request.send_friendRequest)
+router.post("/api/send-friend-request", friend_request.send_friendRequest)
 
 module.exports = router; 
