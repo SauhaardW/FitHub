@@ -18,7 +18,7 @@ const Profile = () => {
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [editMode, setEditMode] = useState("");
-    const [experience, setExperience] = useState(experienceOptions[0]);
+    const [experience, setExperience] = useState("");
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
 
     const [cookies, setCookie, removeCookie] = useCookies();
