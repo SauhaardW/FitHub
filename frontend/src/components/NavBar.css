@@ -17,7 +17,9 @@
 
 .menu-icon{
     color: white;
-    top: 0;
+    position: absolute;
+    top: 6px;
+    left: 10px;
 }
 
 .nav-bar-items{
