@@ -19,8 +19,23 @@ const Profile = () => {
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [editMode, setEditMode] = useState("");
-    const [experience, setExperience] = useState(experienceOptions[0]);
+    const [experience, setExperience] = useState("");
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
+
+    useEffect( () => {
+        // Anything in here is fired on component mount.
+        const url = "http://localhost:3001/api/current-user"
+        axios.get(url).then(res => {
+            const userData = res.data.data
+            setUsername(userData.username)
+            setName(userData.name);
+            setEmail(userData.email);
+            setAge(userData.age);
+            setWeight(userData.weight);
+            setHeight(userData.height);
+            setExperience(userData.experience);
+        })
+    }, []);
 
     const handleSetUsername = (newUsername) => {
         setUsername(newUsername)
