@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
-import Cookies from 'universal-cookie';
+import Cookie from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
