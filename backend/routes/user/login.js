@@ -25,7 +25,7 @@ module.exports.post = (req, res) => {
             
             // Compare the password from body with the user's password
             bcrypt.compare(password, user.password, (match) => {
-                if (match == true) {
+                if (match === true) {
                     // If the passwords match
                     const payload = {
                         id: data._id,
