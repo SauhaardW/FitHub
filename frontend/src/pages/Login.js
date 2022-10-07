@@ -1,15 +1,17 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
-import Cookie from 'universal-cookie';
+import Cookies from 'universal-cookie';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
     const [usernameInput, setUsernameInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     const [errorText, setErrorText] = useState("");
+    let navigate = useNavigate();
 
-    function SubmitLogin() {
+    const SubmitLogin = () => {
         var payload = {
             username: usernameInput,
             password: passwordInput
@@ -22,6 +24,7 @@ const Login = () => {
                     var cookie = new Cookie();
                     cookie.set('x-access-token', data.token, { path: '/' });
                     setErrorText("");
+                    navigate('/');
                 } else {
                     setErrorText(data.error);
                 }

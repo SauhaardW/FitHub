@@ -17,9 +17,10 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
-    <Router>
-      <div className="pages">
-        <Routes>
+      <Router>
+        <TopBar />
+        <div className="pages">
+          <Routes>
           <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/calendar" element={<Calendar />} />
