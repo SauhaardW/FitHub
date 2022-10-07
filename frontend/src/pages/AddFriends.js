@@ -46,7 +46,7 @@ function AddFriends() {
         </button>
       </div>
 
-      <div className="m-4 p-4">
+      <div className="m-2 p-1">
         <ul>
           {data.map((friend) => {
             return (
