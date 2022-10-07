@@ -8,7 +8,7 @@ function AddFriends() {
       <div className="flex">
         <input
           className="flex p-1 m-3 bg-gray-200 outline outline-1 outline-gray-300 rounded-lg w-9/12 text-gray-500"
-          type="input"
+          type="text"
           placeholder="Search Username"
         />
       </div>
