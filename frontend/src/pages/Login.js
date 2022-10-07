@@ -36,20 +36,20 @@ const Login = () => {
         <Fragment>
             <div className='container px-6 py-12 flex flex-col items-center justify-between w-screen h-[calc(100vh-60px)] g-6 text-gray-800'>
                 <div className='input-container flex flex-col w-full space-y-5'>
-                    <a className='text-black-800 text-4xl font-bold self-center text-center pb-10 pt-10'>
+                    <p className='text-black-800 text-4xl font-bold self-center text-center pb-10 pt-10'>
                         Welcome back, lets get you signed in!
-                    </a>
+                    </p>
 
                     <div className='error-text text-red-800 self-center'>
                         {errorText}
                     </div>
 
                     <div className='flex flex-col mx-10'>
-                        <a className='font-bold text-gray-700'>Username</a>
+                        <p className='font-bold text-gray-700'>Username</p>
                         <input name='username' onChange={event => setUsernameInput(event.target.value)} type='text' className='px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'/>
                     </div>
                     <div className='flex flex-col mx-10'>
-                        <a className='font-bold text-gray-700'>Password</a>
+                        <p className='font-bold text-gray-700'>Password</p>
                         <input name='password' onChange={event => setPasswordInput(event.target.value)} type='password' className='px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'/>
                     </div>
                     
