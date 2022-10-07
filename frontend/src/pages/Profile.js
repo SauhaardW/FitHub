@@ -69,6 +69,7 @@ const Profile = () => {
         if (editMode){ //if we are switching from edit to display mode (when done button is pressed)
             if (!userDataIsInvalid()){ //if all fields are populated, then data is valid
                 setDisplayInvalidDataMessage(false);
+                updateUserData()
                 setEditMode(!editMode);
             }
         }else{
@@ -76,12 +77,34 @@ const Profile = () => {
         }
     };
 
-
     const userDataIsInvalid = () => {
         const isInvalid = (name == "" ||  email == "" ||  age == ""
             ||  weight == "" ||  height == "" ||  experience == "");
         setDisplayInvalidDataMessage(isInvalid);
         return isInvalid;
+    };
+
+    const updateUserData = () => {
+        const url = "http://localhost:3001/api/current-user"
+        const newUserData = {
+            name: name,
+            email: email,
+            age: age,
+            weight: weight,
+            height: height,
+            experience: experience,
+        }
+        axios.patch(url, newUserData).catch(err => {
+            // Handle error
+            setUsername("");
+            setName("");
+            setEmail("");
+            setAge("");
+            setWeight("");
+            setHeight("");
+            setExperience(experienceOptions[0]);
+            console.log(err);
+        });
     };
 
     const getEditOrDoneButton = () => {
