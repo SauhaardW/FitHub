@@ -35,6 +35,7 @@ const createSchemas = () => {
         weight: {type:Number, required:false},
         height: {type:Number, required:false},
         experience: {type:String, required:true},
+        friend_requests: [String],
     });
     const user = mongoose.model("user", userSchema);
     models.user = user;
