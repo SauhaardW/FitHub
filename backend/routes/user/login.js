@@ -22,12 +22,9 @@ module.exports.post = (req, res) => {
                 // If the data is empty, there is no user, serve error
                 return res.json({success: false, error: "Incorrect Username or Password"})
             }
-
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(data.password, salt);
             
             // Compare the password from body with the user's password
-            bcrypt.compare(password, hashedPassword, (err, match) => {
+            bcrypt.compare(password, data.password, (err, match) => {
                 if (match) {
                     // If the passwords match
                     const payload = {
