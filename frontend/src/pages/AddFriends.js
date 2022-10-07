@@ -17,6 +17,14 @@ function AddFriends() {
       });
   }
 
+  function sendFriendRequest(name) {
+    axios
+      .post("http://localhost:3001/api/send-friend-request", name)
+      .then((res) => {
+        console.log("Sent post request for friend request", { name });
+      });
+  }
+
   return (
     <div>
       <h1 className="text-3xl text-gray-800 m-2 font-semibold">Add Friends</h1>
@@ -56,7 +64,12 @@ function AddFriends() {
                     {friend.name}
                   </p>
                 </div>
-                <button className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold">
+                <button
+                  className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
+                  onClick={() => {
+                    sendFriendRequest(friend.name);
+                  }}
+                >
                   Add
                 </button>
               </li>
