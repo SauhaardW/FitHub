@@ -6,6 +6,7 @@ import { usernameLabel, nameLabel, logOut, invalidUserData, emailLabel, ageLabel
 import 'react-dropdown/style.css';
 import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
+import { useCookies } from "react-cookie";
 
 const experienceOptions = ["Beginner", "Experienced"];
 
@@ -19,6 +20,8 @@ const Profile = () => {
     const [editMode, setEditMode] = useState("");
     const [experience, setExperience] = useState("");
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
+
+    const [cookies, setCookie, removeCookie] = useCookies();
 
     useEffect( () => {
         // Anything in here is fired on component mount.
@@ -264,7 +267,7 @@ const Profile = () => {
                data-mdb-ripple="true"
                data-mdb-ripple-color="light"
                onClick={ (event) => {
-                localStorage.removeItem("x-access-token");
+                removeCookie("x-access-token");
                 navigate("/");
                } }
             >Log Out</button>

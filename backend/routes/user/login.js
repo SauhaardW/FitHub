@@ -18,17 +18,15 @@ module.exports.post = (req, res) => {
             console.log(err);
             res.send({success: false, error: err});
         } else {
-            if (!data) {
+            if (data === undefined) {
                 // If the data is empty, there is no user, serve error
-                return res.json({success: false, error: "Incorrect Username or Password"})
+                return res.json({success: false, error: "User does not exist"})
             }
-
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(data.password, salt);
             
             // Compare the password from body with the user's password
-            bcrypt.compare(password, hashedPassword, (err, match) => {
-                if (match) {
+            bcrypt.compare(password, data.password, (err, match) => {
+                if (err === null) {
+                    console.log(match)
                     // If the passwords match
                     const payload = {
                         id: data._id,
@@ -45,7 +43,11 @@ module.exports.post = (req, res) => {
                             if (err) return res.json({success: false, error: err});
                             // Serve JWT token
                             console.log(`[${dirName}] Signed in user: ${JSON.stringify(req.body.username)}`);
-                            res.cookie("x-access=token", "Bearer " + token);
+                            res.cookie("x-access-token", "Bearer " + token, {
+                                maxAge: 86400 * 1000, // 24 hours
+                                httpOnly: false,
+                                secure: false
+                            });
                             return res.json({
                                 success: true,
                                 token: "Bearer " + token
@@ -54,7 +56,7 @@ module.exports.post = (req, res) => {
                     )
                 } else {
                     // Passwords don't match, serve error
-                    return res.json({success: false, error: "Incorrect Username or Password"})
+                    return res.json({success: false, error: "Incorrect Password"})
                 }
             })
         }
