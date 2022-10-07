@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
+import Cookies from 'universal-cookie';
 
 const Login = () => {
 
@@ -18,7 +19,10 @@ const Login = () => {
             if (res.status === 200) {
                 var data = res.data;
                 if (data.success) {
-                    localStorage.setItem("x-access-token", data.token);
+                    const cookies = new Cookies();
+                    cookies.set('x-access-token', data.token, { path: '/' });
+                    console.log(cookies.get('x-access-token')); // Pacman
+                    // localStorage.setItem("x-access-token", data.token);
                     setErrorText("");
                 } else {
                     setErrorText(data.error);

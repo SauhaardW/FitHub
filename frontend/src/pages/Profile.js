@@ -7,37 +7,20 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
+import Cookies from 'universal-cookie';
 
 const experienceOptions = ["Beginner", "Experienced"];
-// const id = "633dc2b917d517fdf3541107";
 
 const Profile = () => {
     const [username, setUsername] = useState("");
-    const [name, setName] = useState(""); //do we want to allow name change
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [age, setAge] = useState("");
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [editMode, setEditMode] = useState("");
-    const [experience, setExperience] = useState("");
+    const [experience, setExperience] = useState(experienceOptions[0]);
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
-
-    // useEffect( () => {
-    //     // Anything in here is fired on component mount.
-    //     const url = "http://localhost:3001/api/user/" + id
-    //     axios.get(url).then(res => {
-    //         const userData = res.data.data
-    //         setUsername(userData.username)
-    //         setName(userData.name);
-    //         setEmail(userData.email);
-    //         setAge(userData.age);
-    //         setWeight(userData.weight);
-    //         setHeight(userData.height);
-    //         setExperience(userData.experience);
-    //         setWeight(userData.weight);
-    //     })
-    //
-    // }, []);
 
     const handleSetUsername = (newUsername) => {
         setUsername(newUsername)
@@ -68,38 +51,24 @@ const Profile = () => {
     };
 
     const handleEditClick = () => {
-        // if (editMode){ //if we are switching from edit to display mode (when done button is pressed)
-        //     if (!validateUserData()){ //if all fields are populated, then data is valid
-        //         setDisplayInvalidDataMessage(false)
-        //         updateUserData()
-        //         setEditMode(!editMode);
-        //     }
-        // }else{
-        //     setEditMode(!editMode);
-        // }
-        setEditMode(!editMode);
+        if (editMode){ //if we are switching from edit to display mode (when done button is pressed)
+            if (!userDataIsInvalid()){ //if all fields are populated, then data is valid
+                setDisplayInvalidDataMessage(false);
+                setEditMode(!editMode);
+            }
+        }else{
+            setEditMode(!editMode);
+        }
     };
 
-    const validateUserData = () => {
-        const isValid = (username == "" ||  name == "" ||  email == "" ||  age == ""
-            ||  weight == "" ||  height == "" ||  experience == "")
-        setDisplayInvalidDataMessage(isValid)
-        return isValid
-    };
 
-    const updateUserData = () => {
-        // const url = "http://localhost:3001/api/user/" + id
-        // const newUserData = {
-        //     name: name,
-        //     email: email,
-        //     username: username,
-        //     age: age,
-        //     weight: weight,
-        //     height: height,
-        //     experience: experience,
-        // }
-        // axios.patch(url, newUserData)
-        // //do we need some error handling
+    const userDataIsInvalid = () => {
+        let regex = new RegExp('[A-Za-z][^@]*@[^@\.][^@]*');
+        const isInvalid = (name == "" ||  email == "" ||  age == ""
+            ||  weight == "" ||  height == "" ||  experience == "" ||
+            !regex.test(email));
+        setDisplayInvalidDataMessage(isInvalid);
+        return isInvalid;
     };
 
     const getEditOrDoneButton = () => {
@@ -156,7 +125,6 @@ const Profile = () => {
                         value={name}
                         onChange={(event) => handleSetName(event.target.value)}
                     />
-                    {/* check to see how/ if required tag even works */}
                 </div>}
 
                 <hr className="my-3 h-px bg-gray-200 border-0"></hr>
@@ -165,12 +133,11 @@ const Profile = () => {
                     <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{usernameLabel}</label>
                     <input
                         type="text"
-                        className={editMode ? "edit-mode-input" : "display-mode-input"}
+                        className={editMode ? "edit-mode-input text-gray-500" : "display-mode-input"}
                         value={username}
                         onChange={(event) => handleSetUsername(event.target.value)}
-                        disabled={!editMode}
+                        disabled
                     />
-                    {/* check to see how/ if required tag even works */}
                 </div>
 
                 <hr className="my-3 h-px bg-gray-200 border-0"></hr>
@@ -184,7 +151,6 @@ const Profile = () => {
                         onChange={(event) => handleSetEmail(event.target.value)}
                         disabled={!editMode}
                     />
-                    {/* add email prop to do some validation that its an email, should be available with inpiut fields already  */}
                 </div>
 
                 <hr className="my-3 h-px bg-gray-200 border-0"></hr>
@@ -213,7 +179,7 @@ const Profile = () => {
                             onChange={(event) => handleSetWeight(event.target.value)}
                             disabled={!editMode}
                         />
-                        <div className={editMode ? "display-mode-label ml-3" : "display-mode-label text-black ml-3"}>{poundsLabel}</div>
+                        <div className={editMode ? "display-mode-label ml-3 font-normal" : "display-mode-label text-black ml-3"}>{poundsLabel}</div>
                     </div>
                 </div>
 
@@ -230,7 +196,7 @@ const Profile = () => {
                             onChange={(event) => handleSetHeight(event.target.value)}
                             disabled={!editMode}
                         />
-                        <div className={editMode ? "display-mode-label ml-3" : "display-mode-label text-black ml-3"}>{centimetersLabel}</div>
+                        <div className={editMode ? "display-mode-label ml-3 font-normal" : "display-mode-label text-black ml-3"}>{centimetersLabel}</div>
                     </div>
                 </div>
 
@@ -251,9 +217,9 @@ const Profile = () => {
                     </select>
                 </div>
 
-                {/*{displayInvalidDataMessage && <div className="text-red-500 mt-5">*/}
-                {/*    {invalidUserData}*/}
-                {/*</div>}*/}
+                {displayInvalidDataMessage && <div className="text-red-500 mt-5">
+                    {invalidUserData}
+                </div>}
             </div>
         </div >
 

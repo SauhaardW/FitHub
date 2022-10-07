@@ -8,6 +8,9 @@ import History from "./pages/History";
 import Friends from "./pages/Friends";
 import Login from "./pages/Login";
 import './pages/Pages.css';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true
 
 const App = () => {
     return (

@@ -12,8 +12,15 @@ db.init(process.env.MONGODB_CONNECTION_URL)
 // initialize express with .env port, or 3001 by default
 const app = express();
 const port = process.env.PORT || 3001;
-app.use(cors());
+const corsConfig = {
+    origin: true,
+    credentials: true,
+};
+app.use(cors(corsConfig));
 app.use(express.json());
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 // start router
 const router = require("./routes/handler")

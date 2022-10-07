@@ -32,7 +32,7 @@ class NavBar extends React.Component {
                         {/* iterates over NavBarOptions and creates a clickable list element for each with the page title and icon.  */}
                         {NavBarOptions.map(item => {
                             return (
-                                <li className="nav-bar-items">
+                                <li className="nav-bar-items" key={item.pageTitle}>
                                     <Link to={item.path} className={item.className}>
                                         {item.icon}
                                         <span className="nav-bar-page-title">{item.pageTitle}</span>
