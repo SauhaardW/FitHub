@@ -12,7 +12,6 @@ router.get("/api/exercise", exercise.get);
 
 router.post("/api/user", user.post);
 router.get("/api/user", user.get);
-router.get("/api/current-user", user.getCurrentUserData);
 
 router.post("/api/login", login.post);
 

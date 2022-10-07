@@ -38,23 +38,3 @@ module.exports.get = (req, res) => {
         }
     });
 }
-
-module.exports.getCurrentUserData = (req, res) => {
-    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
-    utils.verifyJWT(req, res, (req, res) => {
-        const id = req.JWT_data.id
-        const username = req.JWT_data.username
-
-        db.models.user.findById(id, (err, data) => {
-            if (err) {
-                console.log(`[${dirName}] ERROR: Failed to get ${username}`);
-                console.log(err);
-                res.send({success: false, error: err});
-            } else {
-                console.log(`[${dirName}] Getting ${username} was successful`);
-                res.send({success: true, data: data});
-            }
-        });
-    })
-
-}
