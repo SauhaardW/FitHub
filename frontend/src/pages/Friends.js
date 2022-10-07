@@ -2,6 +2,9 @@ import React, { Fragment, useEffect } from 'react';
 import './Pages.css';
 import axios from 'axios';
 import { useState} from 'react';
+import {Link} from "react-router-dom";
+import { friend } from './../strings';
+import { addfriend } from './../strings';
 import { schedule } from './../strings';
 const Friends = () => {
 
@@ -26,6 +29,18 @@ const Friends = () => {
 
     return(<Fragment>
         <div>
+        
+        <div className='flex'>
+            <div className="text-4xl pl-4 font-semibold">{friend}</div>
+            <Link to="/Profile" className="bg-blue-500 p-6 mb-4 ml-3 py-3 text-white rounded-md">{addfriend}</Link>
+        </div>
+
+        <hr className='ml-5 mr-5'
+                    style={{
+                    borderColor: "black",
+                    }}
+        />
+
         <ul className='m-5 grid grid-justify-center'>
             {data.map((friend)=>{
                 return(
