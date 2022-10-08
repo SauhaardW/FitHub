@@ -17,7 +17,6 @@ Build an end-all solution to workout tracking and incorporate the social aspect 
 `cd ../frontend`
 7. Install frontend node modules
 `npm install`
-8. Register your local IP with Mongo to allow access to the DB (you will have to ask Andres)
 
 ## Quickstart
 1. Go to the backend directory
@@ -35,21 +34,32 @@ Any changes you make should be automatically reflected on your browser.
 
 ## Contribution
 1. Pull and checkout develop from repository
-`git fetch origin develop`
-`git checkout develop`
-2. Create a branch off of `develop`
-`git checkout -b <your_name>/<feature_name>`
+`git fetch origin dev`
+`git checkout dev`
+2. Create a branch off of `dev`
+`git checkout -b <your_name>/<ticketnumber>` (Make sure ticket number matches the associated ticket, i.e. `andres/FIT-27`)
 3. Work on your changes. Make sure to follow the terms outlined in the team contract
-4. Commit your changes with a commit message that explains them
-`git commit -m "Message goes here"`
-5. Push your changes to your branch
-`git push origin <your_name>/<feature_name>`
-6. Repeat steps 2-4 until you have finished all work for your branch
-7. Open GitHub on your browser, create a pull request (PR), and make sure the base of your PR (the branch you want to merge into) is "develop". It'll auto-populate with a template
-8. Fill out the PR template, create the pull request. Request a review from someone on the team
-9. Resolve any requested changes, if there are none, you can merge once you get an approval
-10. Once develop has been thouroughly tested, and contains all the completed features for one release, create a PR to merge "develop" into "main"
+4. Add the files you want to commit to your stage
+`git add <filepath>`
+5. Commit your changes with a commit message that explains them
+`git commit -m "[<ticketnumber>] Message goes here"`
+6. Push your changes to your branch
+`git push origin <your_name>/<ticketnumber>`
+7. Repeat steps 2-4 until you have finished all work for your branch
+8. Open GitHub on your browser, create a pull request (PR), and make sure the base of your PR (the branch you want to merge into) is "dev". It'll auto-populate with a template
+9. Fill out the PR template, create the pull request. Request a review from someone on the team
+10. Resolve any requested changes, if there are none, you can merge once you get an approval. Make sure to solve any merge conflicts
+11. Once dev has been thouroughly tested, and contains all the completed features for one release, create a PR to merge "dev" into "main"
 
 ## Resources
 - [Figma](https://www.figma.com/file/TSdxgEqzZrpvNsVz6VeQoi/FitHub-C01?node-id=0%3A1)
-- Jira (N/A yet)
+- [Jira](https://mcsapps.utm.utoronto.ca/jira/projects/FIT/) 
+
+
+## FAQ
+`I get a package missing error when I try running the frontend/backend, what's wrong?`
+You are missing a package. `cd` into the directory which is failing to run, and run `npm install`.
+If this doesn't fix it, try installing the package directly. `npm install <packagename>`.
+
+`How do I install a new package I want to use?`
+Use `npm install --save <packagename>`. This will install the package and save it in the `package.json`, that way others will have it automatically installed whenever they run `npm install`.

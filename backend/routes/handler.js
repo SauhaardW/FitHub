@@ -1,38 +1,24 @@
-const express = require("express")
-const router = express.Router()
-const Schemas = require("../models/schemas")
+const express = require("express");
+const router = express.Router();
 
-router.post("/api/exercise", async (req, res) => {
-    const newExercise = new Schemas.Exercises(req.body)
+// require the routes to endpoints in the API
+const exercise = require("./exercise/exercise");
+const user = require("./user/user");
+const login = require("./user/login");
+const friend_request = require("./friends/friend_request")
 
-    try {
-        await newExercise.save( async(err, result) => {
-            if (err) {
-                res.statusCode = 500
-                res.end("Error while adding new exercise:" + err);
-            } else {
-                res.end("Successfully added to database" + result);
-            }
-        })
-    } catch (err) {
-        res.statusCode = 500
-        console.log(err);
-        res.end();
-    }
-});
+// route endpoints in API to the correct functions
+router.post("/api/exercise", exercise.post);
+router.get("/api/exercise", exercise.get);
 
-router.get("/api/exercises", async (req, res) => {
-    const exercises = Schemas.Exercises
+router.post("/api/user", user.post);
+router.get("/api/user", user.get);
+router.get("/api/current-user", user.getCurrentUserData);
+router.patch("/api/current-user", user.patchCurrentUser);
 
-    try {
-        var allExercises = await exercises.find( {} );
-        res.data = allExercises;
-        res.send(allExercises);
-    } catch (err) {
-        res.statusCode = 500
-        console.log(err);
-        res.send();
-    }
-});
+router.post("/api/login", login.post);
 
-module.exports = router
+router.post("/api/send-friend-request", friend_request.send_friendRequest)
+router.post("/api/accept-friend-request", friend_request.accept_friendRequest)
+
+module.exports = router; 
