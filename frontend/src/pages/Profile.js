@@ -151,6 +151,7 @@ const Profile = () => {
                     {getEditOrDoneButton()}
                 </Link>
             </div>
+            <div className="flex flex-col justify-center">
 
             <div className="input-form">
 
@@ -264,7 +265,7 @@ const Profile = () => {
 
             <button
                type="submit"
-               className="absolute bottom-5 left-[17vw] mx-auto block w-2/3 px-7 py-3 bg-slate-50 border-2 border-red-600 text-red-600 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+               className="mt-24 bottom-5 left-[17vw] mx-auto block w-2/3 px-7 py-3 bg-slate-50 border-2 border-red-600 text-red-600 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                data-mdb-ripple="true"
                data-mdb-ripple-color="light"
                onClick={ (event) => {
@@ -272,6 +273,7 @@ const Profile = () => {
                 navigate("/login");
                } }
             >Log Out</button>
+            </div>
         </div >
 
     );
