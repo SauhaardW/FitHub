@@ -44,7 +44,7 @@ To create the basis of the most crucial components (User-stories) of our web-app
         Documents: System Architecture
      - Sayed Mojtaba Hosseini:  
         JIRA Tasks – [FIT-9]  
-        JIRA Sub-Tasks – [FIT-30], [FIT-32], [FIT-34], [FIT-35], [FIT-55]  
+        JIRA Sub-Tasks – [FIT-30], [FIT-32], [FIT-55]  
         Documents: System Architecture, sprint1.md
      - Yuval Kamani:  
         JIRA Tasks – [FIT-9]  
