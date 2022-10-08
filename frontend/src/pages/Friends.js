@@ -34,12 +34,6 @@ const Friends = () => {
       <div>
         <div className="flex justify-between px-4">
           <div className="text-4xl font-semibold">{friend}</div>
-          {/* <Link
-            to="/friends/add-friends"
-            className="bg-blue-500 p-6 mb-4 ml-3 py-3 text-white rounded-md"
-          >
-            {addfriend}
-          </Link> */}
           <AiOutlineUsergroupAdd className="w-10 h-10" onClick={()=>{
             navigate('/friends/add-friends');
           }}/>
@@ -58,7 +52,7 @@ const Friends = () => {
               <li key={friend} className="px-4">
                 <div
                   key={friend}
-                  className="m-1 p-5 bg-gray-200 rounded-md flex justify-between drop-shadow-md md:filter-none"
+                  className="m-1 p-5 bg-gray-200 rounded-md flex justify-between shadow-md md:filter-none"
                 >
                   <div className="flex items-center font-bold text-lg">
                     {friend}
