@@ -17,9 +17,27 @@ module.exports.post = (req, res) => {
             console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
             console.log(err);
             res.send({name: user.username, success: false});
-        } else {
-            console.log(`[${dirName}] Saving ${user.username} was successful`);
-            res.send({name: user.username, success: true});
+        }
+        else {
+            let savedUser;
+            utils.verifyJWT(req, res, (req, res) => {
+                const id = user._id
+                const username = user.username
+
+                db.models.user.findById(id, (err, data) => {
+                    if (err) {
+                        console.log(`[${dirName}] ERROR: Failed to get saved user ${user.username}`);
+                        console.log(err);
+                        savedUser = null;
+                    } else {
+                        console.log(`[${dirName}] Getting saved user ${user.username} was successful`);
+                        savedUser = data;
+                    }
+                    console.log(`[${dirName}] Saving ${user.username} was successful`);
+                    res.send({name: user.username, success: true, user: savedUser});
+                });
+            })
+
         }
     })
 }
@@ -71,8 +89,20 @@ module.exports.patchCurrentUser = (req, res) => {
                 console.log(err);
                 res.send({success: false, error: err});
             } else {
-                console.log(`[${dirName}] Patching ${username} was successful`);
-                res.send({success: true, data: data});
+                let updatedUser;
+
+                db.models.user.findById(id, (err, data) => {
+                    if (err) {
+                        console.log(`[${dirName}] ERROR: Failed to get updated user ${username}`);
+                        console.log(err);
+                        updatedUser = null;
+                    } else {
+                        console.log(`[${dirName}] Getting updated user ${username} was successful`);
+                        updatedUser = data;
+                    }
+                    console.log(`[${dirName}] Patching ${username} was successful`);
+                    res.send({name: username, success: true, user: updatedUser});
+                });
             }
         });
     })
