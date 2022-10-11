@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import { MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { usernameLabel, nameLabel, logOut, invalidUserData, emailLabel, ageLabel, weightLabel, heightLabel, experienceLabel, editLabel, doneLabel, myAccountLabel, poundsLabel, centimetersLabel } from './../strings'
+import { usernameLabel, nameLabel, invalidUserData, emailLabel, ageLabel, weightLabel, heightLabel, experienceLabel, editLabel, doneLabel, myAccountLabel, poundsLabel, centimetersLabel } from './../strings'
 import 'react-dropdown/style.css';
 import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
@@ -21,7 +21,7 @@ const Profile = () => {
     const [experience, setExperience] = useState("");
     const [displayInvalidDataMessage, setDisplayInvalidDataMessage] = useState("");
 
-    const [cookies, setCookie, removeCookie] = useCookies();
+    const [,, removeCookie] = useCookies();
 
     useEffect( () => {
         // Anything in here is fired on component mount.
@@ -82,7 +82,7 @@ const Profile = () => {
 
     const userDataIsInvalid = () => {
         //allow weight, height to be empty since they are not entered on registration
-        const isInvalid = (name == "" ||  email == "" ||  age == "" ||  experience == "");
+        const isInvalid = (name === "" ||  email === "" ||  age === "" ||  experience === "");
         setDisplayInvalidDataMessage(isInvalid);
         return isInvalid;
     };
