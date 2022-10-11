@@ -40,34 +40,31 @@ module.exports.get = (req, res) => {
     // mechanics="Isolated"
     // force="Pull"
     // utility="Auxiliary"
+    // name="Bench Press"
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
 
     // Define MongoDB query to match any of the muscle groups from request query
     var query = {}
-    if (req.query.muscles !== undefined) {
-        query['$or'] = [];
-        query['$or'].push(...req.query.muscles.map( (muscle) => {
-            return {'muscles.target': muscle}
-        }))
-    }
-    if (req.query.mechanics !== undefined) {
-        if (query['$and'] === undefined) {
-            query['$and'] = []
+    if (req.query !== undefined) {
+        for (var key in req.query) {
+            if (["muscles", "mechanics", "force", "utility", "name"].includes(key)) {
+                if (query['$and'] === undefined) {
+                    query['$and'] = []
+                }
+                if (key == "muscles") {
+                    query['$and'].push(
+                        {'muscles.target': { $regex: ".*(" + req.query.muscles.join("|") + ").*", $options: 'i' }}
+                    )
+                } else if (key == "name") {
+                    query['$and'].push({[key]: { $regex: ".*" + req.query[key] + ".*", $options: 'i' }});
+                } else {
+                    query['$and'].push({['classification.'+key]: { $regex: ".*" + req.query[key] + ".*", $options: 'i' }});
+                }
+            }
         }
-        query['$and'].push({'classification.mechanics': req.query.mechanics});
     }
-    if (req.query.force !== undefined) {
-        if (query['$and'] === undefined) {
-            query['$and'] = []
-        }
-        query['$and'].push({'classification.force': req.query.force});
-    }
-    if (req.query.utility !== undefined) {
-        if (query['$and'] === undefined) {
-            query['$and'] = []
-        }
-        query['$and'].push({'classification.utility': req.query.utility});
-    }
+
+    console.log(query["$and"])
 
     db.models.exercise.find(query, (err, data) => {
         if (err) {
