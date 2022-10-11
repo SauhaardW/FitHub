@@ -12,14 +12,31 @@ module.exports.post = (req, res) => {
     userData.password = bcrypt.hashSync(userData.password, salt);
 
     const user = new db.models.user(userData);
-    user.save((err, _) => {
+
+    db.models.user.findOne({"username": user.username}, (err, find_res) => {
         if (err) {
-            console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
+            // if err, then err is populated and find_res is null
+            console.log(`[${dirName}] ERROR: An error occurred finding the user ${friend_username}`);
             console.log(err);
-            res.send({name: user.username, success: false});
-        } else {
-            console.log(`[${dirName}] Saving ${user.username} was successful`);
-            res.send({name: user.username, success: true});
+            res.send({error: "Error occurred finding the user", success: false});
+            return
+        }
+        else if (find_res == null){
+            // this means no user with that username was found, err is null and find_res is null
+            user.save((err, _) => {
+                if (err) {
+                    console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
+                    console.log(err);
+                    res.send({name: user.username, success: false});
+                } else {
+                    console.log(`[${dirName}] Saving ${user.username} was successful`);
+                    res.send({name: user.username, success: true});
+                }
+            })
+        }
+        else{
+            // if user is found, error is null and find_res is populated
+            res.send({error: "Username already exists", userExists: true, success: false});
         }
     })
 }

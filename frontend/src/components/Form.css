@@ -4,6 +4,7 @@
 
 .inputInfo{
     margin-top: 30px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -24,7 +25,6 @@
 
 .cont{
     display:flex;
-
 }
 
 .progressBar{
