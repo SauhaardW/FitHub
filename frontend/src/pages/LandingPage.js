@@ -28,13 +28,16 @@ const LandingPage = () => {
             <div className="absolute bottom-36 w-full text-white flex justify-center flex-col items-center">
                     <button
                         className='bg-default-gradient font-medium hover:bg-blue-700 text-3xl text-white disabled:opacity-50 font-bold py-3 px-12 rounded'
+                        onClick={() =>{
+                            navigate('/registration');
+                        }}
                     >
                         Get Started
                     </button>
                 <div className="mt-3 text-sm">
                     Already have an account?
                 </div>
-                <Link className="mt-2 text-sm underline" to="#">
+                <Link className="mt-2 text-sm underline" to="/login">
                     Log in
                 </Link>
             </div>
