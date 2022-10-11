@@ -2,7 +2,9 @@ import React, { Fragment, useEffect } from 'react';
 import axios from 'axios';
 import {useState} from 'react';
 import Cookies from 'universal-cookie';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { GrLinkPrevious } from 'react-icons/gr'
+import "../components/Form.css";
 
 const Login = () => {
 
@@ -34,7 +36,7 @@ const Login = () => {
                     var cookie = new Cookies();
                     cookie.set('x-access-token', data.token, { path: '/' });
                     setErrorText("");
-                    navigate('/');
+                    navigate('/home');
                 } else {
                     setErrorText(data.error);
                 }
@@ -47,7 +49,10 @@ const Login = () => {
 
     return (
         <Fragment>
-            <div className='container px-6 py-12 flex flex-col items-center justify-between w-screen h-[calc(100vh-60px)] g-6 text-gray-800'>
+            <Link  to="/" className="top-12 left-7 absolute">
+                <GrLinkPrevious className="scale-150"/>
+            </Link>
+            <div className='pages container px-6 py-12 flex flex-col items-center justify-between w-screen h-[calc(100vh-60px)] g-6 text-gray-800'>
                 <div className='input-container flex flex-col w-full space-y-5'>
                     <p className='text-black-800 text-4xl font-bold self-center text-center pb-10 pt-10'>
                         Welcome back, lets get you signed in!
