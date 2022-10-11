@@ -9,17 +9,11 @@ const RegistrationName = ({formData, setFormData, disableNext, setDisableNext}) 
     }, [formData.name]);
 
     const validateInput = () => {
-        console.log("one ")
-
         if (formData.name != ""){
             setDisableNext(false)
-            console.log("here 2")
-
         }
         else if (disableNext == false){
             //when you go back to prev page and clear input field, then formData.name == "", so first if is false but button is enabled
-            console.log("going to disable")
-
             setDisableNext(true)
         }
     }
