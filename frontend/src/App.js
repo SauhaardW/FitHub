@@ -17,24 +17,24 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const App = () => {
-  return (
-      <Router>
-        <TopBar />
-        <div>
-          <Routes>
-          <Route exact path="/landing-page" element={<LandingPage />} />
-          <Route exact path="/registration" element={<Registration />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/calendar" element={<Calendar />} />
-          <Route exact path="/history" element={<History />} />
-          <Route exact path="/friends" element={<Friends />} />
-          <Route exact path="/friends/add-friends" element={<AddFriends />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/" element={<Home />} />
-        </Routes>
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <TopBar />
+            <div>
+                <Routes>
+                    <Route exact path="/" element={<LandingPage />} />
+                    <Route exact path="/registration" element={<Registration />} />
+                    <Route exact path="/profile" element={<Profile />} />
+                    <Route exact path="/calendar" element={<Calendar />} />
+                    <Route exact path="/history" element={<History />} />
+                    <Route exact path="/friends" element={<Friends />} />
+                    <Route exact path="/friends/add-friends" element={<AddFriends />} />
+                    <Route exact path="/login" element={<Login />} />
+                    <Route exact path="/home" element={<Home />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 };
 
 export default App;

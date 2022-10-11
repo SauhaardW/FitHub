@@ -22,9 +22,6 @@ const Form = () => {
     password: ""
   })
 
-  const FormTitles = ["Name", "Age", "Experience", "Account"];
-  const nextBtnText = ["Next", "Submit"];
-
   useEffect( () => {
     //hide topbar on mount
     document.getElementById('top-bar').style.display = "none"
@@ -83,7 +80,6 @@ const Form = () => {
         </div>
         <div className='formContainer'>
             <div className='header'>
-              {/* <h1>{FormTitles[page]}</h1> */}
             </div>
             <div className='body'>{PageDisplay()}</div>
             <div className='footer'>
