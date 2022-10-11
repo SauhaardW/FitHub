@@ -1,10 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 
 const RegistrationExperience = ({formData, setFormData}) => {
-    const [experience, setExperience] = useState("");
     const experienceOptions = ["Beginner", "Intermediate", "Experienced"];
-
 
     return (
     <div className='registration_container'>
@@ -14,7 +12,7 @@ const RegistrationExperience = ({formData, setFormData}) => {
 
             <div className="grid justify-items-center">
               <select
-              onChange={(event) => setFormData({... formData, experience: event.target.value })}
+              onChange={(event) => setFormData({...formData, experience: event.target.value })}
               value={formData.experience}
               className="bg-gray-50 mx-auto w-4/6 p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none focus:border-indigo-600">
                   <option value={experienceOptions[0]}>{experienceOptions[0]}</option>

@@ -5,13 +5,16 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
     useEffect(() => {
         //Runs on the first render and any time any dependency value changes
         validateInput()
+        // be careful with the line below, it removes all lint warnings about dependencies that should be added to dep array. Using it here because there are a lot of deps
+        // that give warnings but should not be added disableNext, setDisableNext, etc. If you add new deps consider whether they should be included in deps array of useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formData.username, formData.email, formData.password]);
 
     const validateInput = () => {
-        if (formData.username != "" && formData.email != "" && formData.password != ""){
+        if (formData.username !== "" && formData.email !== "" && formData.password !== ""){
             setDisableNext(false)
         }
-        else if (disableNext == false){
+        else if (!disableNext){
             //when you go back to prev page and clear an input field, then formData.somefield == "", so first if is false but button is enabled
             setDisableNext(true)
         }
@@ -29,7 +32,7 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
             focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
             dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={formData.username}
-            onChange={(event) => setFormData({... formData, username: event.target.value })
+            onChange={(event) => setFormData({...formData, username: event.target.value })
 
           }/>
           {!isUsernameUnique &&
@@ -46,7 +49,7 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
             focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
             dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={formData.email}
-            onChange={(event) => setFormData({... formData, email: event.target.value })
+            onChange={(event) => setFormData({...formData, email: event.target.value })
 
           }
           />
@@ -58,7 +61,7 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
             focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
             dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={formData.password}
-            onChange={(event) => setFormData({... formData, password: event.target.value })
+            onChange={(event) => setFormData({...formData, password: event.target.value })
 
             }/>
       </div>

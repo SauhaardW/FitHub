@@ -72,7 +72,7 @@ const Form = () => {
   return (
     <div className="form vertical-center">
       <div className='cont'>
-        <GrLinkPrevious className='backArrow' onClick={() =>{
+        <GrLinkPrevious className='top-12 left-7 absolute scale-150' onClick={() =>{
             setDisableNext(false)
               setPage((currentPage) => currentPage-1)
             }}/>
@@ -97,7 +97,7 @@ const Form = () => {
                           registerUser()
                         }
                         else{
-                            page == 1 ? setDisableNext(false) : setDisableNext(true) //experience page should have next button always enabled
+                            page === 1 ? setDisableNext(false) : setDisableNext(true) //experience page should have next button always enabled
                             setPage((currentPage) => currentPage+1)
                         }
                         }}

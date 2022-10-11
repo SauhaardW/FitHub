@@ -16,21 +16,21 @@ module.exports.post = (req, res) => {
     db.models.user.findOne({"username": user.username}, (err, find_res) => {
         if (err) {
             // if err, then err is populated and find_res is null
-            console.log(`[${dirName}] ERROR: An error occurred finding the user ${friend_username}`);
+            console.log(`[${dirName}] ERROR: An error occurred finding the user ${user.username}`);
             console.log(err);
             res.send({error: "Error occurred finding the user", success: false});
             return
         }
         else if (find_res == null){
             // this means no user with that username was found, err is null and find_res is null
-            user.save((err, _) => {
+            user.save((err, userData) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
                     console.log(err);
-                    res.send({name: user.username, success: false});
+                    res.send({userData: userData, success: false});
                 } else {
                     console.log(`[${dirName}] Saving ${user.username} was successful`);
-                    res.send({name: user.username, success: true});
+                    res.send({userData: userData, success: true});
                 }
             })
         }
