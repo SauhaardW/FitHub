@@ -10,7 +10,8 @@ const friend_request = require("./friends/friend_request")
 // route endpoints in API to the correct functions
 // as of now, we do not need an endpoint to create new exercises
 // router.post("/api/exercise", exercise.post);
-router.get("/api/exercise/by-musclegroup", exercise.get);
+router.get("/api/exercise/filter", exercise.get);
+router.get("/api/exercise/all", exercise.getAll);
 
 router.post("/api/user", user.post);
 router.get("/api/user", user.get);
