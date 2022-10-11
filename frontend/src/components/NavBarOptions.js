@@ -7,7 +7,7 @@ import { BiDumbbell } from "react-icons/bi";
 export const NavBarOptions = [
     {
         pageTitle: "Home",
-        path: "/",
+        path: "/home",
         className: "nav-option",
         icon: <AiFillHome />,
     },
