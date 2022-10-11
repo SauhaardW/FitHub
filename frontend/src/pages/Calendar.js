@@ -3,7 +3,7 @@ import './Pages.css';
 
 const Calendar = () => {
     return (
-        <div className="page-title">
+        <div className="page-title pages">
             Calendar PAGE
         </div>
     );

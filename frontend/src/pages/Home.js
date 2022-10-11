@@ -3,7 +3,7 @@ import './Pages.css';
 
 const Home = () => {
     return (
-        <div className="page-title">
+        <div className="page-title pages">
             Home PAGE
         </div>
     );

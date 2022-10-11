@@ -52,6 +52,10 @@
     font-size: 14px
 }
 
+.blue-text{
+    color: #0B80ED;
+}
+
 .experience-info{
     border-radius: 20px;
     border: 2px solid #3293EE;

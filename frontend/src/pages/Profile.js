@@ -129,7 +129,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="page-font mx-4">
+        <div className="page-font pages mx-4">
             <div className="font-semibold text-3xl">
                 {myAccountLabel}
             </div>

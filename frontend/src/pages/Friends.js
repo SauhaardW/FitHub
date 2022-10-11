@@ -31,7 +31,7 @@ const Friends = () => {
 
   return (
     <Fragment>
-      <div>
+      <div className="pages">
         <div className="flex justify-between px-4">
           <div className="text-4xl font-semibold">{friend}</div>
           <AiOutlineUsergroupAdd className="w-10 h-10" onClick={()=>{

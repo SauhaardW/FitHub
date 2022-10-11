@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
 import History from "./pages/History";
 import Friends from "./pages/Friends";
+import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import AddFriends from "./pages/AddFriends";
 import Registration from "./components/Form"
@@ -19,8 +20,9 @@ const App = () => {
   return (
       <Router>
         <TopBar />
-        <div className="pages">
+        <div>
           <Routes>
+          <Route exact path="/landing-page" element={<LandingPage />} />
           <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/calendar" element={<Calendar />} />
