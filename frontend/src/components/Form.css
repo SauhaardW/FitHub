@@ -2,23 +2,12 @@
     inset: 0;
 }
 
-.backArrow{
-    inset: 0;
-    position: absolute;
-    top: 50px;
-    left: 10px;
-}
-
 .inputInfo{
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-
     width: 100%;
-
-
     align-items: center;
-
 }
 
 .center{
@@ -26,24 +15,16 @@
 }
 
 .footer{
-
     position:absolute;
     top:90vh;
     transform:translateY(-100%);
     width:100%;
     border-radius: 6px;
-
-
 }
 
 .cont{
     display:flex;
 
-}
-
-.backArrow{
-    margin-left: 20px;
-    transform: scale(1.5);
 }
 
 .progressBar{
@@ -54,8 +35,6 @@
     height: 6px;
     margin: auto;
     border-radius: 6px;
-
-
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
@@ -76,7 +55,6 @@
 .registration_container h1{
     text-align: center;
     font-size:x-large;
-    
     font-weight: bold;
 }
 
@@ -85,7 +63,5 @@
     border-radius: 8px;
     width: 70%;
     margin: auto;
-
-
 }
 

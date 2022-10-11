@@ -70,7 +70,7 @@ const Form = () => {
   return (
     <div className="form vertical-center">
       <div className='cont'>
-        <GrLinkPrevious className='backArrow' onClick={() =>{
+        <GrLinkPrevious className='top-12 left-7 absolute scale-150' onClick={() =>{
               setPage((currentPage) => currentPage-1)
             }}/>
 
