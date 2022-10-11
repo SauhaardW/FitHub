@@ -21,7 +21,20 @@ const connect = (url) => {
 const createSchemas = () => {
     const exerciseSchema = new mongoose.Schema({
         name: {type:String, required:true},
-        instructions: {type:String, required:true},
+        muscles: {type: {
+            target: {type: String}
+        }, required: true},
+        classification: { type: {
+            mechanics: {type: String},
+            force: {type: String},
+            utility: {type: String},
+        }, required: true},
+        comments: {type: String, required: false},
+        gif: {type: String},
+        instructions: { type: {
+            preparation: {type: String},
+            execution: {type: String}
+        }, required: true}
     });
     const exercise = mongoose.model("exercise", exerciseSchema);
     models.exercise = exercise;
