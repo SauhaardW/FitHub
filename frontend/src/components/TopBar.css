@@ -13,6 +13,7 @@
     position: fixed;
     display: flex;
     justify-content: center;
+    align-content: center;
 }
 
 .app-title{
