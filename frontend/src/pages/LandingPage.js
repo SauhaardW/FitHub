@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
 import './Pages.css';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
-
-    const navigate = useNavigate();
 
     useEffect( () => {
         //hide topbar on mount
@@ -18,7 +16,8 @@ const LandingPage = () => {
     return (
         <div className="h-screen mt-0 page-font">
             <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-            className="static object-cover object-center brightness-50 opacity-80 h-full"
+                alt="Experienced gymgoer doing pullups"
+                 className="static object-cover object-center brightness-50 opacity-80 h-full"
             />
             <div className="absolute top-36 w-full text-white flex justify-center">
                 <div className="text-6xl blue-text font-medium">
