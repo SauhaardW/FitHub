@@ -64,8 +64,6 @@ module.exports.get = (req, res) => {
         }
     }
 
-    console.log(query["$and"])
-
     db.models.exercise.find(query, (err, data) => {
         if (err) {
             console.log(`[${dirName}] ERROR: Failed to get ${JSON.stringify(req.query)}`);
