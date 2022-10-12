@@ -21,7 +21,7 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
     }
 
   return (
-    <div className='registration_container'>
+    <div className='registration_container  mt-28'>
       <h1>Lets make you an account!</h1>
 
       <div className='inputInfo'>

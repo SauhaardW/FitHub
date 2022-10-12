@@ -22,7 +22,7 @@ const RegistrationName = ({formData, setFormData, disableNext, setDisableNext}) 
     }
 
     return (
-    <div className='registration_container'>
+    <div className='registration_container mt-28'>
         <h1>What should we call you?</h1>
         <input
             id="name-input"

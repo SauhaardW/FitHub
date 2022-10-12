@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 const RegistrationStats = ({formData, setFormData, disableNext, setDisableNext}) => {
+    const [invalidDataMessage, setInvalidDataMessage] = useState("");
 
     useEffect(() => {
         //Runs on the first render and any time any dependency value changes
@@ -12,14 +13,25 @@ const RegistrationStats = ({formData, setFormData, disableNext, setDisableNext})
     }, [formData.age, formData.weight, formData.height]);
 
     const validateInput = () => {
+        setInvalidDataMessage("** Age, weight, height must be positive numeric values **");
         if (formData.age !== "" && formData.height !== "" && formData.weight !== ""){
-            // the input field type ensures all characters are digits, so it is safe to convert from string to number
-            setFormData({...formData, age: +formData.age, weight: +formData.weight, height: +formData.height })
-            setDisableNext(false)
+            const numberRegex = new RegExp("^[0-9]+$");
+            if (numberRegex.test(formData.age) && numberRegex.test(formData.weight) && numberRegex.test(formData.height)) {
+                setFormData({...formData, age: +formData.age, weight: +formData.weight, height: +formData.height})
+                setDisableNext(false);
+                setInvalidDataMessage("");
+            }else{
+                setDisableNext(true);
+                // setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
+            }
         }
         else if (!disableNext){
-            //when you go back to prev page and clear an input field, then formData.somefield == "", so first if is false but button is enabled
-            setDisableNext(true)
+            //when you go back to prev page and clear an input field, then formData.somefield == "", so first if statement is false but button is enabled
+            setDisableNext(true);
+            // setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
+        }
+        else{
+            // setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
         }
     };
 
@@ -65,10 +77,14 @@ const RegistrationStats = ({formData, setFormData, disableNext, setDisableNext})
                    onChange={(event) => {
                        setFormData({...formData, height: event.target.value })
                    }}
-            />
-            <span className="font-semibold">cm</span>
+                />
+                <span className="font-semibold">cm</span>
+            </div>
         </div>
-        </div>
+
+        {invalidDataMessage && <div className="text-red-500 text-center text-sm mt-12">
+            {invalidDataMessage}
+        </div>}
     </div>
     )
 }
