@@ -17,7 +17,7 @@ module.exports.post = (req, res) => {
             return;
         }
         else if (workout_res == null){
-            workout.save((err, workoutData) => {
+            workout.save((err, workout_data) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Failed to save ${workout.name} for ${workout.username}`);
                     console.log(err);
@@ -25,7 +25,7 @@ module.exports.post = (req, res) => {
                     return;
                 } else {
                     console.log(`[${dirName}] Saving ${workout.name} was successful`);
-                    res.send({data: workoutData, success: true});
+                    res.send({data: workout_data, success: true});
                     return;
                 }
             })
