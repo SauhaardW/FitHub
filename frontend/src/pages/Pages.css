@@ -33,6 +33,13 @@
     font-size: 20px;
 }
 
+.scrollable-div {
+    height: 250px;
+    overflow: auto;
+    margin: 10px;
+    text-align: justify;
+}
+
 .display-mode-input{
     border: none;
     background-color: inherit;
