@@ -43,7 +43,7 @@ const Profile = () => {
         //Runs on the first render and any time any dependency value changes
         validateInput()
         // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
-        // that give warnings but should not be added: disableNext, setDisableNext. If you add new deps consider whether they should be included in deps array of useEffect
+        // that give warnings but should not be added. If you add new deps consider whether they should be included in deps array of useEffect
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [age, weight, height, name, username, experience, email]);
 
