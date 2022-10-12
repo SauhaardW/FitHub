@@ -19,7 +19,7 @@ module.exports.post = (req, res) => {
         else if (workout_res == null){
             workout.save((err, workoutData) => {
                 if (err) {
-                    console.log(`[${dirName}] ERROR: Failed to save ${workout.name}`);
+                    console.log(`[${dirName}] ERROR: Failed to save ${workout.name} for ${workout.username}`);
                     console.log(err);
                     res.send({error: "Error occurred saving the workout", success: false});
                     return;
@@ -31,7 +31,7 @@ module.exports.post = (req, res) => {
             })
         }
         else{
-            res.send({error: "Workout with given name already exists", workoutExists: true, success: false});
+            res.send({error: "Workout with given name already exists for this user", workoutExists: true, success: false});
             return;
         }
     })
