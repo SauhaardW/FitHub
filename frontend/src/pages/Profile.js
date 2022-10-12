@@ -50,7 +50,7 @@ const Profile = () => {
     const validateInput = () => {
         setInvalidDataMessage("")
         if (age !== "" && height !== "" && weight !== "" && name !== "" && email !== "" && username !== "" && experience !== ""){
-            //validate they are all positive integers
+            //validate they are all positive integers since type="number" allows negatives, decimals, etc
             const numberRegex = new RegExp("^[0-9]+$");
             if (numberRegex.test(age) && numberRegex.test(weight) && numberRegex.test(height)){
                 setDisableDoneButton(false)
@@ -62,8 +62,8 @@ const Profile = () => {
         }
         else{
             setDisableDoneButton(true)
+            setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
         }
-
     }
 
     const navigate = useNavigate();
@@ -209,7 +209,7 @@ const Profile = () => {
 
                         <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{ageLabel}</label>
                         <input
-                            type="text"
+                            type="number"
                             className={editMode ? "edit-mode-input" : "display-mode-input"}
                             value={age}
                             onChange={(event) => handleSetAge(event.target.value)}
@@ -223,7 +223,7 @@ const Profile = () => {
                         <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{weightLabel}</label>
                         <div className="flex justify-between">
                             <input
-                                type="text"
+                                type="number"
                                 className={editMode ? "edit-mode-input" : "display-mode-input"}
                                 value={weight}
                                 onChange={(event) => handleSetWeight(event.target.value)}
@@ -240,7 +240,7 @@ const Profile = () => {
                         <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{heightLabel}</label>
                         <div className="flex justify-between">
                             <input
-                                type="text"
+                                type="number"
                                 className={editMode ? "edit-mode-input" : "display-mode-input"}
                                 value={height}
                                 onChange={(event) => handleSetHeight(event.target.value)}
