@@ -26,5 +26,6 @@ router.post("/api/accept-friend-request", friend_request.accept_friendRequest)
 router.get("/api/get-friend-requests", friend_request.get_friendRequests)
 
 router.post("/api/create-workout", workout.post);
+router.get("/api/get-workouts", workout.getUserWorkouts);
 
 module.exports = router;
