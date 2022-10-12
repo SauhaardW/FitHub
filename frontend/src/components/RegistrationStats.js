@@ -22,16 +22,11 @@ const RegistrationStats = ({formData, setFormData, disableNext, setDisableNext})
                 setInvalidDataMessage("");
             }else{
                 setDisableNext(true);
-                // setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
             }
         }
         else if (!disableNext){
             //when you go back to prev page and clear an input field, then formData.somefield == "", so first if statement is false but button is enabled
             setDisableNext(true);
-            // setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
-        }
-        else{
-            // setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
         }
     };
 
