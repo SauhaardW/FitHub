@@ -43,13 +43,15 @@ module.exports.post = (req, res) => {
 
 module.exports.get = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
-
     db.models.user.find(req.query, (err, data) => {
         if (err) {
             console.log(`[${dirName}] ERROR: Failed to get ${JSON.stringify(req.query)}`);
             console.log(err);
             res.send({success: false, error: err});
-        } else {
+        } else if (data == null){
+            res.send({error: `${username} does not exist`, success: false});
+            return;
+        }else {
             console.log(`[${dirName}] Getting ${JSON.stringify(req.query)} was successful`);
             res.send({success: true, data: data});
         }
@@ -67,7 +69,10 @@ module.exports.getCurrentUserData = (req, res) => {
                 console.log(`[${dirName}] ERROR: Failed to get ${username}`);
                 console.log(err);
                 res.send({success: false, error: err});
-            } else {
+            }else if (data == null){
+                res.send({error: `${username} does not exist`, success: false});
+                return;
+            }else {
                 console.log(`[${dirName}] Getting ${username} was successful`);
                 res.send({success: true, data: data});
             }

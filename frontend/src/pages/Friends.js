@@ -8,18 +8,25 @@ import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const Friends = () => {
-  const [data, setData] = useState([]);
+  const [friends, setFriends] = useState([]);
 
-  function getfriendsData() {
+  useEffect(() => {
+    getFriendsData();
+    getFriendRequests();
+  }, []);
+
+  function getFriendsData() {
     const url = "http://localhost:3001/api/current-user"
     axios.get(url).then((res) => {
-        setData(res.data.data.friends);
+      setFriends(res.data.data.friends);
     });
   }
 
-  useEffect(() => {
-    getfriendsData();
-  }, []);
+  const getFriendRequests = () => {
+    const url = "http://localhost:3001/api/get-friend-requests"
+    axios.get(url).then((res) => {
+    });
+  }
 
   const navigate = useNavigate();
 
@@ -45,7 +52,7 @@ const Friends = () => {
         />
 
         <ul className="m-5 grid grid-justify-center">
-          {data === undefined ? <div key="None" className=" text-black font-bold text-3xl">No friends to display</div> : data.map((friend) => {
+          {friends === undefined ? <div key="None" className=" text-black font-bold text-3xl">No friends to display</div> : friends.map((friend) => {
             return (
               <li key={friend} className="px-4">
                 <div
