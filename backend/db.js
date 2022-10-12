@@ -39,6 +39,14 @@ const createSchemas = () => {
     const exercise = mongoose.model("exercise", exerciseSchema);
     models.exercise = exercise;
 
+    const workoutSchema = new mongoose.Schema({
+        name: {type:String, required:true},
+        username: {type:String, required:true},
+        exercises: {type:[{type: String, required: true}], required:true}
+    });
+    const workout = mongoose.model("workout", workoutSchema);
+    models.workout = workout;
+
     const userSchema = new mongoose.Schema({
         name: {type:String, required:true},
         username: {type:String, required:true},
