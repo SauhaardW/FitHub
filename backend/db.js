@@ -39,6 +39,18 @@ const createSchemas = () => {
     const exercise = mongoose.model("exercise", exerciseSchema);
     models.exercise = exercise;
 
+    const workoutSchema = new mongoose.Schema({
+        name: {type:String, required:true},
+        username: {type:String, required:true},
+        exercises: [{
+            name: {type:String, required:true},
+            sets: [[Number, Number], [Number, Number], [Number, Number], [Number, Number]]
+            // sublists are the 4 sets with most recent stats for that workout (where index 0 is reps, index 1 is weight)
+        }]
+    });
+    const workout = mongoose.model("workout", workoutSchema);
+    models.workout = workout;
+
     const userSchema = new mongoose.Schema({
         name: {type:String, required:true},
         username: {type:String, required:true},
