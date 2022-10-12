@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import { MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { usernameLabel, nameLabel, logOut, invalidUserData, emailLabel, ageLabel, weightLabel, heightLabel, experienceLabel, editLabel, doneLabel, myAccountLabel, poundsLabel, centimetersLabel } from './../strings'
+import { usernameLabel, nameLabel, emailLabel, ageLabel, weightLabel, heightLabel, experienceLabel, editLabel, myAccountLabel, poundsLabel, centimetersLabel } from './../strings'
 import 'react-dropdown/style.css';
 import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
@@ -22,7 +22,7 @@ const Profile = () => {
 
     const [invalidDataMessage, setInvalidDataMessage] = useState("");
     const [disableDoneButton, setDisableDoneButton] = useState("")
-    const [cookies, setCookie, removeCookie] = useCookies();
+    const [,, removeCookie] = useCookies();
 
     useEffect( () => {
         // Anything in here is fired on component mount.
@@ -42,13 +42,16 @@ const Profile = () => {
     useEffect(() => {
         //Runs on the first render and any time any dependency value changes
         validateInput()
+        // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
+        // that give warnings but should not be added: disableNext, setDisableNext. If you add new deps consider whether they should be included in deps array of useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [age, weight, height, name, username, experience, email]);
 
     const validateInput = () => {
         setInvalidDataMessage("")
-        if (age != "" && height != "" && weight != "" && name != "" && email != "" && username != "" && experience != ""){
+        if (age !== "" && height !== "" && weight !== "" && name !== "" && email !== "" && username !== "" && experience !== ""){
             //validate they are all positive integers
-            const numberRegex = new RegExp("^[0-9]+$"); // need this regex check because type=number prop for input fields allows negatives, decimals, etc
+            const numberRegex = new RegExp("^[0-9]+$");
             if (numberRegex.test(age) && numberRegex.test(weight) && numberRegex.test(height)){
                 setDisableDoneButton(false)
             }
@@ -123,24 +126,6 @@ const Profile = () => {
             setExperience(experienceOptions[0]);
             console.log(err);
         });
-    };
-
-    const getEditOrDoneButton = () => {
-        if (!editMode) {
-            return (
-                <>
-                    {editLabel}
-                    < MdEdit />
-                </>
-            )
-        }
-        else {
-            return (
-                <div className={"done-button px-4 font-semibold text-white"}>
-                    {doneLabel}
-                </div>
-            )
-        }
     };
 
     return (
@@ -224,7 +209,7 @@ const Profile = () => {
 
                         <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{ageLabel}</label>
                         <input
-                            type="number"
+                            type="text"
                             className={editMode ? "edit-mode-input" : "display-mode-input"}
                             value={age}
                             onChange={(event) => handleSetAge(event.target.value)}
@@ -238,7 +223,7 @@ const Profile = () => {
                         <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{weightLabel}</label>
                         <div className="flex justify-between">
                             <input
-                                type="number"
+                                type="text"
                                 className={editMode ? "edit-mode-input" : "display-mode-input"}
                                 value={weight}
                                 onChange={(event) => handleSetWeight(event.target.value)}
@@ -255,7 +240,7 @@ const Profile = () => {
                         <label className={editMode ? "edit-mode-label" : "display-mode-label"}>{heightLabel}</label>
                         <div className="flex justify-between">
                             <input
-                                type="number"
+                                type="text"
                                 className={editMode ? "edit-mode-input" : "display-mode-input"}
                                 value={height}
                                 onChange={(event) => handleSetHeight(event.target.value)}
