@@ -2,9 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import "./Pages.css";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { friend } from "./../strings";
-import { addfriend } from "./../strings";
 import { schedule } from "./../strings";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +58,7 @@ const Friends = () => {
 
           <div className="scrollable-div">
             <ul className="grid grid-justify-center">
-              {(friends === undefined || friends == null || friends.length == 0) ? <div key="None" className="text-black text-sm p-2">No friends to display!</div> : friends.map((friend) => {
+              {(friends === undefined || friends === null || friends.length === 0) ? <div key="None" className="text-black text-sm p-2">No friends to display!</div> : friends.map((friend) => {
                 return (
                     <li key={friend}>
                       <div
@@ -91,7 +89,7 @@ const Friends = () => {
 
           <div className="scrollable-div">
             <ul className="grid grid-justify-center">
-              {(friendRequests === undefined || friendRequests == null || friendRequests.length == 0) ? <div key="None" className="text-black text-sm p-2">No friend requests to display!</div> : friendRequests.map((request) => {
+              {(friendRequests === undefined || friendRequests === null || friendRequests.length === 0) ? <div key="None" className="text-black text-sm p-2">No friend requests to display!</div> : friendRequests.map((request) => {
                 return (
                     <li key={request}>
                       <div
