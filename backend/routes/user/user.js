@@ -27,7 +27,7 @@ module.exports.post = (req, res) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
                     console.log(err);
-                    res.send({userData: userData, success: false});
+                    res.send({error: "Error occurred saving the user", success: false});
                 } else {
                     console.log(`[${dirName}] Saving ${user.username} was successful`);
                     res.send({userData: userData, success: true});
