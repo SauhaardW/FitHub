@@ -22,5 +22,6 @@ router.post("/api/login", login.post);
 
 router.post("/api/send-friend-request", friend_request.send_friendRequest)
 router.post("/api/accept-friend-request", friend_request.accept_friendRequest)
+router.get("/api/get-friend-requests", friend_request.get_friendRequests)
 
 module.exports = router;
