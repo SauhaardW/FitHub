@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./Pages.css";
 import { scheduleWorkout } from "./../strings";
+import axios from "axios";
 
 const ScheduleWorkout = () => {
   const [workout, setWorkout] = useState("");
   const [withFriend, setWithFriend] = useState(false);
+  const [searchResult, setSearchResult] = useState("");
+  const [searchResultData, setSearchResultData] = useState([]);
 
   function scheduleWithFriend(event) {
     if (event.target.value === "Yes") {
@@ -12,6 +15,13 @@ const ScheduleWorkout = () => {
     } else if (event.target.value === "No") {
       setWithFriend(false);
     }
+  }
+
+  function getSearchResult(query) {
+    const url = "http://localhost:3001/api/current-user";
+    axios.get(url).then((res) => {
+      setSearchResultData(res.data.data.friends);
+    });
   }
 
   return (
@@ -49,7 +59,7 @@ const ScheduleWorkout = () => {
           <input
             className="px-3 rounded-l"
             type="date"
-            onChange={(event) => event.target.value}
+            onChange={(event) => event.target.value} //Need to send data to backend
           />
         </div>
         <hr
@@ -65,7 +75,7 @@ const ScheduleWorkout = () => {
           <input
             className="px-3 rounded-l"
             type="time"
-            onChange={(event) => event.target.value}
+            onChange={(event) => event.target.value} //Need to send data to backend
           />
         </div>
         <hr
@@ -93,15 +103,44 @@ const ScheduleWorkout = () => {
           }}
         />
         {withFriend && (
-          <div className="flex">
-            <input
-              className="flex p-2 m-5 bg-gray-200 outline outline-1 outline-gray-300 rounded-lg w-8/12 text-gray-500"
-              type="text"
-              placeholder="Search Username"
-            />
-            <button className="block p-auto mr-5 my-5 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold">
-              Search
-            </button>
+          <div>
+            <div className="flex">
+              <input
+                className="flex p-2 m-5 bg-gray-200 outline outline-1 outline-gray-300 rounded-lg w-8/12 text-gray-500"
+                type="text"
+                placeholder="Search Username"
+                onChange={(event) => setSearchResult(event.target.value)}
+              />
+              <button
+                className="block p-auto mr-5 my-5 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
+                onClick={() => getSearchResult(searchResult)}
+              >
+                Search
+              </button>
+            </div>
+            <div>
+              {searchResultData
+                .filter((friend) =>
+                  friend.toLowerCase().includes(searchResult.toLowerCase())
+                )
+                .map((friend) => {
+                  return (
+                    <li
+                      key={friend}
+                      className="flex justify-between px-7 py-5 mx-5 my-3 bg-gray-100 outline outline-1 outline-gray-500 rounded-lg"
+                    >
+                      <div>
+                        <p className="font-bold text-2xl text-sky-500">
+                          {friend}
+                        </p>
+                      </div>
+                      <button className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-4/12 text-white font-semibold">
+                        Schedule
+                      </button>
+                    </li>
+                  );
+                })}
+            </div>
           </div>
         )}
       </div>
