@@ -8,6 +8,12 @@ module.exports.post = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body.username)}`);
 
     var userData = req.body;
+
+    if (userData.username === "FitHub"){
+        res.send({error: "Can not use username FitHub", userExists: true, success: false});
+        return;
+    }
+
     var salt = bcrypt.genSaltSync(10);
     userData.password = bcrypt.hashSync(userData.password, salt);
 
