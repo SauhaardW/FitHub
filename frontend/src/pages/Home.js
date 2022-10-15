@@ -6,7 +6,7 @@ const Home = () => {
 
     useEffect( () => {
         // Anything in here is fired on component mount.
-        const url = "http://localhost:3001/api/get-workouts"
+        const url = "http://localhost:3001/api/workouts"
         axios.get(url).then(res => {
            console.log(res.data.data)
         })
