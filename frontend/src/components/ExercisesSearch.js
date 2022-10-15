@@ -66,14 +66,14 @@ const ExercisesSearch = ({exerciseSetter}) => {
     function getExercises() {
         axios.get("http://localhost:3001/api/exercise/filter", {
             params: {
-                muscles: muscleSelectVal,
-                mechanics: mechanicsSelectVal,
-                force: forceSelectVal,
-                utility: utilitySelectVal,
+                muscles: muscleSelectVal.map(x=>x.value),
+                mechanics: mechanicsSelectVal.map(x=>x.value),
+                force: forceSelectVal.map(x=>x.value),
+                utility: utilitySelectVal.map(x=>x.value),
                 name: nameSearchVal
             }
         }).then((res) => {
-            exerciseSetter(res.data.data)
+            exerciseSetter(res.data.data.map(ex=>ex.name))
         })
     }
 

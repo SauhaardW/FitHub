@@ -12,6 +12,7 @@ const CreateWorkout = () => {
     return (
         <div className="container">
             <ExercisesSearch exerciseSetter={setExercises}/>
+            {exercises}
         </div>
         
     );
