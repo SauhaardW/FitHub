@@ -7,7 +7,7 @@ function AddFriends() {
 
   function getSearchResults(query) {
     axios
-      .get("http://localhost:3001/api/user", {
+      .get("/api/user", {
         params: {
           name: query,
         },
@@ -18,7 +18,7 @@ function AddFriends() {
   }
 
   function sendFriendRequest(username) {
-    axios.post("http://localhost:3001/api/send-friend-request", {
+    axios.post("/api/send-friend-request", {
       username: username,
     });
   }

@@ -13,7 +13,7 @@ const Friends = () => {
   const [data, setData] = useState([]);
 
   function getfriendsData() {
-    const url = "http://localhost:3001/api/current-user"
+    const url = "/api/current-user"
     axios.get(url).then((res) => {
         setData(res.data.data.friends);
     });

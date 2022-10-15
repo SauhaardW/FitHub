@@ -27,7 +27,7 @@ const Login = () => {
             password: passwordInput
         }
         console.log(payload)
-        axios.post("http://localhost:3001/api/login", payload).then( (res) => {
+        axios.post("/api/login", payload).then( (res) => {
             if (res.status === 200) {
                 var data = res.data;
                 if (data.success) {

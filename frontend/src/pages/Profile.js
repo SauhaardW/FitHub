@@ -25,7 +25,7 @@ const Profile = () => {
 
     useEffect( () => {
         // Anything in here is fired on component mount.
-        const url = "http://localhost:3001/api/current-user"
+        const url = "/api/current-user"
         axios.get(url).then(res => {
             const userData = res.data.data
 
@@ -88,7 +88,7 @@ const Profile = () => {
     };
 
     const updateUserData = () => {
-        const url = "http://localhost:3001/api/current-user"
+        const url = "/api/current-user"
         const newUserData = {
             name: name,
             email: email,

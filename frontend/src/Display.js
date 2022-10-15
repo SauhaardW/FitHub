@@ -9,7 +9,7 @@ const Display = () => {
     function handleClick(event){
         event.preventDefault();
         
-        axios.get('http://localhost:3001/api/exercises').then(res => {
+        axios.get('/api/exercises').then(res => {
             setState(res.data);
             console.log(res.data)
         })

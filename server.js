@@ -27,7 +27,6 @@ const router = require("./routes/handler")
 app.use("/", router)
 
 
-
 // Heroku deploy
 const path = require("path");
 app.use(express.static(path.join(__dirname, "frontend", "build")))

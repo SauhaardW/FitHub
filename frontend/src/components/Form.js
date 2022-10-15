@@ -35,7 +35,7 @@ const Form = () => {
   }, []);
 
   const registerUser = () => {
-    axios.post("http://localhost:3001/api/user", formData).then(res => {
+    axios.post("/api/user", formData).then(res => {
       if (res.status === 200){
         if (res.data.success){
           navigate('/login');
