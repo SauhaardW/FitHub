@@ -13,6 +13,7 @@ import Registration from "./components/Form";
 import "./pages/Pages.css";
 import axios from "axios";
 import ScheduleWorkout from "./pages/ScheduleWorkout";
+import CreateWorkout from "./pages/CreateWorkout";
 
 // Use cookies in requests
 axios.defaults.withCredentials = true;
@@ -37,6 +38,7 @@ const App = () => {
           <Route exact path="/friends/add-friends" element={<AddFriends />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/home" element={<Home />} />
+          <Route exact path="/workouts/create" element={<CreateWorkout />} />
         </Routes>
       </div>
     </Router>

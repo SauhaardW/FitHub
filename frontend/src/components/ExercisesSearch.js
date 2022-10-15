@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import Select from 'react-select';
 import {MdFilterList} from "react-icons/md";
 import "./ExercisesSearch.css";
+import axios from 'axios';
 
-const ExercisesSearch = () => {
+const ExercisesSearch = ({exerciseSetter}) => {
     const [muscleSelectVal, setMuscleSelectVal] = useState([]);
     const [forceSelectVal, setForceSelectVal] = useState([]);
     const [mechanicsSelectVal, setMechanicsSelectVal] = useState([]);
@@ -61,6 +62,20 @@ const ExercisesSearch = () => {
         { value: 'Auxiliary', label: 'Auxiliary' },
         { value: 'Basic', label: 'Basic' },
     ]
+
+    function getExercises() {
+        axios.get("http://localhost:3001/api/exercise/filter", {
+            params: {
+                muscles: muscleSelectVal.map(x=>x.value),
+                mechanics: mechanicsSelectVal.map(x=>x.value),
+                force: forceSelectVal.map(x=>x.value),
+                utility: utilitySelectVal.map(x=>x.value),
+                name: nameSearchVal
+            }
+        }).then((res) => {
+            exerciseSetter(res.data.data.map(ex=>ex.name))
+        })
+    }
 
     return (
         <div className="container mt-60 p-2">
@@ -123,17 +138,11 @@ const ExercisesSearch = () => {
                 </div>
 
             <button
-                    className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
-                    onClick={() => {
-                        console.log(muscleSelectVal);
-                        console.log(utilitySelectVal);
-                        console.log(forceSelectVal);
-                        console.log(mechanicsSelectVal);
-                        console.log(nameSearchVal);
-                    }}
-                >
-                    Search
-                </button>
+                className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
+                onClick={(e) => { getExercises() }}
+            >
+                Search
+            </button>
         </div>
     );
 

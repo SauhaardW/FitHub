@@ -37,9 +37,9 @@ module.exports.getAll = (req, res) => {
 module.exports.get = (req, res) => {
     // Accepts a query similar to:
     // muscles=["Quadriceps", "Deltoid, Anterior"]
-    // mechanics="Isolated"
-    // force="Pull"
-    // utility="Auxiliary"
+    // mechanics=["Isolated"]
+    // force=["Pull"]
+    // utility=["Auxiliary"]
     // name="Bench Press"
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
 
@@ -58,7 +58,7 @@ module.exports.get = (req, res) => {
                 } else if (key == "name") {
                     query['$and'].push({[key]: { $regex: ".*" + req.query[key] + ".*", $options: 'i' }});
                 } else {
-                    query['$and'].push({['classification.'+key]: { $regex: ".*" + req.query[key] + ".*", $options: 'i' }});
+                    query['$and'].push({['classification.'+key]: { $regex: ".*(" + req.query[key].join("|") + ").*", $options: 'i' }});
                 }
             }
         }
