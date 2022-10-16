@@ -42,7 +42,7 @@ const createSchemas = () => {
     const workoutSchema = new mongoose.Schema({
         name: {type:String, required:true},
         username: {type:String, required:true},
-        exercises: {type:[{type: String, required: true}], required:true},
+        exercises: {type:[{type: mongoose.Schema.Types.ObjectId, required: true}], required:true},
         experience: {type: String},
     });
     const workout = mongoose.model("workout", workoutSchema);
