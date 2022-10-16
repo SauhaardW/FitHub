@@ -1,5 +1,6 @@
 const db = require("../../db")
 const utils = require("../../utils")
+const mongoose = require("mongoose")
 
 const dirName = utils.getDirName(__dirname)
 
@@ -58,26 +59,40 @@ module.exports.getUserWorkouts = (req, res) => {
             }else {
                 console.log(`[${dirName}] Getting ${username} was successful`);
 
-                db.models.workout.find({
-                    $or: [{username: "FitHub", experience: data.experience}, {username: username}],
-                }, (err, workout_data) => {
-                    if (err) {
-                        console.log(`[${dirName}] ERROR: Failed to get workouts for ${username}`);
-                        console.log(err);
-                        res.send({success: false, error: err});
-                        return;
-                    } else if (workout_data == null){
-                        console.log(`[${dirName}] No workouts exist for ${username}`);
-                        res.send({success: true, data: null});
-                        return;
-                    }else {
-                        console.log(`[${dirName}] Getting workouts for ${username} was successful`);
-                        res.send({success: true, data: workout_data});
+
+                mongoose.connection.db.collection('workouts').aggregate([
+                    {
+                        $match: {
+                            $or: [{username: "FitHub", experience: data.experience}, {username: username}],
+
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: 'exercises',
+                            localField: 'exercises',
+                            foreignField: '_id',
+                            as: 'exercises_info'
+                        }
+                    },
+                    {
+                        $project: {
+                            "_id": 1,
+                            "name": 1,
+                            "username": 1,
+                            "exercises": 1,
+                            "experience": 1,
+                            "exercises_info.name": 1,
+                        }
                     }
+                ]).toArray(function (err, data) {
+                    if (err){
+                     console.log("Error converting collection to array");
+                    }
+                    res.send({success: true, data: data});
                 });
             }
         });
-
-
     });
-}
+};
+
