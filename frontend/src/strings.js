@@ -18,3 +18,4 @@ export const addfriend = "+ Add Friend";
 export const schedule = "Schedule";
 export const scheduleWorkout = "Schedule Workout";
 export const calendar = "Calendar";
+export const CreateWorkout = "Create Workout";
