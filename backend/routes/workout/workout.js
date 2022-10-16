@@ -39,7 +39,6 @@ module.exports.post = (req, res) => {
     })
 }
 
-
 module.exports.getUserWorkouts = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
 
@@ -59,15 +58,15 @@ module.exports.getUserWorkouts = (req, res) => {
             }else {
                 console.log(`[${dirName}] Getting ${username} was successful`);
 
-
-                mongoose.connection.db.collection('workouts').aggregate([
-                    {
-                        $match: {
-                            $or: [{username: "FitHub", experience: data.experience}, {username: username}],
-
-                        }
-                    },
-                    {
+                let stages = [{
+                    $match: {
+                        $or: [{username: "FitHub", experience: data.experience}, {username: username}],
+                    }
+                }]
+                if (req.query.subset === "true"){
+                    stages.push({ $limit : 5 })
+                }
+                stages.push({
                         $lookup: {
                             from: 'exercises',
                             localField: 'exercises',
@@ -84,10 +83,11 @@ module.exports.getUserWorkouts = (req, res) => {
                             "experience": 1,
                             "exercises_info.name": 1,
                         }
-                    }
-                ]).toArray(function (err, data) {
+                    })
+
+                mongoose.connection.db.collection('workouts').aggregate(stages).toArray(function (err, data) {
                     if (err){
-                     console.log("Error converting collection to array");
+                        console.log("Error converting collection to array");
                     }
                     res.send({success: true, data: data});
                 });
@@ -95,4 +95,3 @@ module.exports.getUserWorkouts = (req, res) => {
         });
     });
 };
-
