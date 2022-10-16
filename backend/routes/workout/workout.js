@@ -84,8 +84,6 @@ module.exports.getUserWorkouts = (req, res) => {
                             "exercises_info.name": 1,
                         }
                     })
-                console.log(stages)
-
 
                 mongoose.connection.db.collection('workouts').aggregate(stages).toArray(function (err, data) {
                     if (err){
