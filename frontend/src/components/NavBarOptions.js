@@ -3,6 +3,7 @@ import { BsFillCalendarFill } from "react-icons/bs";
 import { IoMdPerson } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { BiDumbbell } from "react-icons/bi";
+import { BiStats } from "react-icons/bi";
 
 export const NavBarOptions = [
     {
@@ -18,10 +19,16 @@ export const NavBarOptions = [
         icon: <FaUserFriends />,
     },
     {
+        pageTitle: "Workouts",
+        path: "/workouts",
+        className: "nav-option",
+        icon: <BiDumbbell />,
+    },
+    {
         pageTitle: "History",
         path: "/history",
         className: "nav-option",
-        icon: <BiDumbbell />,
+        icon: <BiStats />,
     },
     {
         pageTitle: "Calendar",
