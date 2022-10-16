@@ -41,15 +41,9 @@
 }
 
 .horizontal-scrollable-div {
-    /*height: 200px;*/
-    /*overflow: auto;*/
-    /*margin: 10px;*/
-    /*text-align: justify;*/
-
     width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
-    /*height: 20px;*/
 }
 
 .display-mode-input{
