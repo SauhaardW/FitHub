@@ -31,7 +31,6 @@ const Home = () => {
                     }
                 })
                 workout.exercisesString = exercises;
-                console.log(workout)
 
                 if (workout.username === "FitHub"){
                     recWorkouts.push(workout)
