@@ -86,7 +86,9 @@ module.exports.getUserWorkouts = (req, res) => {
                         }
                     }
                 ]).toArray(function (err, data) {
-                    if (err) throw err;
+                    if (err){
+                     console.log("Error converting collection to array");
+                    }
                     res.send({success: true, data: data});
                 });
             }
