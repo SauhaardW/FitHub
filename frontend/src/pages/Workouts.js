@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 
-const Home = () => {
+const Workouts = () => {
     const navigate = useNavigate();
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
@@ -121,4 +121,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Workouts;
