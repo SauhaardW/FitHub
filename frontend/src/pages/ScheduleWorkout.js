@@ -6,8 +6,8 @@ import axios from "axios";
 const ScheduleWorkout = () => {
   const [workout, setWorkout] = useState("");
   const [withFriend, setWithFriend] = useState(false);
-  const [searchResult, setSearchResult] = useState("");
-  const [searchResultData, setSearchResultData] = useState([]);
+  const [searchFor, setSearchFor] = useState("");
+  const [friendsData, setFriendsData] = useState([]);
 
   function scheduleWithFriend(event) {
     if (event.target.value === "Yes") {
@@ -20,7 +20,7 @@ const ScheduleWorkout = () => {
   function getSearchResult() {
     const url = "http://localhost:3001/api/current-user";
     axios.get(url).then((res) => {
-      setSearchResultData(res.data.data.friends);
+      setFriendsData(res.data.data.friends);
     });
   }
 
@@ -115,14 +115,14 @@ const ScheduleWorkout = () => {
                 type="text"
                 placeholder="Search Username"
                 onChange={(event) => {
-                  setSearchResult(event.target.value);
+                  setSearchFor(event.target.value);
                 }}
               />
             </div>
             <div>
-              {searchResultData
+              {friendsData
                 .filter((friend) =>
-                  friend.toLowerCase().includes(searchResult.toLowerCase())
+                  friend.toLowerCase().includes(searchFor.toLowerCase())
                 )
                 .map((friend) => {
                   return (
