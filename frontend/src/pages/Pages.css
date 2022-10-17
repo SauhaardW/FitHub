@@ -40,6 +40,12 @@
     text-align: justify;
 }
 
+.horizontal-scrollable-div {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
 .display-mode-input{
     border: none;
     background-color: inherit;
