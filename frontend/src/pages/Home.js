@@ -23,21 +23,8 @@ const Home = () => {
         axios.get(url).then(res => {
            const data = res.data.data;
             data.forEach(workout => {
-                let exercises = "";
-                workout.exercises_info.forEach((exercise, index) => {
-                    exercises += exercise.name
-                    if (index !== workout.exercises_info.length - 1){
-                        exercises += ", "
-                    }
-                })
-                workout.exercisesString = exercises;
-
-                if (workout.username === "FitHub"){
-                    recWorkouts.push(workout)
-                }
-                else{
-                    myWorkouts.push(workout)
-                }
+                workout.exercisesString = workout.exercises_info.map(exercise => exercise.name).join(", ");
+                workout.username === "FitHub" ? recWorkouts.push(workout) : myWorkouts.push(workout);
             })
             setUserWorkouts(myWorkouts);
             setRecommendedWorkouts(recWorkouts)
