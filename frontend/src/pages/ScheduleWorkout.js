@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Pages.css";
 import { scheduleWorkout } from "./../strings";
 import axios from "axios";
@@ -17,12 +17,16 @@ const ScheduleWorkout = () => {
     }
   }
 
-  function getSearchResult(query) {
+  function getSearchResult() {
     const url = "http://localhost:3001/api/current-user";
     axios.get(url).then((res) => {
       setSearchResultData(res.data.data.friends);
     });
   }
+
+  useEffect(() => {
+    getSearchResult();
+  }, []);
 
   return (
     <div className="page-title pages">
@@ -38,13 +42,10 @@ const ScheduleWorkout = () => {
       <div className="block mx-5 mt-2">
         <p className="text-xl font-semibold mt-2 mb-1">Choose a workout</p>
         <select
-          //   onChange={(event) => setWorkout({ workout: event.target.value })}
           onChange={(event) => setWorkout(event.target.value)}
-          className="flex px-4 py-4 outline outline-1 outline-gray-500 rounded-xl bg-gray-200 w-full"
+          className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
         >
-          <option select disabled>
-            Please select an option:
-          </option>
+          <option disabled>Please select an option:</option>
         </select>
       </div>
       <hr
@@ -102,21 +103,21 @@ const ScheduleWorkout = () => {
             borderColor: "black",
           }}
         />
-        {withFriend && (
+        {!withFriend ? (
+          <button className="absolute bottom-10 bg-default-gradient text-white text-xl py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded-xl">
+            Schedule
+          </button>
+        ) : (
           <div>
             <div className="flex">
               <input
-                className="flex p-2 m-5 bg-gray-200 outline outline-1 outline-gray-300 rounded-lg w-8/12 text-gray-500"
+                className="flex p-2 mx-5 mt-5 mb-1 bg-gray-200 outline outline-1 outline-gray-300 rounded-lg w-full text-gray-500"
                 type="text"
                 placeholder="Search Username"
-                onChange={(event) => setSearchResult(event.target.value)}
+                onChange={(event) => {
+                  setSearchResult(event.target.value);
+                }}
               />
-              <button
-                className="block p-auto mr-5 my-5 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
-                onClick={() => getSearchResult(searchResult)}
-              >
-                Search
-              </button>
             </div>
             <div>
               {searchResultData
@@ -127,19 +128,24 @@ const ScheduleWorkout = () => {
                   return (
                     <li
                       key={friend}
-                      className="flex justify-between px-7 py-5 mx-5 my-3 bg-gray-100 outline outline-1 outline-gray-500 rounded-lg"
+                      className="flex justify-between p-7 mx-5 my-3 bg-gray-100 outline outline-1 outline-gray-500 rounded-lg"
                     >
                       <div>
                         <p className="font-bold text-2xl text-sky-500">
                           {friend}
                         </p>
                       </div>
-                      <button className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-4/12 text-white font-semibold">
-                        Schedule
+                      <button className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold">
+                        Add
                       </button>
                     </li>
                   );
                 })}
+            </div>
+            <div className="block mx-5">
+              <button className=" px-10 py-4 rounded-xl bg-default-gradient text-xl text-white w-full rounded-xl">
+                Schedule
+              </button>
             </div>
           </div>
         )}
