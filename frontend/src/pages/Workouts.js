@@ -81,7 +81,7 @@ const Workouts = () => {
                         <ul>
                             { recommendedWorkouts.map((workout) => {
                                 return (
-                                    <li key={workout.name} className="flex justify-between p-3 m-1 outline outline-1 outline-[#3898F2] rounded">
+                                    <li key={workout.name} className="flex justify-between p-3 m-1 mb-2 outline outline-1 outline-[#3898F2] rounded">
                                         <div
                                             key={workout.name}
                                             className="text-[#3898F2]"
