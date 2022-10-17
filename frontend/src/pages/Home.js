@@ -50,7 +50,6 @@ const Home = () => {
                         <ul className="flex">
                             {userWorkouts.map((workout) => {
                                 return (
-                                    //change outline colour
                                     <li key={workout.name} className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
                                         <div
                                             key={workout.name}
