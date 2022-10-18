@@ -8,6 +8,25 @@ const ScheduleWorkout = () => {
   const [withFriend, setWithFriend] = useState(false);
   const [searchFor, setSearchFor] = useState("");
   const [friendsData, setFriendsData] = useState([]);
+  const [userWorkouts, setUserWorkouts] = useState([]);
+  const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
+
+  useEffect(() => {
+    const myWorkouts = [];
+    const recWorkouts = [];
+
+    const url = "http://localhost:3001/api/workouts?subset=false";
+    axios.get(url).then((res) => {
+      const data = res.data.data;
+      data.forEach((workout) => {
+        workout.username === "FitHub"
+          ? recWorkouts.push(workout)
+          : myWorkouts.push(workout);
+      });
+      setUserWorkouts(myWorkouts);
+      setRecommendedWorkouts(recWorkouts);
+    });
+  }, []);
 
   function scheduleWithFriend(event) {
     if (event.target.value === "Yes") {
