@@ -4,7 +4,7 @@ import { scheduleWorkout } from "./../strings";
 import axios from "axios";
 
 const ScheduleWorkout = () => {
-  const [workout, setWorkout] = useState("");
+  //const [workout, setWorkout] = useState("");
   const [withFriend, setWithFriend] = useState(false);
   const [searchFor, setSearchFor] = useState("");
   const [friendsData, setFriendsData] = useState([]);
@@ -61,10 +61,17 @@ const ScheduleWorkout = () => {
       <div className="block mx-5 mt-2">
         <p className="text-xl font-semibold mt-2 mb-1">Choose a workout</p>
         <select
-          onChange={(event) => setWorkout(event.target.value)}
+          // onChange={(event) => setWorkout(event.target.value)}
           className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
         >
-          <option disabled>Please select an option:</option>
+          <option disabled>Created by You:</option>
+          {userWorkouts.map((workout) => {
+            return <option key={workout._id}>{workout.name}</option>;
+          })}
+          <option disabled>Created by FitHub:</option>
+          {recommendedWorkouts.map((workout) => {
+            return <option key={workout._id}>{workout.name}</option>;
+          })}
         </select>
       </div>
       <hr
