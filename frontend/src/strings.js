@@ -19,3 +19,5 @@ export const schedule = "Schedule";
 export const scheduleWorkout = "Schedule Workout";
 export const calendar = "Calendar";
 export const CreateWorkout = "Create Workout";
+export const Create = "Create";
+export const workoutcreate = "What should we call your workout?";
