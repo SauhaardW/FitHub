@@ -41,7 +41,7 @@ const Home = () => {
 
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
 
-                {userWorkouts !== null && userWorkouts !== undefined && userWorkouts !== [] && <div>
+                {userWorkouts !== null && userWorkouts !== undefined && userWorkouts.length !== 0 && <div>
                     <div className="text-md m-1 font-semibold">
                         YOUR WORKOUTS
                     </div>
@@ -77,7 +77,7 @@ const Home = () => {
                     </div>
                 </div>}
 
-                {recommendedWorkouts !== null && recommendedWorkouts !== undefined && recommendedWorkouts !== [] && <div>
+                {recommendedWorkouts !== null && recommendedWorkouts !== undefined && recommendedWorkouts.length !== 0 && <div>
                     <div className="text-md m-1 mt-3 font-semibold">
                         OUR WORKOUTS
                     </div>
