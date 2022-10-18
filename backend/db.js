@@ -59,6 +59,11 @@ const createSchemas = () => {
         experience: {type:String, required:true},
         friend_requests: [String],
         friends: [String],
+        scheduled_workouts: [{
+            workoutID: {type: mongoose.Schema.Types.ObjectId},
+            date: {type: Date, default: Date.now },
+            friend: [{type: String}]
+        }],
     });
     const user = mongoose.model("user", userSchema);
     models.user = user;
