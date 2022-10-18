@@ -78,7 +78,7 @@ const ExercisesSearch = ({exerciseSetter}) => {
     }
 
     return (
-        <div className="container mt-60 p-2">
+        <div className="container mt-10 p-2">
             <div className="search-bar flex justify-between">
                 <input
                     className="py-1.5 px-2 w-10/12 bg-gray-100 outline outline-1 outline-gray-300 rounded-lg text-gray-500"
