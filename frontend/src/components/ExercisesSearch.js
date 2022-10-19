@@ -73,7 +73,7 @@ const ExercisesSearch = ({exerciseSetter}) => {
                 name: nameSearchVal
             }
         }).then((res) => {
-            exerciseSetter(res.data.data.map(ex=>ex.name))
+            exerciseSetter(res.data.data)
         })
     }
 
