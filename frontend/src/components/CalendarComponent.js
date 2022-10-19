@@ -2,34 +2,10 @@ import { Menu, Transition } from '@headlessui/react'
 import { DotsVerticalIcon } from '@heroicons/react/outline'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import { add, eachDayOfInterval, endOfMonth, format, getDay, isEqual, isSameDay, isSameMonth, isToday, parse, parseISO, startOfToday } from 'date-fns'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
+import axios from "axios";
 
-const workouts = [
-  {
-    id: 1,
-    name: 'Leslie Alexander',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-10-11T13:00',
-    endDatetime: '2022-10-11T14:30',
-  },
-  {
-    id: 2,
-    name: 'Michael Foster',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-10-13T14:00',
-    endDatetime: '2022-10-13T14:30',
-  },
-  {
-    id: 3,
-    name: 'Dries Vincent',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-10-20T17:00',
-    endDatetime: '2022-10-20T18:30',
-  },
-]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -40,6 +16,18 @@ export default function CalendarComponent() {
   let [selectedDay, setSelectedDay] = useState(today)
   let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
   let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
+
+  const [user_scheduled_workouts, set_scheduled_workouts] = useState([]);
+  
+
+  useEffect( () => {
+    axios.get("http://localhost:3001/api/current-user").then(res => {
+
+        set_scheduled_workouts(res.data.data.scheduled_workouts);
+    })
+  }, []);
+
+  console.log(user_scheduled_workouts);
 
   let days = eachDayOfInterval({
     start: firstDayCurrentMonth,
@@ -56,9 +44,10 @@ export default function CalendarComponent() {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
-  let selectedDayWorkouts = workouts.filter((workout) =>
-    isSameDay(parseISO(workout.startDatetime), selectedDay)
+  let selectedDayWorkouts = user_scheduled_workouts.filter((workout) =>
+    isSameDay(parseISO(workout.date), selectedDay)
   )
+
 
   return (
     <div className="pt-16">
@@ -136,8 +125,8 @@ export default function CalendarComponent() {
                   </button>
 
                   <div className="w-1 h-1 mx-auto mt-1">
-                    {workouts.some((workout) =>
-                      isSameDay(parseISO(workout.startDatetime), day)
+                    {user_scheduled_workouts.some((workout) =>
+                      isSameDay(parseISO(workout.date), day)
                     ) && (
                       <div className="w-1 h-1 rounded-full bg-sky-500"></div>
                     )}
@@ -170,25 +159,23 @@ export default function CalendarComponent() {
 }
 
 function Workout({ workout }) {
-  let startDateTime = parseISO(workout.startDatetime)
-  let endDateTime = parseISO(workout.endDatetime)
+  let DateTime = parseISO(workout.date)
 
+  const friends = workout.friend;
+  const listItems = friends.map((friend) =>
+    <li>{friend}</li>
+  );
+  
   return (
-    <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
-      <img
-        src={workout.imageUrl}
-        alt=""
-        className="flex-none w-10 h-10 rounded-full"
-      />
+    //this is where the scheduled workouts for that date will be displayed
+    
+    <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
       <div className="flex-auto">
-        <p className="text-gray-900">{workout.name}</p>
+        <ul className="text-gray-900">{listItems}</ul>
+        <p ></p>
         <p className="mt-0.5">
           <time dateTime={workout.startDatetime}>
-            {format(startDateTime, 'h:mm a')}
-          </time>{' '}
-          -{' '}
-          <time dateTime={workout.endDatetime}>
-            {format(endDateTime, 'h:mm a')}
+            {format(DateTime, 'h:mm a')}
           </time>
         </p>
       </div>
