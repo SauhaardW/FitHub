@@ -142,7 +142,7 @@ export default function CalendarComponent() {
                 {format(selectedDay, 'MMM dd, yyy')}
               </time>
             </h2>
-            <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+            <ol className="mt-4 scrollable-div h-28 space-y-1 text-sm leading-6 text-gray-500">
               {selectedDayWorkouts.length > 0 ? (
                 selectedDayWorkouts.map((workout) => (
                   <Workout workout={workout} key={workout.id} />
@@ -168,7 +168,7 @@ function Workout({ workout }) {
   
   return (
     //this is where the scheduled workouts for that date will be displayed
-    
+    <div className='border-2 rounded-2xl border-gray-300'>
     <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
       <div className="flex-auto">
         <ul className="text-gray-900">{listItems}</ul>
@@ -232,6 +232,7 @@ function Workout({ workout }) {
         </Transition>
       </Menu>
     </li>
+    </div>
   )
 }
 

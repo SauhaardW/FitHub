@@ -7,11 +7,14 @@ import { useNavigate } from "react-router-dom";
 const Calendar = () => {
   const navigate = useNavigate();
   return (
-    <div className="page-title pages">
+    <div className="page-title">
       <div className="flex justify-between px-4">
         <div className="text-4xl font-semibold">{calendar}</div>
       </div>
+      <div className="flex flex-col">
+
       <CalendarComponent></CalendarComponent>
+
       <hr
         className="ml-5 mr-5"
         style={{
@@ -26,6 +29,7 @@ const Calendar = () => {
       >
         {scheduleWorkout}
       </button>
+      </div>
     </div>
   );
 };
