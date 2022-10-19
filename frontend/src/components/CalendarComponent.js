@@ -27,7 +27,7 @@ export default function CalendarComponent() {
     })
   }, []);
 
-  console.log(user_scheduled_workouts);
+
 
   let days = eachDayOfInterval({
     start: firstDayCurrentMonth,
