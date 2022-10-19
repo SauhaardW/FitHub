@@ -50,7 +50,7 @@ export default function CalendarComponent() {
 
 
   return (
-    <div className="pt-16">
+    <div className="pt-4">
       <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
         <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
           <div className="md:pr-14">
@@ -75,7 +75,7 @@ export default function CalendarComponent() {
                 <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
               </button>
             </div>
-            <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
+            <div className="grid grid-cols-7 mt-5 text-xs leading-6 text-center text-gray-500">
               <div>S</div>
               <div>M</div>
               <div>T</div>
@@ -135,14 +135,14 @@ export default function CalendarComponent() {
               ))}
             </div>
           </div>
-          <section className="mt-12 md:mt-0 md:pl-14">
+          <section className="mt-4 md:mt-0 md:pl-14">
             <h2 className="font-semibold text-gray-900">
               Schedule for{' '}
               <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
                 {format(selectedDay, 'MMM dd, yyy')}
               </time>
             </h2>
-            <ol className="mt-4 scrollable-div h-28 space-y-1 text-sm leading-6 text-gray-500">
+            <ol className="mt-4 scrollable-div h-36 space-y-1 text-sm leading-6 text-gray-500 b">
               {selectedDayWorkouts.length > 0 ? (
                 selectedDayWorkouts.map((workout) => (
                   <Workout workout={workout} key={workout.id} />
