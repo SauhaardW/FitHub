@@ -5,14 +5,17 @@ import { Create } from "./../strings";
 import { workoutcreate } from "./../strings";
 
 
+
 const CreateWorkout = () => {
     const [exercises, setExercises] = useState([]);
     const [done, setDone] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const [WorkoutData, setWorkoutData] = useState({
         name: "",
         username: "",
         exercises: [],
-      })
+      });
+     
 
       function getUsername(query) {
         axios
@@ -22,7 +25,6 @@ const CreateWorkout = () => {
                 },
             })
             .then((response) => {
-                console.log(response.data.data.username);
                 setWorkoutData({...WorkoutData, username: response.data.data.username});
         });
     }
@@ -31,11 +33,10 @@ const CreateWorkout = () => {
         getUsername();
     }, [])
 
-    const eventHandler = () => {
+    const addworkout = () => {
         axios.post("http://localhost:3001/api/workouts", WorkoutData).then(res => {
             if (res.status === 200){
                 if (res.data.success){
-                    // alert("Your workout has been created");
                     setDone(true);
                 }
             }
@@ -65,7 +66,7 @@ const CreateWorkout = () => {
                 />
 
                 <button className='bg-default-gradient hover:bg-blue-700 text-white disabled:opacity-50 font-bold px-8 rounded mx-2'
-                            onClick={eventHandler}>
+                            onClick={addworkout}>
                             {Create}
                 </button>
                 
@@ -78,7 +79,29 @@ const CreateWorkout = () => {
         
         <div className="container">
                 <ExercisesSearch exerciseSetter={setExercises}/>
-                {exercises}
+                {exercises.map(exercise=>(
+                    <div>
+                    <div className="filters-container bg-gray-200 rounded-lg mt-3">
+                    <div className="accordion-item">
+                    <div className="accordion-title flex" onClick={() => setIsActive(!isActive)}>
+                        <div>{exercise.name}</div>
+                        <div className=''>{isActive ? '-' : '+'}</div>
+                    </div>
+                    {isActive && <div className="accordion-content">
+                          {/* <img src={exercise.gif} onError="this.onerror=null; this.src='https://www.planetfitness.com/sites/default/files/feature-image/xbreak-workout_602724.jpg.pagespeed.ic.v8byD7su-e.jpg';" /> */}
+                          <div> Target Muscle: {exercise.muscles.target}<br></br> </div>
+                           <div> Mechanics: {exercise.classification.mechanics}<br></br></div>
+                           <div> Force: {exercise.classification.force}<br></br></div>
+                           <div> Utility: {exercise.classification.utility}<br></br></div>
+                           <div> Preparation: {exercise.instructions.preparation}<br></br></div>
+                           <div> Execution: {exercise.instructions.execution}<br></br></div>
+                           <div> Comments: {exercise.comments}<br></br></div>
+                        </div>}
+                    </div>
+                </div>
+                </div>
+
+                ))}
                 <div className='registration_container'></div>
         
         </div>
