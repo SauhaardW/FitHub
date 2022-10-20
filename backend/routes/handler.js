@@ -29,7 +29,7 @@ router.get("/api/get-friend-requests", friend_request.get_friendRequests);
 router.post("/api/workouts", workout.post);
 router.get("/api/workouts", workout.getUserWorkouts);
 
-router.post("/api/schedule", schedule.scheduleWorkouts);
-router.get("/api/schedule", schedule.getScheduledWorkouts);
+router.post("/api/schedule-workout", schedule.scheduleWorkouts);
+router.get("/api/get-scheduled-workouts", schedule.getScheduledWorkouts);
 
 module.exports = router;
