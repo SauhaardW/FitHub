@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 
 const WorkoutComponent = (props) => {
-    // var list_exercises = [];
     
     const [isActive, setIsActive] = useState(false);
 
@@ -19,7 +18,6 @@ const WorkoutComponent = (props) => {
             </div>
         </div>
         {isActive && <div className="p-6 accordion-content">
-              {/* <img src={props.exercise.gif} onError="this.onerror=null; this.src='https://www.planetfitness.com/sites/default/files/feature-image/xbreak-workout_602724.jpg.pagespeed.ic.v8byD7su-e.jpg';" /> */}
                <div> <span className='font-medium text-blue-600'>Mechanics: </span>{props.exercise.classification.mechanics}<br></br></div>
                <div> <span className='font-medium text-blue-600'>Force: </span>{props.exercise.classification.force}<br></br></div>
                <div> <span className='font-medium text-blue-600'>Utility:</span> {props.exercise.classification.utility}<br></br></div>

@@ -73,7 +73,7 @@ const ExercisesSearch = ({exerciseSetter}) => {
                 name: nameSearchVal
             }
         }).then((res) => {
-            exerciseSetter(res.data.data.map(ex=>ex))
+            exerciseSetter(res.data.data)
         })
     }
 
@@ -137,7 +137,6 @@ const ExercisesSearch = ({exerciseSetter}) => {
                     </div>
                 </div>
 
-                {/* <div className='flex'> */}
                     <button
                         className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
                         onClick={(e) => { getExercises() }}
@@ -146,7 +145,7 @@ const ExercisesSearch = ({exerciseSetter}) => {
                     </button>
 
                     
-                {/* </div> */}
+  
             
         </div>
     );

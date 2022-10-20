@@ -20,13 +20,9 @@ const CreateWorkout = () => {
         }
     }
 
-      function getUsername(query) {
+      function getUsername() {
         axios
-            .get("http://localhost:3001/api/current-user", {
-                params: {
-                    username: query,
-                },
-            })
+            .get("http://localhost:3001/api/current-user", {})
             .then((response) => {
                 setUsername(response.data.data.username);
         });
@@ -37,13 +33,14 @@ const CreateWorkout = () => {
     }, [])
 
     const addWorkout = () => {
-        
-
-
+    
         axios.post("http://localhost:3001/api/workouts", {name: name,username: username,exercises: list_exercises}).then(res => {
             if (res.status === 200){
                 if (res.data.success){
                     setDone(true);
+                    setExercises([]);
+                    setName("");
+                    setList_exercises([]);
                 }
             }
             })
@@ -71,6 +68,7 @@ const CreateWorkout = () => {
                     value={name}
                     onChange={(event) => {
                         setName(event.target.value )
+                        setDone(false);
                     }}
                 />
                 <button className='bg-default-gradient hover:bg-blue-700 text-white disabled:opacity-50 font-bold px-8 rounded mx-2'
