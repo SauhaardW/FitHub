@@ -78,7 +78,7 @@ const ExercisesSearch = ({exerciseSetter}) => {
     }
 
     return (
-        <div className="container mt-10 p-2">
+        <div className="container mt-4 p-2">
             <div className="search-bar flex justify-between">
                 <input
                     className="py-1.5 px-2 w-10/12 bg-gray-100 outline outline-1 outline-gray-300 rounded-lg text-gray-500"
@@ -137,12 +137,17 @@ const ExercisesSearch = ({exerciseSetter}) => {
                     </div>
                 </div>
 
-            <button
-                className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
-                onClick={(e) => { getExercises() }}
-            >
-                Search
-            </button>
+                {/* <div className='flex'> */}
+                    <button
+                        className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
+                        onClick={(e) => { getExercises() }}
+                    >
+                        Search
+                    </button>
+
+                    
+                {/* </div> */}
+            
         </div>
     );
 
