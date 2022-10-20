@@ -63,7 +63,7 @@ const createSchemas = () => {
             workoutID: {type: mongoose.Schema.Types.ObjectId},
             date: {type: String},
             time: {type: String},
-            friend: [{type: String}]
+            friend: {type: String}
         }],
     });
     const user = mongoose.model("user", userSchema);
