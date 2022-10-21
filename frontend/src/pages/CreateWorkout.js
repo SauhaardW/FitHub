@@ -6,7 +6,6 @@ import WorkoutComponent from '../components/WorkoutComponent';
 import { useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs"
 
-
 const CreateWorkout = () => {
     const [exercises, setExercises] = useState([]);
     const [name, setName] = useState("");

@@ -41,10 +41,13 @@ const Home = () => {
 
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
 
-                {userWorkouts !== null && userWorkouts !== undefined && userWorkouts.length !== 0 && <div>
-                    <div className="text-md m-1 font-semibold">
-                        YOUR WORKOUTS
-                    </div>
+                <div className="text-md m-1 font-semibold">
+                    YOUR WORKOUTS
+                </div>
+
+                {(userWorkouts === null || userWorkouts === undefined || userWorkouts.length === 0)
+                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
+                    : <div>
 
                     <div className="horizontal-scrollable-div">
                         <ul className="flex">
@@ -77,10 +80,12 @@ const Home = () => {
                     </div>
                 </div>}
 
-                {recommendedWorkouts !== null && recommendedWorkouts !== undefined && recommendedWorkouts.length !== 0 && <div>
-                    <div className="text-md m-1 mt-3 font-semibold">
-                        OUR WORKOUTS
-                    </div>
+                <div className="text-md m-1 mt-3 font-semibold">
+                    OUR WORKOUTS
+                </div>
+                {(recommendedWorkouts === null || recommendedWorkouts === undefined || recommendedWorkouts.length === 0)
+                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
+                    : <div>
 
                     <div className="horizontal-scrollable-div">
                         <ul className="flex">

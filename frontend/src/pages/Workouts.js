@@ -36,19 +36,22 @@ const Workouts = () => {
 
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
 
-                {userWorkouts !== null && userWorkouts !== undefined && userWorkouts.length !== 0 && <div>
-                    <div className="text-md m-1 font-semibold">
-                        YOUR WORKOUTS
-                    </div>
+                <div className="text-md m-1 font-semibold">
+                    YOUR WORKOUTS
+                </div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9] h-full max-h-screen">
+                {(userWorkouts === null || userWorkouts === undefined || userWorkouts.length === 0)
+                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
+                    : <div>
+
+                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
                             {userWorkouts.map((workout) => {
                                 return (
                                     <li key={workout.name} className="flex justify-between p-3 m-1 mb-2 outline outline-1 outline-[#3898F2] rounded">
                                         <div
                                             key={workout.name}
-                                            className="text-[#3898F2]"
+                                            className="text-[#3898F2] w-full"
                                         >
                                             <div className="font-bold text-lg">
                                                 {workout.name.toUpperCase()}
@@ -72,12 +75,14 @@ const Workouts = () => {
                     </div>
                 </div>}
 
-                {recommendedWorkouts !== null && recommendedWorkouts !== undefined && recommendedWorkouts.length !== 0 && <div>
-                    <div className="text-md m-1 mt-7 font-semibold">
-                        OUR WORKOUTS
-                    </div>
+                <div className="text-md m-1 mt-3 font-semibold">
+                    OUR WORKOUTS
+                </div>
+                {(recommendedWorkouts === null || recommendedWorkouts === undefined || recommendedWorkouts.length === 0)
+                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
+                    : <div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9] h-full max-h-screen">
+                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
                             { recommendedWorkouts.map((workout) => {
                                 return (
