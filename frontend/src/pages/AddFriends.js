@@ -20,9 +20,9 @@ const AddFriends = () => {
 
     function getSearchResults(query) {
         axios
-            .get("http://localhost:3001/api/user", {
+            .get("http://localhost:3001/api/user/filter-by-username", {
                 params: {
-                    name: query,
+                    username: query,
                 },
             })
             .then((response) => {

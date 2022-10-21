@@ -17,6 +17,7 @@ router.get("/api/exercise/all", exercise.getAll);
 
 router.post("/api/user", user.post);
 router.get("/api/user", user.get);
+router.get("/api/user/filter-by-username", user.filterByUsername);
 router.get("/api/current-user", user.getCurrentUserData);
 router.patch("/api/current-user", user.patchCurrentUser);
 
