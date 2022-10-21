@@ -35,7 +35,7 @@ const Home = () => {
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
             <div>
-                <div className="text-4xl font-normal">
+                <div className="text-4xl font-bold">
                     Hello, {name}!
                 </div>
 

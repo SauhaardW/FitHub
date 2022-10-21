@@ -38,7 +38,7 @@ const AddFriends = () => {
 
     return (
         <div>
-            <h1 className="pages text-3xl text-gray-800 m-2 font-semibold">Add Friends</h1>
+            <h1 className="mt-20 pages text-3xl text-gray-800 m-2 font-semibold">Add Friends</h1>
             <hr className="border-gray-400 border-1 m-2" />
             <div className="flex">
                 <input

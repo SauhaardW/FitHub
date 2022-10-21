@@ -44,7 +44,7 @@ const Workouts = () => {
                     ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
                     : <div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300">
+                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
                             {userWorkouts.map((workout) => {
                                 return (
@@ -82,7 +82,7 @@ const Workouts = () => {
                     ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
                     : <div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300">
+                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
                             { recommendedWorkouts.map((workout) => {
                                 return (
@@ -112,7 +112,7 @@ const Workouts = () => {
                 </div>}
             </div>
 
-            <div className="text-center mt-14">
+            <div className="sticky bottom-4 text-center mt-14">
                 <button
                     className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded"
                     onClick={() => {
