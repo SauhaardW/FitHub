@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {CreateWorkout } from "./../strings";
 
 const Home = () => {
+    const navigate = useNavigate();
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
     const [name, setName] = useState("");
@@ -112,6 +115,17 @@ const Home = () => {
                         </ul>
                     </div>
                 </div>}
+            </div>
+
+            <div className="text-center mt-14">
+                <button
+                    className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded"
+                    onClick={() => {
+                        navigate("/workouts/create");
+                    }}
+                >
+                    {CreateWorkout}
+                </button>
             </div>
         </div>
     );
