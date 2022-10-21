@@ -186,6 +186,7 @@ const ScheduleWorkout = () => {
                 }}
               />
             </div>
+            <h1 className="p-1 mx-5 text-gray-500">Selected: {friendPicked}</h1>
             <div>
               {friendsData
                 .filter((friend) =>
