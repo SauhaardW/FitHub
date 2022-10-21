@@ -19,8 +19,9 @@
     - As an experienced gymgoer, I'd like to be able to make my own workouts, choosing exercises from an exercise bank in whatever order I like. 
 
 ## Sprint Goal
+For Sprint 2, we want to build on the fundamental functionlalities that we created for our web-application from Sprint 1. We will complete uncompleted User stories from Sprint 1 to have fully functional features like sending  **and accepting** friend requests for a user, having weight & height fileds for our Profile page, input validation for profile page, and have a landing page for our web-application. 
 
-To create the basis of the most crucial components (User-stories) of our web-application. For Sprint 1, we want to create fundamental functionalities so that we can build up on it. These include registration of a user, login, logout, navigation (navigating from one page to another using hamburger menu), displaying a user’s friends list, searching for a user, and sending friend requests.
+Apart from completing these existing features, we would like to build new features in our application that make our app unique such as: Creating your own personalized workouts, receiving workout reccomendations, scheduling workouts with onself or a friend, viewing ones scheduled workouts on our Calendar page. 
 
 
 ## Task Distribution
