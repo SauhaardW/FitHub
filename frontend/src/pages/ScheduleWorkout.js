@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Pages.css";
 import { scheduleWorkout } from "./../strings";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ScheduleWorkout = () => {
+  const navigate = useNavigate();
   const [workoutPicked, setWorkoutPicked] = useState("");
   const [withFriend, setWithFriend] = useState(false);
   const [searchFor, setSearchFor] = useState("");
@@ -81,12 +83,18 @@ const ScheduleWorkout = () => {
 
   function sendScheduleData() {
     const url = "http://localhost:3001/api/schedule-workout";
-    axios.post(url, {
-      workoutID: workoutPicked,
-      date: datePicked,
-      time: timePicked,
-      friend: friendPicked,
-    });
+    axios
+      .post(url, {
+        workoutID: workoutPicked,
+        date: datePicked,
+        time: timePicked,
+        friend: friendPicked,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/calendar");
+        }
+      });
   }
 
   useEffect(() => {
