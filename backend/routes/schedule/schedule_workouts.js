@@ -45,7 +45,7 @@ module.exports.scheduleWorkouts = (req, res) => {
 
                 // Create schedule workout object and add it to the curr_user's list
                 var newScheduledWorkout = {workoutID: workoutID, date: date, time: time, friend: friend};
-                curr_user.scheduledWorkouts.push(newScheduledWorkout);
+                curr_user.scheduled_workouts.push(newScheduledWorkout);
 
                 // Check if friend field is not empty  & username is valid
                 if(friendLength !== 0){
@@ -71,7 +71,7 @@ module.exports.scheduleWorkouts = (req, res) => {
                          * the friend property of scheduledWorkouts.
                         */
                         var newFrScheduledWorkout = {workoutID: workoutID, date: date, time: time, friend: username};
-                        user_friend.scheduledWorkouts.push(newFrScheduledWorkout);
+                        user_friend.scheduled_workouts.push(newFrScheduledWorkout);
 
                         user_friend.save((err, save_curr) => {
                             if (err) {
@@ -81,7 +81,6 @@ module.exports.scheduleWorkouts = (req, res) => {
                                 return;
                             } else {
                                 console.log(`[${dirName}] Saving ${user_friend.username} was successful`);
-                                res.send({data: save_curr, success: true});
                             }
                         });
                     });
