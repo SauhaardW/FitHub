@@ -159,7 +159,6 @@ export default function CalendarComponent() {
 }
 
 function Workout({ workout }) {
-  let DateTime = parseISO(workout.date)
 
  
   
@@ -170,9 +169,7 @@ function Workout({ workout }) {
       <div className="flex-auto">
         <h1 className='font-normal text-gray-800'>{workout.friend}</h1>
         <p className="mt-0.5">
-          <time dateTime={workout.startDatetime}>
-            {format(DateTime, 'h:mm a')}
-          </time>
+          {workout.time}
         </p>
       </div>
 
