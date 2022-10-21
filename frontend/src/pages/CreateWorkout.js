@@ -1,31 +1,29 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import ExercisesSearch from "../components/ExercisesSearch"
 import axios from 'axios';
 import { Create } from "./../strings";
-import { workoutcreate } from "./../strings";
-
-
+import WorkoutComponent from '../components/WorkoutComponent';
+import { useNavigate } from "react-router-dom";
+import { BsTrash } from "react-icons/bs"
 
 const CreateWorkout = () => {
     const [exercises, setExercises] = useState([]);
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
-    const [isActive, setIsActive] = useState(false);
-    const [WorkoutData, setWorkoutData] = useState({
-        name: "",
-        username: "",
-        exercises: [],
-      });
-     
 
-      function getUsername(query) {
+    const [list_exercises, setList_exercises] = useState([]);
+    const change_list = (id) => {
+        if(list_exercises.indexOf(id) === -1) {
+            setList_exercises(list_exercises => [...list_exercises, id]);
+        }
+    }
+
+      function getUsername() {
         axios
-            .get("http://localhost:3001/api/current-user", {
-                params: {
-                    username: query,
-                },
-            })
+            .get("http://localhost:3001/api/current-user")
             .then((response) => {
-                setWorkoutData({...WorkoutData, username: response.data.data.username});
+                setUsername(response.data.data.username);
         });
     }
 
@@ -33,80 +31,79 @@ const CreateWorkout = () => {
         getUsername();
     }, [])
 
-    const addworkout = () => {
-        axios.post("http://localhost:3001/api/workouts", WorkoutData).then(res => {
+    const navigate = useNavigate()
+
+    const addWorkout = () => {
+        axios.post("http://localhost:3001/api/workouts", {name: name,username: username,exercises: list_exercises.map(ex=>ex._id)}).then(res => {
             if (res.status === 200){
                 if (res.data.success){
                     setDone(true);
+                    setExercises([]);
+                    setName("");
+                    setList_exercises([]);
+                    navigate("/workouts")
                 }
             }
             })
-    }
+    }    
 
-    // Wraps the setExercises function so that the ExercisesSearch component can set the state
-    const wrapperSetExercises = useCallback( (value) => {
-        setExercises(value)
-    }, [setExercises]);
-
+    
     return (
-        <div className='p-2'>
-        <div className='mt-20 grid justify-items-center'>
-            <h1 className='font-medium text-2xl mb-4'>{workoutcreate}</h1>
-            <div className='flex place-content-center'>
-                <input
-                    id="name-input"
-                    type="text"
-                    placeholder='Name'
-                    className="py-2 px-8 bg-gray-50 border border-gray-300 text-black-900 text-sm rounded-lg focus:ring-blue-500
-                    focus:border-blue-500"
-                    value={WorkoutData.name}
-                    onChange={(event) => {
-                        setWorkoutData({...WorkoutData, name: event.target.value })
-                    }}
-                />
-
-                <button className='bg-default-gradient hover:bg-blue-700 text-white disabled:opacity-50 font-bold px-8 rounded mx-2'
-                            onClick={addworkout}>
-                            {Create}
-                </button>
-                
+        <div className='p-4'>
+            <div className="mt-20 text-4xl mb-2">Create Workout</div>
+            <div className='flex justify-items-center'>
+                <div className='flex justify-between'>
+                    <input
+                        id="name-input"
+                        type="text"
+                        placeholder='Name'
+                        className="py-2 px-2 w-[calc(100vw-32px)] bg-gray-50 border border-gray-300 text-black-900 text-sm rounded-lg focus:ring-blue-500
+                        focus:border-blue-500"
+                        value={name}
+                        onChange={(event) => {
+                            setName(event.target.value )
+                            setDone(false);
+                        }}
+                    />
+                </div>
+            </div>
+            {done && <div id='success-notification' className='mt-5 -mb-5 text-green-500 text-sm'>Your workout has been created!</div>}
+            
+            <div className="container mt-6">
+                    <div className="exercises-label text-4xl mb-2">Exercises</div>
+                    
+                    {list_exercises.length===0 ? <div>Add exercises to see them displayed here</div> : list_exercises.map(exercise=>(
+                        <div className={"filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100"}>
+                            <div className='grid justify-items-center'>
+                                <div className="flex justify-items-between align-middle py-4">
+                                    <div className='w-80 font-medium'>{exercise.name}</div>
+                                    <BsTrash
+                                        className="w-6 h-6"
+                                        onClick={(e)=> {
+                                            console.log(e.target);
+                                            setList_exercises(list_exercises.filter((ex)=> ex._id !== exercise._id))
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
             </div>
 
-            {done && <div id='success-notification' className='mt-5 -mb-5 text-green-500 text-sm'>Your workout has been created!</div>}
-        
-        </div>
+            <div className="container mt-6">
+                    <div className="exercises-label text-4xl mb-2">Add Exercises</div>
+                    
+                    <ExercisesSearch exerciseSetter={setExercises}/>
+                    {exercises.map(exercise=>(
+                        <WorkoutComponent key={exercise._id} change_list={change_list} list_exercises={list_exercises} exercise={exercise}/>
+            ))}
+            </div>
 
-        
-        <div className="container">
-                <ExercisesSearch exerciseSetter={setExercises}/>
-                {exercises.map(exercise=>(
-                    <div>
-                    <div className="filters-container bg-gray-200 rounded-lg mt-3">
-                    <div className="accordion-item">
-                    <div className="accordion-title flex" onClick={() => setIsActive(!isActive)}>
-                        <div>{exercise.name}</div>
-                        <div className=''>{isActive ? '-' : '+'}</div>
-                    </div>
-                    {isActive && <div className="accordion-content">
-                          {/* <img src={exercise.gif} onError="this.onerror=null; this.src='https://www.planetfitness.com/sites/default/files/feature-image/xbreak-workout_602724.jpg.pagespeed.ic.v8byD7su-e.jpg';" /> */}
-                          <div> Target Muscle: {exercise.muscles.target}<br></br> </div>
-                           <div> Mechanics: {exercise.classification.mechanics}<br></br></div>
-                           <div> Force: {exercise.classification.force}<br></br></div>
-                           <div> Utility: {exercise.classification.utility}<br></br></div>
-                           <div> Preparation: {exercise.instructions.preparation}<br></br></div>
-                           <div> Execution: {exercise.instructions.execution}<br></br></div>
-                           <div> Comments: {exercise.comments}<br></br></div>
-                        </div>}
-                    </div>
-                </div>
-                </div>
-
-                ))}
-                <div className='registration_container'></div>
-        
+            <button className='sticky bottom-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded'
+                disabled={!list_exercises.length>0 || name===""} onClick={addWorkout} >
+                {Create}
+            </button>
         </div>
-        </div>
-        
     );
 
 
