@@ -13,6 +13,7 @@ const ScheduleWorkout = () => {
   const [datePicked, setDatePicked] = useState("");
   const [timePicked, setTimePicked] = useState("");
   const [friendPicked, setFriendPicked] = useState("");
+  const [allFieldsInput, setAllFieldsInput] = useState(false);
 
   function convertToTwoDigits(num) {
     return num.toString().padStart(2, "0");
@@ -24,6 +25,18 @@ const ScheduleWorkout = () => {
       convertToTwoDigits(date.getMonth() + 1),
       convertToTwoDigits(date.getDate()),
     ].join("-");
+  }
+
+  function allFieldsInputted() {
+    if (
+      datePicked === "" ||
+      timePicked === "" ||
+      workoutPicked === "Created by You:"
+    ) {
+      setAllFieldsInput(false);
+    } else {
+      setAllFieldsInput(true);
+    }
   }
 
   useEffect(() => {
@@ -130,7 +143,10 @@ const ScheduleWorkout = () => {
           <input
             className="px-3 rounded-l"
             type="date"
-            onChange={(event) => setDatePicked(event.target.value)}
+            onChange={(event) => {
+              setDatePicked(event.target.value);
+              allFieldsInputted();
+            }}
             min={getTodaysDate()}
           />
         </div>
@@ -147,7 +163,10 @@ const ScheduleWorkout = () => {
           <input
             className="px-3 rounded-l"
             type="time"
-            onChange={(event) => setTimePicked(event.target.value)}
+            onChange={(event) => {
+              setTimePicked(event.target.value);
+              allFieldsInputted();
+            }}
           />
         </div>
         <hr
@@ -207,6 +226,7 @@ const ScheduleWorkout = () => {
                         className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
                         onClick={() => {
                           setFriendPicked(friend);
+                          allFieldsInputted();
                         }}
                       >
                         Add
@@ -219,7 +239,8 @@ const ScheduleWorkout = () => {
         )}
         <div className="block m-5">
           <button
-            className="px-10 py-4 rounded-xl bg-default-gradient text-xl text-white w-full rounded-xl"
+            className="px-10 py-4 rounded-xl disabled:bg-disabled-gradient bg-default-gradient hover:bg-blue-700 text-xl text-white w-full rounded-xl"
+            disabled={!allFieldsInput}
             onClick={() => {
               sendScheduleData();
             }}
