@@ -73,14 +73,14 @@ module.exports.scheduleWorkouts = (req, res) => {
                         var newFrScheduledWorkout = {workoutID: workoutID, date: date, time: time, friend: username};
                         user_friend.scheduledWorkouts.push(newFrScheduledWorkout);
 
-                        curr_user.save((err, save_curr) => {
+                        user_friend.save((err, save_curr) => {
                             if (err) {
-                                console.log(`[${dirName}] ERROR: Failed to save ${curr_user.username}`);
+                                console.log(`[${dirName}] ERROR: Failed to save ${user_friend.username}`);
                                 console.log(err);
-                                res.send({error: `Failed to save ${curr_user.username}`, success: false});
+                                res.send({error: `Failed to save ${user_friend.username}`, success: false});
                                 return;
                             } else {
-                                console.log(`[${dirName}] Saving ${curr_user.username} was successful`);
+                                console.log(`[${dirName}] Saving ${user_friend.username} was successful`);
                                 res.send({data: save_curr, success: true});
                             }
                         });
