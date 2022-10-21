@@ -1,11 +1,6 @@
 ## The participants in the meeting
 
-Yuval Kamani
-Andres Prada
-Sauhaard Walia
-Sayed Mojtaba Hosseini
-Alina Buzila
-Manas Khandelwal
+Yuval Kamani, Andres Prada, Sauhaard Walia, Sayed Mojtaba Hosseini, Alina Buzila, Manas Khandelwal
 
 ## Unfinished tasks and group them into stories; add them to SR1.md in the form of new user stories.
 
