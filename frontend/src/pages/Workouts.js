@@ -89,7 +89,7 @@ const Workouts = () => {
                                     <li key={workout.name} className="flex justify-between p-3 m-1 mb-2 outline outline-1 outline-[#3898F2] rounded">
                                         <div
                                             key={workout.name}
-                                            className="text-[#3898F2]"
+                                            className="text-[#3898F2] w-full"
                                         >
                                             <div className="font-bold text-lg">
                                                 {workout.name.toUpperCase()}
