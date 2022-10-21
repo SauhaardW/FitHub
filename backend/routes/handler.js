@@ -30,6 +30,6 @@ router.post("/api/workouts", workout.post);
 router.get("/api/workouts", workout.getUserWorkouts);
 
 router.post("/api/schedule-workout", schedule.scheduleWorkouts);
-router.get("/api/get-scheduled-workouts", schedule.getScheduledWorkouts);
+router.get("/api/scheduled-workouts", schedule.getScheduledWorkouts);
 
 module.exports = router;
