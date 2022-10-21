@@ -145,7 +145,7 @@ export default function CalendarComponent() {
             <ol className="mt-4 scrollable-div h-36 space-y-1 text-sm leading-6 text-gray-500 b">
               {selectedDayWorkouts.length > 0 ? (
                 selectedDayWorkouts.map((workout) => (
-                  <Workout workout={workout} key={workout.id} />
+                  <Workout workout={workout} key={workout._id} />
                 ))
               ) : (
                 <p>No workouts for today.</p>
@@ -161,18 +161,14 @@ export default function CalendarComponent() {
 function Workout({ workout }) {
   let DateTime = parseISO(workout.date)
 
-  const friends = workout.friend;
-  const listItems = friends.map((friend) =>
-    <li>{friend}</li>
-  );
+ 
   
   return (
     //this is where the scheduled workouts for that date will be displayed
     <div className='border-2 rounded-2xl border-gray-300'>
     <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
       <div className="flex-auto">
-        <ul className="text-gray-900">{listItems}</ul>
-        <p ></p>
+        <h1 className='font-normal text-gray-800'>{workout.friend}</h1>
         <p className="mt-0.5">
           <time dateTime={workout.startDatetime}>
             {format(DateTime, 'h:mm a')}
