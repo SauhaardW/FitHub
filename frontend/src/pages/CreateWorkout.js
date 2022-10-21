@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import ExercisesSearch from "../components/ExercisesSearch"
 import axios from 'axios';
 import { Create } from "./../strings";
@@ -73,7 +73,7 @@ const CreateWorkout = () => {
             <div className="container mt-6">
                     <div className="exercises-label text-4xl mb-2">Exercises</div>
                     
-                    {list_exercises.length==0 ? <div>Add exercises to see them displayed here</div> : list_exercises.map(exercise=>(
+                    {list_exercises.length===0 ? <div>Add exercises to see them displayed here</div> : list_exercises.map(exercise=>(
                         <div className={"filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100"}>
                             <div className='grid justify-items-center'>
                                 <div className="flex justify-items-between align-middle py-4">
@@ -82,7 +82,7 @@ const CreateWorkout = () => {
                                         className="w-6 h-6"
                                         onClick={(e)=> {
                                             console.log(e.target);
-                                            setList_exercises(list_exercises.filter((ex)=> ex._id != exercise._id))
+                                            setList_exercises(list_exercises.filter((ex)=> ex._id !== exercise._id))
                                         }}
                                     />
                                 </div>
