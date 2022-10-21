@@ -22,7 +22,7 @@ const CreateWorkout = () => {
 
       function getUsername() {
         axios
-            .get("http://localhost:3001/api/current-user", {})
+            .get("http://localhost:3001/api/current-user")
             .then((response) => {
                 setUsername(response.data.data.username);
         });
