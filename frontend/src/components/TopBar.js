@@ -6,7 +6,7 @@ import { fitHubLabel } from './../strings'
 class TopBar extends React.Component {
     render() {
         return (
-            <div className="top-bar" id="top-bar">
+            <div className="z-40 top-bar" id="top-bar">
                 <div className="top-bar-content">
                     <NavBar />
                     <span className="app-title">
