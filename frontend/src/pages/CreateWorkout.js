@@ -4,8 +4,6 @@ import axios from 'axios';
 import { Create } from "./../strings";
 import { workoutcreate } from "./../strings";
 
-
-
 const CreateWorkout = () => {
     const [exercises, setExercises] = useState([]);
     const [done, setDone] = useState(false);

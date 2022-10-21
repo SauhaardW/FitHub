@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {CreateWorkout } from "./../strings";
 
 const Home = () => {
-    const navigate = useNavigate();
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
     const [name, setName] = useState("");
@@ -41,10 +38,13 @@ const Home = () => {
 
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
 
-                {userWorkouts !== null && userWorkouts !== undefined && userWorkouts.length !== 0 && <div>
-                    <div className="text-md m-1 font-semibold">
-                        YOUR WORKOUTS
-                    </div>
+                <div className="text-md m-1 font-semibold">
+                    YOUR WORKOUTS
+                </div>
+
+                {(userWorkouts === null || userWorkouts === undefined || userWorkouts.length === 0)
+                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
+                    : <div>
 
                     <div className="horizontal-scrollable-div">
                         <ul className="flex">
@@ -77,10 +77,12 @@ const Home = () => {
                     </div>
                 </div>}
 
-                {recommendedWorkouts !== null && recommendedWorkouts !== undefined && recommendedWorkouts.length !== 0 && <div>
-                    <div className="text-md m-1 mt-3 font-semibold">
-                        OUR WORKOUTS
-                    </div>
+                <div className="text-md m-1 mt-3 font-semibold">
+                    OUR WORKOUTS
+                </div>
+                {(recommendedWorkouts === null || recommendedWorkouts === undefined || recommendedWorkouts.length === 0)
+                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
+                    : <div>
 
                     <div className="horizontal-scrollable-div">
                         <ul className="flex">
@@ -110,17 +112,6 @@ const Home = () => {
                         </ul>
                     </div>
                 </div>}
-            </div>
-
-            <div className="text-center mt-14">
-                <button
-                    className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded"
-                    onClick={() => {
-                        navigate("/workouts/create");
-                    }}
-                >
-                    {CreateWorkout}
-                </button>
             </div>
         </div>
     );
