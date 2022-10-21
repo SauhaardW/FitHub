@@ -26,13 +26,6 @@ const ScheduleWorkout = () => {
     ].join("-");
   }
 
-  function getCurrentTime(date = new Date()) {
-    return [
-      convertToTwoDigits(date.getHours()),
-      convertToTwoDigits(date.getMinutes()),
-    ].join(":");
-  }
-
   useEffect(() => {
     const myWorkouts = [];
     const recWorkouts = [];
@@ -103,8 +96,11 @@ const ScheduleWorkout = () => {
         <select
           onChange={getSelectedWorkoutId}
           className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
+          defaultValue={"default"}
         >
-          <option disabled>Created by You:</option>
+          <option disabled value="default">
+            Created by You:
+          </option>
           {userWorkouts.map((workout) => {
             return (
               <option key={workout._id} id={workout._id}>
@@ -135,7 +131,6 @@ const ScheduleWorkout = () => {
             className="px-3 rounded-l"
             type="date"
             onChange={(event) => setDatePicked(event.target.value)}
-            defaultValue={getTodaysDate()}
             min={getTodaysDate()}
           />
         </div>
@@ -153,7 +148,6 @@ const ScheduleWorkout = () => {
             className="px-3 rounded-l"
             type="time"
             onChange={(event) => setTimePicked(event.target.value)}
-            defaultValue={getCurrentTime()}
           />
         </div>
         <hr
