@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Select from 'react-select';
 import {MdFilterList} from "react-icons/md";
+import {BsSearch} from "react-icons/bs";
 import "./ExercisesSearch.css";
 import axios from 'axios';
 
@@ -78,13 +79,18 @@ const ExercisesSearch = ({exerciseSetter}) => {
     }
 
     return (
-        <div className="container mt-4 p-2">
+        <div className="container">
             <div className="search-bar flex justify-between">
                 <input
                     className="py-1.5 px-2 w-10/12 bg-gray-100 outline outline-1 outline-gray-300 rounded-lg text-gray-500"
                     type="text"
                     placeholder="Search exercises by name"
                     onChange={(event) => {setNameSearchVal(event.target.value)}}
+                />
+
+                <BsSearch
+                    className="relative right-[9vw] h-6 w-6 top-1.5 fill-gray-400"
+                    onClick={(e) => { getExercises() }}
                 />
 
                 <MdFilterList 
@@ -135,18 +141,7 @@ const ExercisesSearch = ({exerciseSetter}) => {
                             onChange={(e) => {setUtilitySelectVal(e)}}
                         />
                     </div>
-                </div>
-
-                    <button
-                        className="block p-2 m-3 ml-px bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
-                        onClick={(e) => { getExercises() }}
-                    >
-                        Search
-                    </button>
-
-                    
-  
-            
+                </div>            
         </div>
     );
 

@@ -41,7 +41,7 @@ const Workouts = () => {
                         YOUR WORKOUTS
                     </div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9]">
+                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9] h-full">
                         <ul>
                             {userWorkouts.map((workout) => {
                                 return (
@@ -107,7 +107,7 @@ const Workouts = () => {
                 </div>}
             </div>
 
-            <div className="text-center mt-14">
+            <div className="sticky bottom-4 text-center mt-14">
                 <button
                     className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded"
                     onClick={() => {
