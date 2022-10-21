@@ -4,12 +4,34 @@ import { scheduleWorkout } from "./../strings";
 import axios from "axios";
 
 const ScheduleWorkout = () => {
-  //const [workout, setWorkout] = useState("");
+  const [workoutPicked, setWorkoutPicked] = useState("");
   const [withFriend, setWithFriend] = useState(false);
   const [searchFor, setSearchFor] = useState("");
   const [friendsData, setFriendsData] = useState([]);
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
+  const [datePicked, setDatePicked] = useState("");
+  const [timePicked, setTimePicked] = useState("");
+  const [friendPicked, setFriendPicked] = useState("");
+
+  function convertToTwoDigits(num) {
+    return num.toString().padStart(2, "0");
+  }
+
+  function getTodaysDate(date = new Date()) {
+    return [
+      date.getFullYear(),
+      convertToTwoDigits(date.getMonth() + 1),
+      convertToTwoDigits(date.getDate()),
+    ].join("-");
+  }
+
+  function getCurrentTime(date = new Date()) {
+    return [
+      convertToTwoDigits(date.getHours()),
+      convertToTwoDigits(date.getMinutes()),
+    ].join(":");
+  }
 
   useEffect(() => {
     const myWorkouts = [];
@@ -33,6 +55,7 @@ const ScheduleWorkout = () => {
       setWithFriend(true);
     } else if (event.target.value === "No") {
       setWithFriend(false);
+      setFriendPicked("");
     }
   }
 
@@ -40,6 +63,23 @@ const ScheduleWorkout = () => {
     const url = "http://localhost:3001/api/current-user";
     axios.get(url).then((res) => {
       setFriendsData(res.data.data.friends);
+    });
+  }
+
+  function getSelectedWorkoutId(event) {
+    const index = event.target.selectedIndex;
+    const element = event.target.childNodes[index];
+    const selectedWorkoutId = element.getAttribute("id");
+    setWorkoutPicked(selectedWorkoutId);
+  }
+
+  function sendScheduleData() {
+    const url = "http://localhost:3001/api/schedule-workout";
+    axios.post(url, {
+      workoutID: workoutPicked,
+      date: datePicked,
+      time: timePicked,
+      friend: friendPicked,
     });
   }
 
@@ -61,16 +101,24 @@ const ScheduleWorkout = () => {
       <div className="block mx-5 mt-2">
         <p className="text-xl font-semibold mt-2 mb-1">Choose a workout</p>
         <select
-          // onChange={(event) => setWorkout(event.target.value)}
+          onChange={getSelectedWorkoutId}
           className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
         >
           <option disabled>Created by You:</option>
           {userWorkouts.map((workout) => {
-            return <option key={workout._id}>{workout.name}</option>;
+            return (
+              <option key={workout._id} id={workout._id}>
+                {workout.name}
+              </option>
+            );
           })}
           <option disabled>Created by FitHub:</option>
           {recommendedWorkouts.map((workout) => {
-            return <option key={workout._id}>{workout.name}</option>;
+            return (
+              <option key={workout._id} id={workout._id}>
+                {workout.name}
+              </option>
+            );
           })}
         </select>
       </div>
@@ -86,7 +134,9 @@ const ScheduleWorkout = () => {
           <input
             className="px-3 rounded-l"
             type="date"
-            onChange={(event) => event.target.value} //Need to send data to backend
+            onChange={(event) => setDatePicked(event.target.value)}
+            defaultValue={getTodaysDate()}
+            min={getTodaysDate()}
           />
         </div>
         <hr
@@ -102,7 +152,8 @@ const ScheduleWorkout = () => {
           <input
             className="px-3 rounded-l"
             type="time"
-            onChange={(event) => event.target.value} //Need to send data to backend
+            onChange={(event) => setTimePicked(event.target.value)}
+            defaultValue={getCurrentTime()}
           />
         </div>
         <hr
@@ -129,11 +180,7 @@ const ScheduleWorkout = () => {
             borderColor: "black",
           }}
         />
-        {!withFriend ? (
-          <button className="absolute bottom-10 bg-default-gradient text-white text-xl py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded-xl">
-            Schedule
-          </button>
-        ) : (
+        {withFriend && (
           <div>
             <div className="flex">
               <input
@@ -161,20 +208,30 @@ const ScheduleWorkout = () => {
                           {friend}
                         </p>
                       </div>
-                      <button className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold">
+                      <button
+                        className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
+                        onClick={() => {
+                          setFriendPicked(friend);
+                        }}
+                      >
                         Add
                       </button>
                     </li>
                   );
                 })}
             </div>
-            <div className="block mx-5">
-              <button className=" px-10 py-4 rounded-xl bg-default-gradient text-xl text-white w-full rounded-xl">
-                Schedule
-              </button>
-            </div>
           </div>
         )}
+        <div className="block m-5">
+          <button
+            className="px-10 py-4 rounded-xl bg-default-gradient text-xl text-white w-full rounded-xl"
+            onClick={() => {
+              sendScheduleData();
+            }}
+          >
+            Schedule
+          </button>
+        </div>
       </div>
     </div>
   );
