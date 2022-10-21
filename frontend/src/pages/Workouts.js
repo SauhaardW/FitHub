@@ -41,7 +41,7 @@ const Workouts = () => {
                         YOUR WORKOUTS
                     </div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9] h-full">
+                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9] h-full max-h-screen">
                         <ul>
                             {userWorkouts.map((workout) => {
                                 return (
@@ -77,7 +77,7 @@ const Workouts = () => {
                         OUR WORKOUTS
                     </div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9]">
+                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9] h-full max-h-screen">
                         <ul>
                             { recommendedWorkouts.map((workout) => {
                                 return (

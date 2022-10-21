@@ -10,7 +10,7 @@ const WorkoutComponent = (props) => {
 
     return(
     <div>
-        <div className={list_exercises.includes(exercise._id) ? "filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100" : "filters-container bg-gray-200 rounded-lg mt-3 shadow-gray-100"}>
+        <div className={list_exercises.map(ex=>ex._id).includes(exercise._id) ? "filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100" : "filters-container bg-gray-200 rounded-lg mt-3 shadow-gray-100"}>
             <div className="accordion-item">
                 <div className='grid justify-items-center'>
                     <div className="accordion-title flex py-4" onClick={() => setIsActive(!isActive)}>
@@ -28,7 +28,7 @@ const WorkoutComponent = (props) => {
                     <div> <span className='font-medium text-blue-600'>Comments: </span>{props.exercise.comments}<br></br></div>
                     <button className='self-center bg-default-gradient mt-4 w-3/5 hover:bg-blue-700 place-content-center py-3 text-white font-bold px-8 rounded mx-2'
                             onClick={()=>{
-                                change_list(props.exercise._id)
+                                change_list(props.exercise)
                             }}>
                             {list_exercises.includes(props.exercise._id) ? "Added" : "Add"}
                         </button>

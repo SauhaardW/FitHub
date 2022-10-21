@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Create } from "./../strings";
 import WorkoutComponent from '../components/WorkoutComponent';
 import { useNavigate } from "react-router-dom";
+import { BsTrash } from "react-icons/bs"
 
 
 const CreateWorkout = () => {
@@ -34,7 +35,7 @@ const CreateWorkout = () => {
     const navigate = useNavigate()
 
     const addWorkout = () => {
-        axios.post("http://localhost:3001/api/workouts", {name: name,username: username,exercises: list_exercises}).then(res => {
+        axios.post("http://localhost:3001/api/workouts", {name: name,username: username,exercises: list_exercises.map(ex=>ex._id)}).then(res => {
             if (res.status === 200){
                 if (res.data.success){
                     setDone(true);
@@ -69,6 +70,27 @@ const CreateWorkout = () => {
             </div>
             {done && <div id='success-notification' className='mt-5 -mb-5 text-green-500 text-sm'>Your workout has been created!</div>}
             
+            <div className="container mt-6">
+                    <div className="exercises-label text-4xl mb-2">Exercises</div>
+                    
+                    {list_exercises.length==0 ? <div>Add exercises to see them displayed here</div> : list_exercises.map(exercise=>(
+                        <div className={"filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100"}>
+                            <div className='grid justify-items-center'>
+                                <div className="flex justify-items-between align-middle py-4">
+                                    <div className='w-80 font-medium'>{exercise.name}</div>
+                                    <BsTrash
+                                        className="w-6 h-6"
+                                        onClick={(e)=> {
+                                            console.log(e.target);
+                                            setList_exercises(list_exercises.filter((ex)=> ex._id != exercise._id))
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+            </div>
+
             <div className="container mt-6">
                     <div className="exercises-label text-4xl mb-2">Add Exercises</div>
                     
