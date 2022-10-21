@@ -64,6 +64,26 @@ module.exports.get = (req, res) => {
     });
 }
 
+module.exports.filterByUsername = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
+    const query = {
+        'username': { $regex: ".*" + req.query.username + ".*", $options: 'i' }
+    }
+    db.models.user.find(query, (err, data) => {
+        if (err) {
+            console.log(`[${dirName}] ERROR: Failed to get ${JSON.stringify(req.query)}`);
+            console.log(err);
+            res.send({success: false, error: err});
+        } else if (data == null){
+            res.send({error: `${username} does not exist`, success: false});
+            return;
+        }else {
+            console.log(`[${dirName}] Getting ${JSON.stringify(req.query)} was successful`);
+            res.send({success: true, data: data});
+        }
+    });
+}
+
 module.exports.getCurrentUserData = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
     utils.verifyJWT(req, res, (req, res) => {
