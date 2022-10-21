@@ -44,7 +44,7 @@ const Workouts = () => {
                     ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
                     : <div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9]">
+                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300">
                         <ul>
                             {userWorkouts.map((workout) => {
                                 return (
@@ -82,7 +82,7 @@ const Workouts = () => {
                     ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
                     : <div>
 
-                    <div className="scrollable-div m-0 rounded p-1 bg-[#F7F9F9]">
+                    <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300">
                         <ul>
                             { recommendedWorkouts.map((workout) => {
                                 return (

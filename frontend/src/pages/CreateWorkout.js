@@ -86,7 +86,6 @@ const CreateWorkout = () => {
                         <div className=''>{isActive ? '-' : '+'}</div>
                     </div>
                     {isActive && <div className="accordion-content">
-                          {/* <img src={exercise.gif} onError="this.onerror=null; this.src='https://www.planetfitness.com/sites/default/files/feature-image/xbreak-workout_602724.jpg.pagespeed.ic.v8byD7su-e.jpg';" /> */}
                           <div> Target Muscle: {exercise.muscles.target}<br></br> </div>
                            <div> Mechanics: {exercise.classification.mechanics}<br></br></div>
                            <div> Force: {exercise.classification.force}<br></br></div>
