@@ -6,6 +6,7 @@ import { workoutcreate } from "./../strings";
 import WorkoutComponent from '../components/WorkoutComponent';
 
 
+
 const CreateWorkout = () => {
     const [exercises, setExercises] = useState([]);
     const [name, setName] = useState("");
@@ -33,7 +34,7 @@ const CreateWorkout = () => {
     }, [])
 
     const addWorkout = () => {
-    
+   
         axios.post("http://localhost:3001/api/workouts", {name: name,username: username,exercises: list_exercises}).then(res => {
             if (res.status === 200){
                 if (res.data.success){
@@ -89,7 +90,6 @@ const CreateWorkout = () => {
         ))}
 
         <div className='registration_container'></div>
-        
         
         </div>
         </div>
