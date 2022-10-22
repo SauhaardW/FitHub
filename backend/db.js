@@ -21,10 +21,32 @@ const connect = (url) => {
 const createSchemas = () => {
     const exerciseSchema = new mongoose.Schema({
         name: {type:String, required:true},
-        instructions: {type:String, required:true},
+        muscles: {type: {
+            target: {type: String}
+        }, required: true},
+        classification: { type: {
+            mechanics: {type: String},
+            force: {type: String},
+            utility: {type: String},
+        }, required: true},
+        comments: {type: String, required: false},
+        gif: {type: String},
+        instructions: { type: {
+            preparation: {type: String},
+            execution: {type: String}
+        }, required: true}
     });
     const exercise = mongoose.model("exercise", exerciseSchema);
     models.exercise = exercise;
+
+    const workoutSchema = new mongoose.Schema({
+        name: {type:String, required:true},
+        username: {type:String, required:true},
+        exercises: {type:[{type: mongoose.Schema.Types.ObjectId, required: true}], required:true},
+        experience: {type: String},
+    });
+    const workout = mongoose.model("workout", workoutSchema);
+    models.workout = workout;
 
     const userSchema = new mongoose.Schema({
         name: {type:String, required:true},
@@ -37,6 +59,12 @@ const createSchemas = () => {
         experience: {type:String, required:true},
         friend_requests: [String],
         friends: [String],
+        scheduled_workouts: [{
+            workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
+            date: {type: String, required:true},
+            time: {type: String, required:true},
+            friend: {type: String}
+        }],
     });
     const user = mongoose.model("user", userSchema);
     models.user = user;

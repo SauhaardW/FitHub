@@ -33,6 +33,19 @@
     font-size: 20px;
 }
 
+.scrollable-div {
+    height: 250px;
+    overflow: auto;
+    margin: 10px;
+    text-align: justify;
+}
+
+.horizontal-scrollable-div {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
 .display-mode-input{
     border: none;
     background-color: inherit;
@@ -50,6 +63,10 @@
     background-color: #3293EE;
     border-radius: 20px;
     font-size: 14px
+}
+
+.blue-text{
+    color: #0B80ED;
 }
 
 .experience-info{

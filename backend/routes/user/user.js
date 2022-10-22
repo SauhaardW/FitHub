@@ -8,31 +8,76 @@ module.exports.post = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body.username)}`);
 
     var userData = req.body;
+
+    if (userData.username === "FitHub"){
+        res.send({error: "Can not use username FitHub", userExists: true, success: false});
+        return;
+    }
+
     var salt = bcrypt.genSaltSync(10);
     userData.password = bcrypt.hashSync(userData.password, salt);
 
     const user = new db.models.user(userData);
-    user.save((err, _) => {
+
+    db.models.user.findOne({"username": user.username}, (err, find_res) => {
         if (err) {
-            console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
+            // if err, then err is populated and find_res is null
+            console.log(`[${dirName}] ERROR: An error occurred finding the user ${user.username}`);
             console.log(err);
-            res.send({name: user.username, success: false});
-        } else {
-            console.log(`[${dirName}] Saving ${user.username} was successful`);
-            res.send({name: user.username, success: true});
+            res.send({error: "Error occurred finding the user", success: false});
+            return
+        }
+        else if (find_res == null){
+            // this means no user with that username was found, err is null and find_res is null
+            user.save((err, userData) => {
+                if (err) {
+                    console.log(`[${dirName}] ERROR: Failed to save ${user.username}`);
+                    console.log(err);
+                    res.send({error: "Error occurred saving the user", success: false});
+                } else {
+                    console.log(`[${dirName}] Saving ${user.username} was successful`);
+                    res.send({userData: userData, success: true});
+                }
+            })
+        }
+        else{
+            // if user is found, error is null and find_res is populated
+            res.send({error: "Username already exists", userExists: true, success: false});
         }
     })
 }
 
 module.exports.get = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
-
     db.models.user.find(req.query, (err, data) => {
         if (err) {
             console.log(`[${dirName}] ERROR: Failed to get ${JSON.stringify(req.query)}`);
             console.log(err);
             res.send({success: false, error: err});
-        } else {
+        } else if (data == null){
+            res.send({error: `${username} does not exist`, success: false});
+            return;
+        }else {
+            console.log(`[${dirName}] Getting ${JSON.stringify(req.query)} was successful`);
+            res.send({success: true, data: data});
+        }
+    });
+}
+
+module.exports.filterByUsername = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
+    const query = {
+        'username': { $regex: ".*" + req.query.username + ".*", $options: 'i' }
+    }
+    db.models.user.find(query, (err, data) => {
+        if (err) {
+            console.log(`[${dirName}] ERROR: Failed to get ${JSON.stringify(req.query)}`);
+            console.log(err);
+            res.send({success: false, error: err});
+        } else if (data == null){
+            res.send({error: `${username} does not exist`, success: false});
+            return;
+        }else {
             console.log(`[${dirName}] Getting ${JSON.stringify(req.query)} was successful`);
             res.send({success: true, data: data});
         }
@@ -50,7 +95,10 @@ module.exports.getCurrentUserData = (req, res) => {
                 console.log(`[${dirName}] ERROR: Failed to get ${username}`);
                 console.log(err);
                 res.send({success: false, error: err});
-            } else {
+            }else if (data == null){
+                res.send({error: `${username} does not exist`, success: false});
+                return;
+            }else {
                 console.log(`[${dirName}] Getting ${username} was successful`);
                 res.send({success: true, data: data});
             }
