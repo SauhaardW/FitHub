@@ -11,6 +11,7 @@ const CreateWorkout = () => {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [list_exercises, setList_exercises] = useState([]);
     const change_list = (id) => {
@@ -42,6 +43,8 @@ const CreateWorkout = () => {
                     setName("");
                     setList_exercises([]);
                     navigate("/workouts")
+                }else if (res.data.workoutExists){
+                    setErrorMessage(res.data.error);
                 }
             }
             })
@@ -52,7 +55,7 @@ const CreateWorkout = () => {
         <div className='p-4'>
             <div className="mt-20 text-4xl mb-2">Create Workout</div>
             <div className='flex justify-items-center'>
-                <div className='flex justify-between'>
+                <div>
                     <input
                         id="name-input"
                         type="text"
@@ -65,6 +68,8 @@ const CreateWorkout = () => {
                             setDone(false);
                         }}
                     />
+                    {errorMessage !== "" &&
+                    <div className="text-xs pt-2 pl-2 text-red-500">{errorMessage}!</div>}
                 </div>
             </div>
             {done && <div id='success-notification' className='mt-5 -mb-5 text-green-500 text-sm'>Your workout has been created!</div>}
