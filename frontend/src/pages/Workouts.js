@@ -114,7 +114,7 @@ const Workouts = () => {
 
             <div className="sticky bottom-4 text-center mt-14">
                 <button
-                    className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded"
+                    className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
                     onClick={() => {
                         navigate("/workouts/create");
                     }}
