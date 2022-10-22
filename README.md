@@ -54,6 +54,7 @@ Any changes you make should be automatically reflected on your browser.
 ## Resources
 - [Figma](https://www.figma.com/file/TSdxgEqzZrpvNsVz6VeQoi/FitHub-C01?node-id=0%3A1)
 - [Jira](https://mcsapps.utm.utoronto.ca/jira/projects/FIT/) 
+- [Trello](https://trello.com/invite/b/WhcprWrB/ATTIc5b158f589ed9a8d565d0a1f0c5b3c21392ACC39/sprint-2)
 
 
 ## FAQ
