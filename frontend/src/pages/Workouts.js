@@ -14,7 +14,7 @@ const Workouts = () => {
         const myWorkouts = []
         const recWorkouts = []
 
-        const url = "http://localhost:3001/api/workouts?subset=false"
+        const url = "/api/workouts?subset=false"
         axios.get(url).then(res => {
             const data = res.data.data;
             data.forEach(workout => {

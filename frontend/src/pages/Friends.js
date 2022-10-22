@@ -12,21 +12,21 @@ const Friends = () => {
   const [friendRequests, setFriendRequests] = useState([]);
 
   function getFriendsData() {
-    const url = "http://localhost:3001/api/current-user"
+    const url = "/api/current-user"
     axios.get(url).then((res) => {
       setFriends(res.data.data.friends);
     });
   }
 
   const getFriendRequests = () => {
-    const url = "http://localhost:3001/api/get-friend-requests"
+    const url = "/api/get-friend-requests"
     axios.get(url).then((res) => {
       setFriendRequests(res.data.friendRequests);
     });
   }
 
   const acceptFriendRequest = (username) => {
-    const url = "http://localhost:3001/api/accept-friend-request"
+    const url = "/api/accept-friend-request"
     axios.post(url, {
       username: username
     }).then((res) => {

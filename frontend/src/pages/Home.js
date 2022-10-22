@@ -11,7 +11,7 @@ const Home = () => {
     const [name, setName] = useState("");
 
     useEffect( () => {
-        axios.get("http://localhost:3001/api/current-user").then(res => {
+        axios.get("/api/current-user").then(res => {
             setName(res.data.data.name);
         })
 
@@ -19,7 +19,7 @@ const Home = () => {
         const myWorkouts = []
         const recWorkouts = []
 
-        const url = "http://localhost:3001/api/workouts?subset=true"
+        const url = "/api/workouts?subset=true"
         axios.get(url).then(res => {
            const data = res.data.data;
             data.forEach(workout => {

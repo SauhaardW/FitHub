@@ -20,7 +20,7 @@ const AddFriends = () => {
 
     function getSearchResults(query) {
         axios
-            .get("http://localhost:3001/api/user/filter-by-username", {
+            .get("/api/user/filter-by-username", {
                 params: {
                     username: query,
                 },
@@ -31,7 +31,7 @@ const AddFriends = () => {
     }
 
     function sendFriendRequest(username) {
-        axios.post("http://localhost:3001/api/send-friend-request", {
+        axios.post("/api/send-friend-request", {
             username: username,
         });
     }

@@ -21,7 +21,7 @@ export default function CalendarComponent() {
   
 
   useEffect( () => {
-    axios.get("http://localhost:3001/api/current-user").then(res => {
+    axios.get("/api/current-user").then(res => {
 
         set_scheduled_workouts(res.data.data.scheduled_workouts);
     })

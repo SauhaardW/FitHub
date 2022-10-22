@@ -45,7 +45,7 @@ const ScheduleWorkout = () => {
     const myWorkouts = [];
     const recWorkouts = [];
 
-    const url = "http://localhost:3001/api/workouts?subset=false";
+    const url = "/api/workouts?subset=false";
     axios.get(url).then((res) => {
       const data = res.data.data;
       data.forEach((workout) => {
@@ -68,7 +68,7 @@ const ScheduleWorkout = () => {
   }
 
   function getSearchResult() {
-    const url = "http://localhost:3001/api/current-user";
+    const url = "/api/current-user";
     axios.get(url).then((res) => {
       setFriendsData(res.data.data.friends);
     });
@@ -82,7 +82,7 @@ const ScheduleWorkout = () => {
   }
 
   function sendScheduleData() {
-    const url = "http://localhost:3001/api/schedule-workout";
+    const url = "/api/schedule-workout";
     axios
       .post(url, {
         workoutID: workoutPicked,

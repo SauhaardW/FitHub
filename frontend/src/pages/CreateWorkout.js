@@ -22,7 +22,7 @@ const CreateWorkout = () => {
 
       function getUsername() {
         axios
-            .get("http://localhost:3001/api/current-user")
+            .get("/api/current-user")
             .then((response) => {
                 setUsername(response.data.data.username);
         });
@@ -35,7 +35,7 @@ const CreateWorkout = () => {
     const navigate = useNavigate()
 
     const addWorkout = () => {
-        axios.post("http://localhost:3001/api/workouts", {name: name,username: username,exercises: list_exercises.map(ex=>ex._id)}).then(res => {
+        axios.post("/api/workouts", {name: name,username: username,exercises: list_exercises.map(ex=>ex._id)}).then(res => {
             if (res.status === 200){
                 if (res.data.success){
                     setDone(true);
