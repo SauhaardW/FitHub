@@ -42,7 +42,7 @@ const Friends = () => {
 
   const navigate = useNavigate();
   const onScheduleClicked = () => {
-    console.log("Sucessfully clicked");
+    //to do
   };
   return (
       <Fragment>
