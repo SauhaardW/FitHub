@@ -31,7 +31,6 @@ const Home = () => {
         })
     }, []);
 
-
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
             <div>
@@ -53,7 +52,9 @@ const Home = () => {
                         <ul className="flex">
                             {userWorkouts.map((workout) => {
                                 return (
-                                    <li key={workout.name} className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
+                                    <li key={workout.name} 
+                                        onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}
+                                        className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
                                         <div
                                             key={workout.name}
                                             className="w-60 text-[#3898F2]"
