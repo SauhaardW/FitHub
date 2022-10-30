@@ -68,6 +68,48 @@ const createSchemas = () => {
     });
     const user = mongoose.model("user", userSchema);
     models.user = user;
+
+    const statsSchema = new mongoose.Schema({
+        userID: {type: mongoose.Types.ObjectId, required:true},
+        weight: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        height: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        upper_arm_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        forearm_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        chest_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        thigh_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        calf_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        waist_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+        shoulder_circumference: [{
+            date: {type: String, required:true},
+            value: {type: Number, required:true},
+        }],
+    });
+    const stats = mongoose.model("stats", statsSchema);
+    models.stats = stats;
 }
 
 const init = (url) => {
