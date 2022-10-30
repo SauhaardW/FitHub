@@ -5,29 +5,28 @@ import axios from 'axios';
 
 const ViewWorkout = () => {
     const {state} = useLocation();
-    const workoutId = state.workoutId
+    const workoutId = state !== null ? state.workoutId : "";
     const [workout, setWorkout] = useState({});
     
-    useEffect( () => {
-        const params = {id: workoutId}
-        axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
-            setWorkout(res.data.data);
-            console.log(res.data.data)
-        })
-    });
+    
+
+    const navigate = useNavigate();
 
     return (
         <div className='p-4'>
             <div className="mt-20 text-4xl">{workout.name}</div>
-            <div className="text-sm text-gray-600 mb-2 mt-1">Created by: {workout.username}</div>
+            <div className="mt-1 text-sm text-gray-600">Created by: {workout.username}</div>
+            <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
 
-            <div className="container mt-6">
-                    {/* {workout.exercises.map(exercise=>(
-                        <ExerciseComponent key={exercise} exercise={exercise}/>
-                    ))} */}
+            <div className="container h-max-[calc(100vh-60px)] overflow-scroll">
+                    {workout.exercises_info === undefined ? <div>No exercises to display</div> : workout.exercises_info.map(exercise=>(
+                        <ExerciseComponent key={exercise._id} exercise={exercise}/>
+                    ))}
             </div>
 
-            <button className='sticky bottom-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded'>
+            <button 
+                onClick={() => { navigate("log", { state: {workout: workout}}) }}
+                className='sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded'>
                 Log Workout
             </button>
         </div>

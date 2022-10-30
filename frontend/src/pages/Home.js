@@ -92,7 +92,9 @@ const Home = () => {
                         <ul className="flex">
                             { recommendedWorkouts.map((workout) => {
                                 return (
-                                    <li key={workout.name} className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
+                                    <li key={workout.name} 
+                                        className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded"
+                                        onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}>
                                         <div
                                             key={workout.name}
                                             className="w-60 text-[#3898F2]"

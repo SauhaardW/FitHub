@@ -102,7 +102,7 @@ module.exports.getWorkout = (req, res) => {
     const id = req.query.id;
 
     let stages = [
-        { $match: {$and: [{_id: id }]}
+        { $match: {_id: mongoose.Types.ObjectId(id) }
         }, { $lookup: {
                 from: 'exercises',
                 localField: 'exercises',
@@ -112,9 +112,10 @@ module.exports.getWorkout = (req, res) => {
         }, { $project: {
                 "_id": 1,
                 "name": 1,
+                "username": 1,
                 "exercises": 1,
                 "experience": 1,
-                "exercises_info.name": 1,
+                "exercises_info": 1,
             }
         }]
 
@@ -123,7 +124,6 @@ module.exports.getWorkout = (req, res) => {
             console.log(err)
             console.log("Error converting collection to array");
         }
-        console.log(data);
         res.send({success: true, data: data});
     });
 };
