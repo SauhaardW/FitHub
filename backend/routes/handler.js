@@ -5,6 +5,7 @@ const router = express.Router();
 const exercise = require("./exercise/exercise");
 const user = require("./user/user");
 const login = require("./user/login");
+const stats = require("./user/stats");
 const friend_request = require("./friends/friend_request")
 const workout = require("./workout/workout")
 const schedule = require("./schedule/schedule_workouts")
@@ -32,5 +33,7 @@ router.get("/api/workouts", workout.getUserWorkouts);
 
 router.post("/api/schedule-workout", schedule.scheduleWorkouts);
 router.get("/api/scheduled-workouts", schedule.getScheduledWorkouts);
+
+router.post("/api/stats", stats.log_stat);
 
 module.exports = router;
