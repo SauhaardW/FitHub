@@ -98,7 +98,7 @@
 
     Your Mark: 2 
 
-  User Stories Total Mark: 8 / 10
+  User Stories Total Mark: 9 / 10
 
 ---
 
@@ -278,4 +278,4 @@ Tracking on Trello Total Mark: 24 / 24
 
 ## Total Mark
 
-91 / 93
+92 / 93
