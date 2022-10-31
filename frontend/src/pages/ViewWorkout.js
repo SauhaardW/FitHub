@@ -12,6 +12,7 @@ const ViewWorkout = () => {
         const params = {id: workoutId}
         axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
             setWorkout(res.data.data[0]);
+            console.log(workout);
         })
     }, [workoutId]);
 
