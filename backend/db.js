@@ -48,6 +48,22 @@ const createSchemas = () => {
     const workout = mongoose.model("workout", workoutSchema);
     models.workout = workout;
 
+    const workoutHistorySchema = new mongoose.Schema({
+        userID: {type: mongoose.Types.ObjectId, required:true},
+        workout_history: [{
+            workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
+            date: {type: String, required:true},
+            time: {type: String, required:true},
+            friend: {type: String},
+            exercises: [{
+                exerciseID: {type: mongoose.Schema.Types.ObjectId, required:true},
+                reps_weight: [[Number, Number]],
+            }],
+        }],
+    });
+    const workoutHistory = mongoose.model("workoutHistory", workoutHistorySchema);
+    models.workoutHistory = workoutHistory;
+
     const userSchema = new mongoose.Schema({
         name: {type:String, required:true},
         username: {type:String, required:true},
