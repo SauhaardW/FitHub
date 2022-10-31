@@ -57,7 +57,12 @@ const createSchemas = () => {
             friend: {type: String},
             exercises: [{
                 exerciseID: {type: mongoose.Schema.Types.ObjectId, required:true},
-                reps_weight: [[Number, Number]],
+                sets_info: [
+                    {
+                        reps: {type: Number, required: true},
+                        weight: {type: Number, required: true},
+                    }
+                ],
             }],
         }],
     });
