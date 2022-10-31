@@ -24,7 +24,9 @@ const ViewWorkout = () => {
             <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
 
             <div className="container h-max-[calc(100vh-60px)] overflow-scroll">
-                    
+                {workout.exercises_info === undefined ? <div>No exercises to display</div> : workout.exercises_info.map(exercise=>(
+                        <ExerciseComponent key={exercise._id} exercise={exercise}/>
+                    ))}
             </div>
 
             <button 
