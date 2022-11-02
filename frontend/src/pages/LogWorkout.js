@@ -23,15 +23,9 @@ const LogWorkout = (props) => {
           ))
         )}
       </div>
-
-      {/* <button
-        onClick={() => {
-          navigate("log", { state: { workout: workout } });
-        }}
-        className="sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded"
-      >
-        Log Workout
-      </button> */}
+      <button className="sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded">
+        End Workout
+      </button>
     </div>
   );
 };

@@ -48,9 +48,12 @@ const LogWorkoutExercise = (props) => {
                     <div key={id} className="flex gap-4 space-y-2">
                       <h1 className="w-8/12 mt-2">{id}</h1>
                       <h1 className="w-8/12 ">Prev</h1>
-                      <input className="w-8/12 rounded-xl" type="text"></input>
                       <input
-                        className="w-8/12 rounded-xl px-1"
+                        className="w-8/12 rounded-xl px-2"
+                        type="text"
+                      ></input>
+                      <input
+                        className="w-8/12 rounded-xl px-2"
                         type="text"
                         placeholder="lbs"
                       ></input>
