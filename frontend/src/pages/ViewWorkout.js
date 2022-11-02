@@ -30,6 +30,7 @@ const ViewWorkout = () => {
 
     const navigate = useNavigate();
 
+
     return (
         <div className='p-4'>
             <div className='flex'>
@@ -52,7 +53,13 @@ const ViewWorkout = () => {
                 'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><GrCopy></GrCopy> - Copy</MenuItem>
+                <MenuItem onClick={()=>{
+                    navigator.clipboard.writeText("Workout Name: "+ workout.name + "\n" +
+                    "Creator: " + workout.username + "\n" + 
+                    "Exercises: " + workout.exercises_info.map((ex) => {
+                    return   "Name: " + (ex).name + "\n" + "Instructions: " + JSON.stringify(ex.instructions) + "\n" }).join("\n\n")) 
+                    handleClose() }}>
+                        <GrCopy></GrCopy> - Copy</MenuItem>
             </Menu>
             </div>
             </div>
