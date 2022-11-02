@@ -69,9 +69,12 @@ const createSchemas = () => {
                     {
                         reps: {type: Number, required: true},
                         weight: {type: Number, required: true},
+                        _id: false,
                     }
                 ],
+                _id: false,
             }],
+            _id: false,
         }],
     });
     const workoutHistory = mongoose.model("workoutHistory", workoutHistorySchema);

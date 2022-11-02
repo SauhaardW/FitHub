@@ -5,7 +5,8 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { GoKebabHorizontal, GoKebabVertical } from "react-icons/go";
+import { GoKebabVertical } from "react-icons/go";
+import { GrCopy } from "react-icons/gr";
 
 
 const ViewWorkout = () => {
@@ -51,7 +52,16 @@ const ViewWorkout = () => {
                     'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <MenuItem onClick={handleClose}>Export Workout (Copy To Clipboard)</MenuItem>
+                    <MenuItem onClick={()=>{
+                        navigator.clipboard.writeText("Workout Name: "+ workout.name + "\n" +
+                        "Creator: " + workout.username + "\n" + 
+                        "Exercises: " + workout.exercises_info.map((ex) => {
+                        return   "Name: " + (ex).name + "\n" + "Instructions: " + JSON.stringify(ex.instructions) + "\n" }).join("\n\n")) 
+                        handleClose() }}
+                        >
+                        <GrCopy/> - Copy
+                    </MenuItem>
+                    
                 </Menu>
                 </div>
             </div>
