@@ -9,6 +9,7 @@ const stats = require("./user/stats");
 const friend_request = require("./friends/friend_request")
 const workout = require("./workout/workout")
 const schedule = require("./schedule/schedule_workouts")
+const like_status = require("./user/like_status")
 
 // route endpoints in API to the correct functions
 // as of now, we do not need an endpoint to create new exercises
@@ -23,6 +24,8 @@ router.get("/api/current-user", user.getCurrentUserData);
 router.patch("/api/current-user", user.patchCurrentUser);
 
 router.post("/api/login", login.post);
+
+router.post("/api/like-status", like_status.updateLikeStatus);
 
 router.post("/api/send-friend-request", friend_request.send_friendRequest);
 router.post("/api/accept-friend-request", friend_request.accept_friendRequest);
