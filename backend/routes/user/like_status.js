@@ -99,3 +99,46 @@ module.exports.updateLikeStatus = (req, res) => {
         });
     })
 };
+
+module.exports.getLikeRatio = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body)}`);
+
+    utils.verifyJWT(req, res, (req, res) => {
+        const username = req.JWT_data.username;
+        const id  = req.JWT_data.id;
+        workoutID = req.body.workoutID;
+
+        db.models.user.findById(id, (err, curr_user) => {
+            if (err) {
+                console.log(`[${dirName}] ERROR: Error finding user ${id}`);
+                console.log(err);
+                res.send({error: "Error finding user", success: false});
+                return
+            }else if (curr_user == null){
+                res.send({error: "Current user does not exist", success: false});
+                return
+            }
+
+            // Check if workoutID is a valid workout
+            db.models.workout.findOne({"_id": workoutID}, (err, curr_workout) => {
+                if (err) {
+                    console.log(`[${dirName}] ERROR: Error finding workout ${workoutID}`);
+                    console.log(err);
+                    res.send({error: "Error finding workout", success: false});
+                    return
+                }else if (curr_workout == null){
+                    res.send({error: "Workout does not exist", success: false});
+                    return
+                }
+
+                // Check if total votes for a workout is zero
+                if (curr_workout.like.count + curr_workout.dislike.count === 0) {
+                    res.send({ LikeRatio: 0, success: true});
+                } else {
+                    var ratio = (curr_workout.like.count/(curr_workout.like.count + curr_workout.dislike.count))*100;
+                    res.send({ data: ratio, success: true});
+                }
+            });
+        });
+    })
+}
