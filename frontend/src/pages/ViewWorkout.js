@@ -5,7 +5,7 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { GoKebabHorizontal } from "react-icons/go";
+import { GoKebabHorizontal, GoKebabVertical } from "react-icons/go";
 
 
 const ViewWorkout = () => {
@@ -31,29 +31,29 @@ const ViewWorkout = () => {
 
     return (
         <div className='p-4'>
-            <div className='flex'>
-            <div className="mt-20 text-4xl">{workout.name}</div>
-            <div className='mt-20 px-24'>
-            <Button
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}>
-                <GoKebabHorizontal className="w-10 h-10"/>
-            </Button>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={handleClose}>Copy To Dashboard</MenuItem>
-            </Menu>
-            </div>
+            <div className='pt-20 flex justify-between align-middle'>
+            <div className="text-4xl">{workout.name}</div>
+            <div className='pt-2'>
+                <Button
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}>
+                    <GoKebabVertical className="w-5 h-5"/>
+                </Button>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleClose}>Export Workout (Copy To Clipboard)</MenuItem>
+                </Menu>
+                </div>
             </div>
 
             <div className="mt-1 text-sm text-gray-600">Created by: {workout.username}</div>
