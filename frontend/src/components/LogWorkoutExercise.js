@@ -36,6 +36,28 @@ const LogWorkoutExercise = (props) => {
                 {props.exercise.comments}
                 <br></br>
               </div>
+              <div className="flex justify-between font-bold text-center mt-5">
+                <h1>Set</h1>
+                <h1>Prev</h1>
+                <h1>Reps</h1>
+                <h1>Weight</h1>
+              </div>
+              <div className="gap-4 place-content-center">
+                {[1, 2, 3, 4].map((id) => {
+                  return (
+                    <div key={id} className="flex gap-4 space-y-2">
+                      <h1 className="w-8/12 mt-2">{id}</h1>
+                      <h1 className="w-8/12 ">Prev</h1>
+                      <input className="w-8/12 rounded-xl" type="text"></input>
+                      <input
+                        className="w-8/12 rounded-xl px-1"
+                        type="text"
+                        placeholder="lbs"
+                      ></input>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
