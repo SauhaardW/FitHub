@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { GoKebabHorizontal } from "react-icons/go";
+import { GrCopy } from "react-icons/gr";
 
 
 const ViewWorkout = () => {
@@ -40,7 +41,7 @@ const ViewWorkout = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}>
-                <GoKebabHorizontal className="w-10 h-10"/>
+                <GoKebabHorizontal className="w-10 h-10 ml-16"/>
             </Button>
             <Menu
                 id="basic-menu"
@@ -51,7 +52,7 @@ const ViewWorkout = () => {
                 'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Copy To Dashboard</MenuItem>
+                <MenuItem onClick={handleClose}><GrCopy></GrCopy> - Copy</MenuItem>
             </Menu>
             </div>
             </div>
