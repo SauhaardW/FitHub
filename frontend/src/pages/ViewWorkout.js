@@ -22,10 +22,12 @@ const ViewWorkout = () => {
         setAnchorEl(null);
     };
     useEffect( () => {
-        const params = {id: workoutId}
-        axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
-            setWorkout(res.data.data[0]);
-        })
+        if (workoutId != ""){ //state changes to null when hamburger menu is opened, so workoutID will update to ""
+            const params = {id: workoutId}
+            axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
+                setWorkout(res.data.data[0]);
+            })
+        }
     }, [workoutId]);
 
     const navigate = useNavigate();
