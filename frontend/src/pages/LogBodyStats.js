@@ -42,7 +42,6 @@ const LogBodyStats = () => {
             <select 
               onChange={(event) => setStatsData({...StatsData, name: event.target.value })}
               value={StatsData.name}
-
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
               focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
               dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -68,18 +67,14 @@ const LogBodyStats = () => {
             dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={StatsData.value}
             onChange={(event) => setStatsData({...StatsData, value: event.target.value })}
-
           />
  
       </div>
       
-
       <button
         className="absolute bottom-10 bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl disabled:opacity-50"
         disabled={StatsData.name === "" || StatsData.value===0 || StatsData.value.length===0} 
-        onClick={() => {
-                        LogStats();
-                        }}
+        onClick={() => {LogStats();}}
         >
         Log
         </button>
