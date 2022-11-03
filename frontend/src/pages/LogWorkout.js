@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import LogWorkoutExercise from "../components/LogWorkoutExercise";
+import axios from "axios";
 
 const LogWorkout = (props) => {
   const { state } = useLocation();
   const workout = state !== null ? state.workout : {};
+
+  const [exerciseStats, setExerciseStats] = useState([]);
+
+  function endWorkoutClicked() {
+    const url = "http://localhost:3001/api/workout-history";
+    axios.post(url, {
+      workout_history: [
+        {
+          workoutID: workout._id,
+          date: "Date",
+          time: "Time",
+          exercises: exerciseStats,
+        },
+      ],
+    });
+  }
 
   return (
     <div className="p-4">
@@ -19,11 +36,19 @@ const LogWorkout = (props) => {
           <div>No exercises to display</div>
         ) : (
           workout.exercises_info.map((exercise) => (
-            <LogWorkoutExercise key={exercise._id} exercise={exercise} />
+            <LogWorkoutExercise
+              key={exercise._id}
+              exercise={exercise}
+              exerciseStats={exerciseStats}
+              setExerciseStats={setExerciseStats}
+            />
           ))
         )}
       </div>
-      <button className="sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded">
+      <button
+        className="sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded"
+        onClick={endWorkoutClicked}
+      >
         End Workout
       </button>
     </div>
