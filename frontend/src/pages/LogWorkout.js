@@ -11,6 +11,18 @@ const LogWorkout = (props) => {
   const [workoutLogged, setWorkoutLogged] = useState(false);
   const [logWorkout, setLogWorkout] = useState("Finish Workout");
 
+  function getTodaysDate(date = new Date()) {
+    return `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}T${date
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
   function endWorkoutClicked() {
     setWorkoutLogged(true);
     setLogWorkout("Workout logged");
@@ -18,7 +30,7 @@ const LogWorkout = (props) => {
     axios.post(url, {
       workout_history: {
         workoutID: workout._id,
-        date: "Date",
+        date: getTodaysDate(),
         time: "Time",
         exercises: exerciseStats,
       },
