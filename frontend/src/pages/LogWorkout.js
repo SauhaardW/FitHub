@@ -9,7 +9,7 @@ const LogWorkout = (props) => {
 
   const [exerciseStats, setExerciseStats] = useState([]);
   const [workoutLogged, setWorkoutLogged] = useState(false);
-  const [logWorkout, setLogWorkout] = useState("End Workout");
+  const [logWorkout, setLogWorkout] = useState("Finish Workout");
 
   function endWorkoutClicked() {
     setWorkoutLogged(true);
