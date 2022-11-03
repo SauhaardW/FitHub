@@ -8,18 +8,20 @@ const LogWorkout = (props) => {
   const workout = state !== null ? state.workout : {};
 
   const [exerciseStats, setExerciseStats] = useState([]);
+  const [workoutLogged, setWorkoutLogged] = useState(false);
+  const [logWorkout, setLogWorkout] = useState("End Workout");
 
   function endWorkoutClicked() {
+    setWorkoutLogged(true);
+    setLogWorkout("Workout logged");
     const url = "http://localhost:3001/api/workout-history";
     axios.post(url, {
-      workout_history: [
-        {
-          workoutID: workout._id,
-          date: "Date",
-          time: "Time",
-          exercises: exerciseStats,
-        },
-      ],
+      workout_history: {
+        workoutID: workout._id,
+        date: "Date",
+        time: "Time",
+        exercises: exerciseStats,
+      },
     });
   }
 
@@ -48,8 +50,9 @@ const LogWorkout = (props) => {
       <button
         className="sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded"
         onClick={endWorkoutClicked}
+        disabled={workoutLogged}
       >
-        End Workout
+        {logWorkout}
       </button>
     </div>
   );

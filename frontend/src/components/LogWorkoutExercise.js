@@ -62,7 +62,7 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
 
     setExerciseStats((prev) => [
       ...prev,
-      { exerciseID: exercise._id, set_info: val },
+      { exerciseID: exercise._id, sets_info: val },
     ]);
   }
 
