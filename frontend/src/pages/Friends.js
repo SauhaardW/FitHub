@@ -35,6 +35,86 @@ const Friends = () => {
     });
   }
 
+  const someFunction = () => {
+    const url = "http://localhost:3001/api/workout-history";
+    axios.post(url, {
+      workout_history: {
+        workoutID: "6352e97f2b04c5068e3d9000",
+        date: "2022-10-05T20:55:22",
+        time: "time",
+        exercises: [{
+          exerciseID: "63522c5246b3158cde5819ce",
+          sets_info: [
+            {
+              reps: 1,
+              weight: 1,
+            }
+          ],
+        },
+          {
+            exerciseID: "63522c5246b3158cde5816aa",
+            sets_info: [
+              {
+                reps: 2,
+                weight: 2,
+              }
+            ],
+          }],
+      },
+      // workout_history: {
+      //   workoutID: "6352e97f2b04c5068e3d9000",
+      //   date: "2022-10-05T19:55:22",
+      //   time: "time",
+      //   exercises: [{
+      //     exerciseID: "63522c5246b3158cde5819ce",
+      //     sets_info: [
+      //       {
+      //         reps: 3,
+      //         weight: 3,
+      //       }
+      //     ],
+      //   }],
+      // },
+      // workout_history: {
+      //   workoutID: "6352e97f2b04c5068e3d9000",
+      //   date: "2022-10-06T21:55:22",
+      //   time: "time",
+      //   exercises: [{
+      //     exerciseID: "63522c5246b3158cde5819ce",
+      //     sets_info: [
+      //       {
+      //         reps: 3,
+      //         weight: 3,
+    //       }
+      //     ],
+      //   }],
+      // },
+      // workout_history: {
+      //   workoutID: "635307352b04c5068e3d9348",
+      //   date: "2022-11-03T20:22:22",
+      //   time: "time",
+      //   exercises: [{
+      //     exerciseID: "63522c5246b3158cde5818c9",
+      //     sets_info: [
+      //       {
+      //         reps: 4,
+      //         weight: 4,
+      //       }
+      //     ],
+      //   }],
+      // }
+    });
+  }
+
+
+  const getHistories = () => {
+    const url = "http://localhost:3001/api/workout-history?subset=true";
+    axios.get(url).then((res) => {
+      console.log("histories");
+      console.log(res);
+    });
+  }
+
   useEffect(() => {
     getFriendsData();
     getFriendRequests();
@@ -82,6 +162,18 @@ const Friends = () => {
             </ul>
           </div>
         </div>
+        <button
+            className="px-2 py-1 bg-default-gradient rounded-lg w-30 text-white text-sm"
+            onClick={() => {someFunction()}}
+        >
+          Log workout
+        </button>
+        <button
+            className="px-2 py-1 bg-default-gradient rounded-lg w-30 text-white text-sm"
+            onClick={() => {getHistories()}}
+        >
+          Get
+        </button>
 
         <div className="mt-16">
           <div className="text-4xl font-semibold px-4">Friend Requests</div>
