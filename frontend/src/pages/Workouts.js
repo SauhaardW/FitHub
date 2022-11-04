@@ -24,29 +24,98 @@ const Workouts = () => {
             })
             setUserWorkouts(myWorkouts);
             setRecommendedWorkouts(recWorkouts)
+
+            const likes = recWorkouts.map(w => {return {workoutID: w._id, ratio: 0}});
+
+            console.log(recWorkouts);
+            likes.forEach((like) => {
+                const url = "http://localhost:3001/api/get-like-ratio?workoutID=" + like.workoutID.toString()
+
+                axios.get(url).then(res => {
+                    const ratio = res.data.likeRatio;
+                    console.log(ratio);
+                    like.ratio = ratio
+                }) ;
+            });
+
+
+            console.log("new LIkes______" );
+            console.log(likes);
+            setLikeRatio(likes);
+            // recWorkouts.forEach((workout) => {
+            //     // if(likeRatio.indexOf(workout._id) === -1) {
+            //     // console.log("workout ID " + workout._id + " os " + likes.map((e) => e.workoutID).indexOf(workout._id))
+            //     // const newLikes = likes.map((e) => e.workoutID);
+            //     // // console.log("new LIkes______");
+            //     // // console.log(newLikes);
+            //     // if(likes.map((e) => e.workoutID).indexOf(workout._id) === -1) {
+            //     //
+            //     //     // likes.map((e) => e.workoutID).indexOf(workout._id);
+            //     //     // if (likes.find(x => x.workoutID === workout._id) === undefined){
+            //     //     likes.push({workoutID: workout._id, ratio: 0});
+            //     // }
+            // });
+
         })
     }, []);
 
-    useEffect( () => {
-        // can not update a state in for loop because state updates asynch, so by next iteration the state may not be updated yet
-        recommendedWorkouts.forEach((workout) => {
-            const url = "http://localhost:3001/api/get-like-ratio?workoutID=" + workout._id.toString()
-            axios.get(url).then(res => {
-                const ratio = res.data.likeRatio; 
-                if(likeRatio.indexOf(workout._id) === -1) {
-                    setLikeRatio((prevRatio) => [...prevRatio , {workoutID: workout._id, ratio: ratio},])
-                }      
-            }) ;
-        })    
-
-        recommendedWorkouts.forEach((workout) => {
-            var val = likeRatio.find(obj => obj.workoutID === workout._id);
-            workout.ratio = val.ratio.toString();
-        })
-
-        setRecommendedWorkouts(recommendedWorkouts);
-
-    }, []);
+    // useEffect( () => {
+    //     // can not update a state in for loop because state updates asynch, so by next iteration the state may not be updated yet
+    //
+    //     console.log("workouts ");
+    //     console.log(recommendedWorkouts);
+    //     const likes = []
+    //     recommendedWorkouts.forEach((workout) => {
+    //         // if(likeRatio.indexOf(workout._id) === -1) {
+    //         console.log("workout ID " + workout._id + " os " + likes.map((e) => e.workoutID).indexOf(workout._id))
+    //         const newLikes = likes.map((e) => e.workoutID);
+    //         console.log("new LIkes______");
+    //         console.log(newLikes);
+    //             if(likes.map((e) => e.workoutID).indexOf(workout._id) === -1) {
+    //
+    //         // likes.map((e) => e.workoutID).indexOf(workout._id);
+    //             // if (likes.find(x => x.workoutID === workout._id) === undefined){
+    //             likes.push({workoutID: workout._id, ratio: 0});
+    //         }
+    //     });
+    //     console.log(likes);
+    //
+    //     //
+    //     recommendedWorkouts.forEach((workout) => {
+    //         const url = "http://localhost:3001/api/get-like-ratio?workoutID=" + workout._id.toString()
+    //         console.log(workout._id);
+    //         axios.get(url).then(res => {
+    //             const ratio = res.data.likeRatio;
+    //             // if(likeRatio.indexOf(workout._id) === -1) {
+    //             //     setLikeRatio((prevRatio) => [...prevRatio , {workoutID: workout._id, ratio: ratio},])
+    //             // }
+    //             // console.log("these are here ");
+    //             // console.log(recommendedWorkouts);
+    //             // console.log(likes);
+    //             likeRatio[likeRatio.indexOf(workout._id)] = {workoutID: workout._id, ratio: ratio};
+    //             // likes.push({workoutID: workout._id, ratio: ratio});
+    //
+    //             likes.push({workoutID: workout._id, ratio: ratio});
+    //             // setLikeRatio((prevRatio) => [...prevRatio , {workoutID: workout._id, ratio: ratio},])
+    //         }) ;
+    //     })
+    //     console.log("these are here ");
+    //
+    //     console.log(recommendedWorkouts);
+    //     console.log(likes);
+    //     setLikeRatio(likes);
+    //
+    //     //
+    //     // recommendedWorkouts.forEach((workout) => {
+    //     //     var val = likeRatio.find(obj => obj.workoutID === workout._id);
+    //     //     workout.ratio = val.ratio.toString();
+    //     // })
+    //     //
+    //     // console.log("workouts ");
+    //     // console.log(recommendedWorkouts);
+    //     // setRecommendedWorkouts(recommendedWorkouts);
+    //
+    // }, [recommendedWorkouts]);
 
 
     return (
@@ -108,7 +177,7 @@ const Workouts = () => {
 
                     <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
-                            { recommendedWorkouts.map((workout) => {
+                            { recommendedWorkouts.map((workout, index) => {
                                 return (
                                     <li key={workout.name}
                                         onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}
@@ -117,6 +186,9 @@ const Workouts = () => {
                                             key={workout.name}
                                             className="text-[#3898F2] w-full"
                                         >
+                                            <div>
+                                                Likes: {likeRatio[index].ratio} {index}
+                                            </div>
                                             <div className="font-bold text-lg">
                                                 {workout.name.toUpperCase()}
                                             </div>
