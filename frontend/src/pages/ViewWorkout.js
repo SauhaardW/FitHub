@@ -30,6 +30,16 @@ const ViewWorkout = () => {
         }
     }, [workoutId]);
 
+    function likeButtonPressed() {
+        const url = "http://localhost:3001/api/like-status";
+        axios.post(url, {workoutID: workout._id, status: true,});
+    }
+
+    function dislikeButtonPressed() {
+        const url = "http://localhost:3001/api/like-status";
+        axios.post(url, {workoutID: workout._id, status: false,});
+    }
+
     const navigate = useNavigate();
 
     return (
@@ -68,7 +78,10 @@ const ViewWorkout = () => {
                 </div>
             </div>
 
-            <div className="mt-1 text-sm text-gray-600">Created by: {workout.username}</div>
+            <div className="mt-1 text-sm text-gray-600">Created by: {workout.username}
+            <button className="mt-1 text-sm text-gray-600 p-2 outline-1 " onClick={likeButtonPressed}>Like</button>
+            <button className="mt-1 text-sm text-gray-600 p-2 outline-1" onClick={dislikeButtonPressed}>Disike</button>
+            </div>
             <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
             <div className="container h-max-[calc(100vh-60px)] overflow-scroll">
                 {workout.exercises_info === undefined ? <div>No exercises to display</div> : workout.exercises_info.map(exercise=>(
