@@ -3,6 +3,7 @@ import './Pages.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
+import {AiOutlineLike} from "react-icons/ai"
 
 const Home = () => {
     const navigate = useNavigate();
@@ -27,10 +28,18 @@ const Home = () => {
                 workout.username === "FitHub" ? recWorkouts.push(workout) : myWorkouts.push(workout);
             })
             setUserWorkouts(myWorkouts);
-            setRecommendedWorkouts(recWorkouts)
+
+            Promise.all(recWorkouts.map((wkt) => {
+                return axios.get("http://localhost:3001/api/get-like-ratio?workoutID=" + wkt._id.toString())
+            })).then((res) => {
+                for (var i=0; i<recWorkouts.length; i++) {
+                    const ratio = res[i].data.likeRatio; 
+                    recWorkouts[i].ratio = ratio.toString();
+                }
+                setRecommendedWorkouts(recWorkouts);
+            })
         })
     }, []);
-
 
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
@@ -46,14 +55,16 @@ const Home = () => {
                 </div>
 
                 {(userWorkouts === null || userWorkouts === undefined || userWorkouts.length === 0)
-                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
+                    ? <div className="text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
                     : <div>
 
                     <div className="horizontal-scrollable-div">
                         <ul className="flex">
                             {userWorkouts.map((workout) => {
                                 return (
-                                    <li key={workout.name} className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
+                                    <li key={workout.name} 
+                                        onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}
+                                        className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
                                         <div
                                             key={workout.name}
                                             className="w-60 text-[#3898F2]"
@@ -84,21 +95,33 @@ const Home = () => {
                     OUR WORKOUTS
                 </div>
                 {(recommendedWorkouts === null || recommendedWorkouts === undefined || recommendedWorkouts.length === 0)
-                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
+                    ? <div className="text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
                     : <div>
 
                     <div className="horizontal-scrollable-div">
                         <ul className="flex">
                             { recommendedWorkouts.map((workout) => {
                                 return (
-                                    <li key={workout.name} className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded">
+                                    <li key={workout.name} 
+                                        className="flex w-60 justify-between p-3 m-1 mr-3 outline outline-1 outline-[#3898F2] rounded"
+                                        onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}>
                                         <div
                                             key={workout.name}
                                             className="w-60 text-[#3898F2]"
                                         >
-                                            <div className="font-bold text-lg">
-                                                {workout.name.toUpperCase()}
+                                            <div className="flex justify-between w-full align-middle">
+                                                <div className="font-bold text-lg pr-3">
+                                                    {workout === undefined ? "Undefined" : workout.name.toUpperCase()}
+                                                </div>
+                                                <div className="flex align-middle">
+                                                    <AiOutlineLike/>
+                                                    {workout.ratio + "%"}
+                                                </div>
+                                                <div>
+                                                    
+                                                </div>
                                             </div>
+
                                             <hr className="mt-1 mb-3 h-px bg-[#3898F2] border-0"></hr>
 
                                             <div className="text-xs">

@@ -95,3 +95,35 @@ module.exports.getUserWorkouts = (req, res) => {
         });
     });
 };
+
+module.exports.getWorkout = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
+
+    const id = req.query.id;
+
+    let stages = [
+        { $match: {_id: mongoose.Types.ObjectId(id) }
+        }, { $lookup: {
+                from: 'exercises',
+                localField: 'exercises',
+                foreignField: '_id',
+                as: 'exercises_info'
+            }
+        }, { $project: {
+                "_id": 1,
+                "name": 1,
+                "username": 1,
+                "exercises": 1,
+                "experience": 1,
+                "exercises_info": 1,
+            }
+        }]
+
+    mongoose.connection.db.collection('workouts').aggregate(stages).toArray(function (err, data) {
+        if (err){
+            console.log(err)
+            console.log("Error converting collection to array");
+        }
+        res.send({success: true, data: data});
+    });
+};

@@ -7,6 +7,15 @@
     margin-top: 80px;
 }
 
+.pages .inputInfo{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
 
 .input-form{
     display: flex;
@@ -75,3 +84,27 @@
     font-size: 17px;
     text-align: center;
 }
+
+.inputInfo input{
+    text-align: center;
+    border-radius: 8px;
+
+    width: 80%;
+    margin: auto;
+}
+.inputInfo select{
+    text-align: center;
+    border-radius: 8px;
+
+    width: 80%;
+    margin: auto;
+}
+
+.inputInfo p{
+    text-align: center;
+    font-size:x-large;
+    font-weight: bold;
+}
+
+
+

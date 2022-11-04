@@ -15,6 +15,9 @@ import axios from "axios";
 import ScheduleWorkout from "./pages/ScheduleWorkout";
 import CreateWorkout from "./pages/CreateWorkout";
 import Workouts from "./pages/Workouts";
+import ViewWorkout from "./pages/ViewWorkout";
+import LogWorkout from "./pages/LogWorkout";
+import LogBodyStats from "./pages/LogBodyStats";
 
 // Use cookies in requests
 axios.defaults.withCredentials = true;
@@ -29,6 +32,7 @@ const App = () => {
           <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/calendar" element={<Calendar />} />
+          <Route exact path="/user/log-stats" element={<LogBodyStats />} />
           <Route
             exact
             path="/calendar/schedule-workout"
@@ -41,6 +45,9 @@ const App = () => {
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/workouts/create" element={<CreateWorkout />} />
           <Route exact path="/workouts" element={<Workouts />} />
+          <Route exact path="/workout" element={<ViewWorkout />} />
+          <Route exact path="/workout/log" element={<LogWorkout />} />
+          
         </Routes>
       </div>
     </Router>
