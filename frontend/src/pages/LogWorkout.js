@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import LogWorkoutExercise from "../components/LogWorkoutExercise";
+import axios from "axios";
 
 const LogWorkout = (props) => {
   const { state } = useLocation();
   const workout = state !== null ? state.workout : {};
+
+  const [exerciseStats, setExerciseStats] = useState([]);
+  const [workoutLogged, setWorkoutLogged] = useState(false);
+  const [logWorkout, setLogWorkout] = useState("Finish Workout");
+
+  function getTodaysDate(date = new Date()) {
+    return `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}T${date
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
+  function endWorkoutClicked() {
+    setWorkoutLogged(true);
+    setLogWorkout("Workout logged");
+    const url = "http://localhost:3001/api/workout-history";
+    axios.post(url, {
+      workout_history: {
+        workoutID: workout._id,
+        date: getTodaysDate(),
+        exercises: exerciseStats,
+      },
+    });
+  }
 
   return (
     <div className="p-4">
@@ -19,19 +49,22 @@ const LogWorkout = (props) => {
           <div>No exercises to display</div>
         ) : (
           workout.exercises_info.map((exercise) => (
-            <LogWorkoutExercise key={exercise._id} exercise={exercise} />
+            <LogWorkoutExercise
+              key={exercise._id}
+              exercise={exercise}
+              exerciseStats={exerciseStats}
+              setExerciseStats={setExerciseStats}
+            />
           ))
         )}
       </div>
-
-      {/* <button
-        onClick={() => {
-          navigate("log", { state: { workout: workout } });
-        }}
+      <button
         className="sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded"
+        onClick={endWorkoutClicked}
+        disabled={workoutLogged}
       >
-        Log Workout
-      </button> */}
+        {logWorkout}
+      </button>
     </div>
   );
 };

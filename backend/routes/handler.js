@@ -8,6 +8,7 @@ const login = require("./user/login");
 const stats = require("./user/stats");
 const friend_request = require("./friends/friend_request")
 const workout = require("./workout/workout")
+const workoutHistory = require("./workout/workoutHistory")
 const schedule = require("./schedule/schedule_workouts")
 const like_status = require("./user/like_status")
 
@@ -36,6 +37,9 @@ router.get("/api/get-friend-requests", friend_request.get_friendRequests);
 router.post("/api/workouts", workout.post);
 router.get("/api/workouts", workout.getUserWorkouts);
 router.get("/api/workout", workout.getWorkout);
+
+router.post("/api/workout-history", workoutHistory.logWorkout);
+router.get("/api/workout-history", workoutHistory.getLoggedWorkouts);
 
 router.post("/api/schedule-workout", schedule.scheduleWorkouts);
 router.get("/api/scheduled-workouts", schedule.getScheduledWorkouts);
