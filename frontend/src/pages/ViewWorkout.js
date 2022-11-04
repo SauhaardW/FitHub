@@ -22,7 +22,7 @@ const ViewWorkout = () => {
         setAnchorEl(null);
     };
     useEffect( () => {
-        if (workoutId != ""){ //state changes to null when hamburger menu is opened, so workoutID will update to ""
+        if (workoutId !== ""){ //state changes to null when hamburger menu is opened, so workoutID will update to ""
             const params = {id: workoutId}
             axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
                 setWorkout(res.data.data[0]);
@@ -58,7 +58,9 @@ const ViewWorkout = () => {
                         navigator.clipboard.writeText("Workout Name: "+ workout.name + "\n" +
                         "Creator: " + workout.username + "\n" + 
                         "Exercises: " + workout.exercises_info.map((ex) => {
-                        return   "Name: " + (ex).name + "\n" + "Instructions: " + JSON.stringify(ex.instructions) + "\n" }).join("\n\n")) 
+                            //careful with the following line, it makes eslint ignore the warning it gives that there is unexpected string concatenation
+                            // eslint-disable-next-line
+                        return   "Name: " + (ex).name + "\n" + "Instructions: " + JSON.stringify(ex.instructions) + "\n" }).join("\n\n"))
                         handleClose() }}
                         >
                         <GrCopy/> - Copy
