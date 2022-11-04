@@ -39,6 +39,8 @@ Our database of choice is MongoDB. We have a general database handler, `backend/
     Takes a likeStatus parameter and a workoutID and updates the user's like status on a workoutID
 - `GET /api/get-like-ratio`
     Takes a workoutID and responds with the like ratio details for that workout
+- `POST /api/stats`
+    Adds a new body statistic for the user. Expects the statistic name and value in the body.
 
 #### Exercise  
 - `GET /api/exercise/filter`  
