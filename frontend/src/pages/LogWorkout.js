@@ -31,7 +31,6 @@ const LogWorkout = (props) => {
       workout_history: {
         workoutID: workout._id,
         date: getTodaysDate(),
-        time: "Time",
         exercises: exerciseStats,
       },
     });
