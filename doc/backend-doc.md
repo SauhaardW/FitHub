@@ -35,6 +35,10 @@ Our database of choice is MongoDB. We have a general database handler, `backend/
     Updates the currently authenticated user's data  
 - `POST /api/login`  
     Attempts to log into a user account using the username/password in request body.  
+- `POST /api/like-status`
+    Takes a likeStatus parameter and a workoutID and updates the user's like status on a workoutID
+- `GET /api/get-like-ratio`
+    Takes a workoutID and responds with the like ratio details for that workout
 
 #### Exercise  
 - `GET /api/exercise/filter`  
@@ -59,6 +63,10 @@ Our database of choice is MongoDB. We have a general database handler, `backend/
     Schedules a workout based on the request body, for the authenticated user.  
 - `GET /api/scheduled-workouts`  
     Gets all scheduled workouts for the authenticated user.  
+- `POST /api/workout-history`
+    Logs a new workout in the workout history for a user, expects a workout object in body.
+- `GET /api/workout-history`
+    Gets a users workout history. Uses JWT token to gather data, no body needed.
 
 ### Others
 #### utils.js
