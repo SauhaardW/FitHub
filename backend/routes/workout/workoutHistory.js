@@ -8,12 +8,14 @@ module.exports.logWorkout = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body.workout_history.workoutID)}`);
 
     var workoutData = req.body.workout_history;
-    console.log("my date is: " + workoutData.date);
 
+    const dateRegex = new RegExp("^(19|20)\\d\\d-(0[1-9]|1[012])-([012]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$");
+    if (!dateRegex.test(workoutData.date)){
+        res.send({success: false, error: "Invalid date format"});
+        return;
+    }
 
-    //do regex check to ensure date is valid format pls
     workoutData.date = new Date(workoutData.date);
-    console.log("my date is: " + workoutData.date);
 
     utils.verifyJWT(req, res, (req, res) => {
         const id = mongoose.Types.ObjectId(req.JWT_data.id)

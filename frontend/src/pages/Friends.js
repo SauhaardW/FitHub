@@ -82,18 +82,6 @@ const Friends = () => {
             </ul>
           </div>
         </div>
-        <button
-            className="px-2 py-1 bg-default-gradient rounded-lg w-30 text-white text-sm"
-            onClick={() => {someFunction()}}
-        >
-          Log workout
-        </button>
-        <button
-            className="px-2 py-1 bg-default-gradient rounded-lg w-30 text-white text-sm"
-            onClick={() => {getHistories()}}
-        >
-          Get
-        </button>
 
         <div className="mt-16">
           <div className="text-4xl font-semibold px-4">Friend Requests</div>
