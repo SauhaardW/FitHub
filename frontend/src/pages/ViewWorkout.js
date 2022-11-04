@@ -17,8 +17,7 @@ const ViewWorkout = () => {
     const [workout, setWorkout] = useState({});
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const [LikeisActive, setLikeIsActive] = useState(true);
-    const [DislikeisActive, setDislikeIsActive] = useState(true);
+    const [likeStatus, setLikeStatus] = useState(0);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -34,24 +33,31 @@ const ViewWorkout = () => {
                 setWorkout(res.data.data[0]);
             })
         }
+
+        const url = "http://localhost:3001/api/get-like-ratio";
+        axios.get(url, {params: {workoutID: workoutId}}).then((res) => {
+            setLikeStatus(res.data.userStatus)
+        })
     }, [workoutId]);
 
     function likeButtonPressed() {
         const url = "http://localhost:3001/api/like-status";
-        axios.post(url, {workoutID: workout._id, status: true,});
-        if (!DislikeisActive) {
-            setDislikeIsActive(current => !current);
+        axios.post(url, {workoutID: workout._id, status: true});
+        if (likeStatus === 0 || likeStatus === -1) {
+            setLikeStatus(1);
+        } else if (likeStatus === 1) {
+            setLikeStatus(0);
         }
-        setLikeIsActive(current => !current);
     }
 
     function dislikeButtonPressed() {
         const url = "http://localhost:3001/api/like-status";
-        axios.post(url, {workoutID: workout._id, status: false,});
-        if (!LikeisActive) {
-            setLikeIsActive(current => !current);
+        axios.post(url, {workoutID: workout._id, status: false});
+        if (likeStatus === 0 || likeStatus === 1) {
+            setLikeStatus(-1);
+        } else if (likeStatus === 1) {
+            setLikeStatus(0);
         }
-        setDislikeIsActive(current => !current);
     }
 
     const navigate = useNavigate();
@@ -97,13 +103,13 @@ const ViewWorkout = () => {
             <div className="mt-1 text-sm text-gray-600 ">Created by: {workout.username}
             <button className="mt-1 text-sm text-gray-600 p-2 outline-1 ml-40 w-5" onClick={likeButtonPressed} style={{
 
-          color: LikeisActive ? '' : 'green',
+          color: likeStatus===1 ? 'green' : '',
         }}
         > <AiFillLike size={20}/></button>
             <button className="mt-1 text-sm text-gray-600 p-2 outline-1  ml-4" onClick={dislikeButtonPressed}
             style={{
 
-                color: DislikeisActive ? '' : 'red',
+                color: likeStatus===-1 ? 'red' : '',
               }}><AiFillDislike size={20} /></button>
             </div>
             <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
