@@ -7,6 +7,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { GoKebabVertical } from "react-icons/go";
 import { GrCopy } from "react-icons/gr";
+import {AiFillLike} from "react-icons/ai";
+import {AiFillDislike} from "react-icons/ai";
 
 
 const ViewWorkout = () => {
@@ -14,6 +16,10 @@ const ViewWorkout = () => {
     const workoutId = state !== null ? state.workoutId : "";
     const [workout, setWorkout] = useState({});
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const [LikeisActive, setLikeIsActive] = useState(true);
+    const [DislikeisActive, setDislikeIsActive] = useState(true);
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -29,6 +35,24 @@ const ViewWorkout = () => {
             })
         }
     }, [workoutId]);
+
+    function likeButtonPressed() {
+        const url = "http://localhost:3001/api/like-status";
+        axios.post(url, {workoutID: workout._id, status: true,});
+        if (!DislikeisActive) {
+            setDislikeIsActive(current => !current);
+        }
+        setLikeIsActive(current => !current);
+    }
+
+    function dislikeButtonPressed() {
+        const url = "http://localhost:3001/api/like-status";
+        axios.post(url, {workoutID: workout._id, status: false,});
+        if (!LikeisActive) {
+            setLikeIsActive(current => !current);
+        }
+        setDislikeIsActive(current => !current);
+    }
 
     const navigate = useNavigate();
 
@@ -70,7 +94,18 @@ const ViewWorkout = () => {
                 </div>
             </div>
 
-            <div className="mt-1 text-sm text-gray-600">Created by: {workout.username}</div>
+            <div className="mt-1 text-sm text-gray-600 ">Created by: {workout.username}
+            <button className="mt-1 text-sm text-gray-600 p-2 outline-1 ml-40 w-5" onClick={likeButtonPressed} style={{
+
+          color: LikeisActive ? '' : 'green',
+        }}
+        > <AiFillLike size={20}/></button>
+            <button className="mt-1 text-sm text-gray-600 p-2 outline-1  ml-4" onClick={dislikeButtonPressed}
+            style={{
+
+                color: DislikeisActive ? '' : 'red',
+              }}><AiFillDislike size={20} /></button>
+            </div>
             <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
             <div className="container h-max-[calc(100vh-60px)] overflow-scroll">
                 {workout.exercises_info === undefined ? <div>No exercises to display</div> : workout.exercises_info.map(exercise=>(
