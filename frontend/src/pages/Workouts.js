@@ -8,6 +8,8 @@ const Workouts = () => {
     const navigate = useNavigate();
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
+    const [likeRatio, setLikeRatio] = useState([]);
+    const [currentRatio, setCurrentRatio] = useState(0);
 
     useEffect( () => {
         // can not update a state in for loop because state updates asynch, so by next iteration the state may not be updated yet
@@ -24,6 +26,20 @@ const Workouts = () => {
             setUserWorkouts(myWorkouts);
             setRecommendedWorkouts(recWorkouts)
         })
+    }, []);
+
+    useEffect( () => {
+        // can not update a state in for loop because state updates asynch, so by next iteration the state may not be updated yet
+        recommendedWorkouts.forEach((workout) => {
+            const url = "http://localhost:3001/api/get-like-ratio?workoutID=" + workout._id.toString()
+            axios.get(url).then(res => {
+                const ratio = res.data.likeRatio; 
+                if(likeRatio.indexOf(workout._id) === -1) {
+                    setLikeRatio((prevRatio) => [...prevRatio , {workoutID: workout._id, ratio: ratio},])
+                }      
+            }) ;
+        })    
+
     }, []);
 
 
@@ -87,8 +103,12 @@ const Workouts = () => {
                     <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
                             { recommendedWorkouts.map((workout) => {
+                                // likeRatio.forEach((likeR) => {
+                                //     {likeR.workoutID === workout._id && 
+                                //         setCurrentRatio(likeR.ratio);
+                                //     }})
                                 return (
-                                    <li key={workout.name} 
+                                    <li key={workout.name}
                                         onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}
                                         className="flex justify-between p-3 m-1 mb-2 outline outline-1 outline-[#3898F2] rounded">
                                         <div
@@ -107,6 +127,7 @@ const Workouts = () => {
                                             <div className="text-right font-semibold mt-1 text-sm text-black">
                                                 {workout.exercises_info.length} exercises
                                             </div>
+                                            
                                         </div>
                                     </li>
                                 );

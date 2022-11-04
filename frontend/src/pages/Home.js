@@ -11,6 +11,7 @@ const Home = () => {
     const [name, setName] = useState("");
 
     useEffect( () => {
+        const workoutID = {workoutID : ''};
         axios.get("http://localhost:3001/api/current-user").then(res => {
             setName(res.data.data.name);
         })
