@@ -30,15 +30,16 @@ const ViewWorkout = () => {
         if (workoutId !== ""){ //state changes to null when hamburger menu is opened, so workoutID will update to ""
             const params = {id: workoutId}
             axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
-                setWorkout(res.data.data[0]);
+                var workout_obj = res.data.data[0];
+                const url = "http://localhost:3001/api/get-like-ratio";
+                axios.get(url, {params: {workoutID: workoutId}}).then((res) => {
+                    setLikeStatus(res.data.userStatus)
+                    workout_obj.ratio = res.data.likeRatio.toString();
+                    setWorkout(workout_obj);
+                })
             })
         }
-
-        const url = "http://localhost:3001/api/get-like-ratio";
-        axios.get(url, {params: {workoutID: workoutId}}).then((res) => {
-            setLikeStatus(res.data.userStatus)
-        })
-    }, [workoutId]);
+    }, [workoutId, likeStatus]);
 
     function likeButtonPressed() {
         const url = "http://localhost:3001/api/like-status";
@@ -99,19 +100,18 @@ const ViewWorkout = () => {
                 </Menu>
                 </div>
             </div>
-
-            <div className="mt-1 text-sm text-gray-600 ">Created by: {workout.username}
-            <button className="mt-1 text-sm text-gray-600 p-2 outline-1 ml-40 w-5" onClick={likeButtonPressed} style={{
-
-          color: likeStatus===1 ? 'green' : '',
-        }}
-        > <AiFillLike size={20}/></button>
-            <button className="mt-1 text-sm text-gray-600 p-2 outline-1  ml-4" onClick={dislikeButtonPressed}
-            style={{
-
-                color: likeStatus===-1 ? 'red' : '',
-              }}><AiFillDislike size={20} /></button>
+            
+            <div className="mt-1 flex justify-between align-middle">
+                <div className="text-sm text-gray-600 ">Created by: {workout.username}</div>
+                <div className='text-[#3898F2]'>
+                    {workout.ratio + "%"}
+                    <button className="text-sm text-gray-600 p-2 outline-1 ml-4 w-5" onClick={likeButtonPressed} style={{color: likeStatus===1 ? 'green' : ''}}>
+                    <AiFillLike size={20}/></button>
+                    <button className="text-sm text-gray-600 p-2 outline-1  ml-4" onClick={dislikeButtonPressed}style={{color: likeStatus===-1 ? 'red' : ''}}>
+                    <AiFillDislike size={20} /></button>
+                </div>
             </div>
+            
             <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
             <div className="container h-max-[calc(100vh-60px)] overflow-scroll">
                 {workout.exercises_info === undefined ? <div>No exercises to display</div> : workout.exercises_info.map(exercise=>(

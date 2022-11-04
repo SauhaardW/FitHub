@@ -50,7 +50,7 @@ const Workouts = () => {
                 </div>
 
                 {(userWorkouts === null || userWorkouts === undefined || userWorkouts.length === 0)
-                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
+                    ? <div className="text-sm ml-1 text-[#3898F2]">You have no workouts to display!</div>
                     : <div>
 
                     <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
@@ -92,7 +92,7 @@ const Workouts = () => {
                     OUR WORKOUTS
                 </div>
                 {(recommendedWorkouts === null || recommendedWorkouts === undefined || recommendedWorkouts.length === 0)
-                    ? <div className="text-black text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
+                    ? <div className="text-sm ml-1 text-[#3898F2]">We have no recommended workouts for you!</div>
                     : <div>
 
                     <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
