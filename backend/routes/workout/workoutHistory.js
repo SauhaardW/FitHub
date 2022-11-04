@@ -9,6 +9,14 @@ module.exports.logWorkout = (req, res) => {
 
     var workoutData = req.body.workout_history;
 
+    const dateRegex = new RegExp("^(19|20)\\d\\d-(0[1-9]|1[012])-([012]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$");
+    if (!dateRegex.test(workoutData.date)){
+        res.send({success: false, error: "Invalid date format"});
+        return;
+    }
+
+    workoutData.date = new Date(workoutData.date);
+
     utils.verifyJWT(req, res, (req, res) => {
         const id = mongoose.Types.ObjectId(req.JWT_data.id)
 
@@ -94,3 +102,111 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
         }
     })
 }
+
+
+
+module.exports.getLoggedWorkouts = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
+    //Note: for frontend to convert datetime from UTC to localtime
+    //this endpoint takes a request body and query param "subset" which is true or false depeding on if you a user's entire
+    //workout history, or only the last 30 days
+
+    utils.verifyJWT(req, res, (req, res) => {
+        const id = req.JWT_data.id
+
+        let stages = [
+            { $match: {userID: mongoose.Types.ObjectId(id)}},
+            { $unwind: '$workout_history'},
+        ]
+        if (req.query.subset === "true"){
+            stages.push({ $match:
+                    { $expr:
+                            {$and: [
+                                { $gt: [
+                                        "$workout_history.date",
+                                        { $subtract: [ "$$NOW", 30 * 24 * 60 * 60 * 1000] } ]
+                                },
+                                    { $lt: [
+                                            "$workout_history.date",
+                                            { $subtract: [ "$$NOW", 0] } ]
+                                    }
+                            ]}
+                    }
+            })
+        }
+
+        stages.push(
+            { "$project": { "workout_history.workoutID": 1, "workout_history.date": 1, "workout_history.friend": 1, "workout_history.exercises": 1, "_id": 0 } },
+            { $sort: { "workout_history.date": -1 } },
+        )
+
+        stages = getWorkoutName(stages);
+        stages = getExerciseInfo(stages);
+
+        mongoose.connection.db.collection('workouthistories').aggregate(stages).toArray(function (err, data) {
+            if (err){
+                console.log("Error converting collection to array");
+            }
+            res.send({success: true, data: data});
+        });
+    });
+};
+
+const getWorkoutName = (stages) => {
+    stages.push(
+        { $lookup: {
+                from: 'workouts',
+                localField: 'workout_history.workoutID',
+                foreignField: '_id',
+                pipeline: [ {$project: {name: 1, _id: 0} } ],
+                as: 'workout_name'
+            }
+        },
+        { $unwind: "$workout_name" },
+        { $addFields: {
+                "workout_history.workout_name":  "$workout_name.name"  ,
+            }
+        },
+        { "$project": { "workout_name": 0 } }
+    )
+    return stages;
+}
+
+const getExerciseInfo = (stages) => {
+    stages.push(
+        {
+            $lookup: {
+                from: 'exercises',
+                localField: 'workout_history.exercises.exerciseID',
+                foreignField: '_id',
+                as: 'exercise_info'
+            }
+        },
+        { "$addFields": {
+                "workout_history.exercises": {
+                    "$map": {
+                        "input": "$workout_history.exercises",
+                        "in": {
+                            "$mergeObjects": [
+                                "$$this",
+                                { "exercise_info": {
+                                        "$arrayElemAt": [
+                                            "$exercise_info",
+                                            {
+                                                "$indexOfArray": [
+                                                    "$exercise_info._id",
+                                                    "$$this.exerciseID"
+                                                ]
+                                            }
+                                        ]
+                                    } }
+                            ]
+                        }
+                    }
+                }
+            } },
+        { "$project": { "exercise_info": 0, "workout_history.exercises.exerciseID": 0 } }
+    )
+    return stages;
+}
+

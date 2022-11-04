@@ -60,8 +60,7 @@ const createSchemas = () => {
         userID: {type: mongoose.Types.ObjectId, required:true},
         workout_history: [{
             workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
-            date: {type: String, required:true},
-            time: {type: String, required:true},
+            date: {type: Date, required:true},
             friend: {type: String},
             exercises: [{
                 exerciseID: {type: mongoose.Schema.Types.ObjectId, required:true},
