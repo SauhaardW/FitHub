@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const db = require("../../db");
 const utils = require("../../utils");
 
@@ -92,6 +93,7 @@ module.exports.updateLikeStatus = (req, res) => {
                         return;
                     } else {
                         console.log(`[${dirName}] Saving ${save_workout.name} was successful`);
+                        res.send({data: save_workout, success: true});
                     }
                 });
             });
@@ -100,8 +102,8 @@ module.exports.updateLikeStatus = (req, res) => {
     })
 };
 
-module.exports.getLikeRatio = (req, res) => {
-    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body)}`);
+module.exports.getLikeRatio = (req, res) => {   
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
 
     utils.verifyJWT(req, res, (req, res) => {
         const username = req.JWT_data.username;
@@ -119,8 +121,15 @@ module.exports.getLikeRatio = (req, res) => {
                 return
             }
 
+            if (workoutID == "") {
+                console.log(`[${dirName}] ERROR: Error finding workout ${workoutID}`);
+                console.log(err);
+                res.send({error: "Error finding workout", success: false});
+                return
+            }
+
             // Check if workoutID is a valid workout
-            db.models.workout.findOne({"_id": workoutID}, (err, curr_workout) => {
+            db.models.workout.findOne({"_id": mongoose.Types.ObjectId(workoutID)}, (err, curr_workout) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Error finding workout ${workoutID}`);
                     console.log(err);
@@ -131,12 +140,20 @@ module.exports.getLikeRatio = (req, res) => {
                     return
                 }
 
+                var user_like_status = 0
+                if (curr_workout.like !== undefined && curr_workout.like.users.includes(id)) {
+                    user_like_status = 1;
+                } else if (curr_workout.dislike !== undefined && curr_workout.dislike.users.includes(id)) {
+                    user_like_status = -1;
+                }
+                
+
                 // Check if total votes for a workout is zero
                 if (curr_workout.like.count + curr_workout.dislike.count === 0) {
-                    res.send({ likeRatio: 0, success: true});
+                    res.send({ likeRatio: 0, userStatus: 0, success: true});
                 } else {
                     var ratio = (curr_workout.like.count/(curr_workout.like.count + curr_workout.dislike.count))*100;
-                    res.send({ likeRatio: ratio, success: true});
+                    res.send({ likeRatio: ratio, userStatus: user_like_status, success: true});
                 }
             });
         });
