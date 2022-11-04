@@ -2,9 +2,6 @@ import React, { useState } from "react";
 
 const LogWorkoutExercise = (props) => {
   const [isActive, setIsActive] = useState(false);
-  const [reps, setReps] = useState([]);
-
-  function getReps() {}
 
   return (
     <div>
