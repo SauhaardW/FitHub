@@ -66,6 +66,7 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
     ]);
   }
 
+
   return (
     <div>
       <div className="filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100">
