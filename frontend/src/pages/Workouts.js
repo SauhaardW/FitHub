@@ -9,7 +9,6 @@ const Workouts = () => {
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
     const [likeRatio, setLikeRatio] = useState([]);
-    const [currentRatio, setCurrentRatio] = useState(0);
 
     useEffect( () => {
         // can not update a state in for loop because state updates asynch, so by next iteration the state may not be updated yet
@@ -39,6 +38,13 @@ const Workouts = () => {
                 }      
             }) ;
         })    
+
+        recommendedWorkouts.forEach((workout) => {
+            var val = likeRatio.find(obj => obj.workoutID === workout._id);
+            workout.ratio = val.ratio.toString();
+        })
+
+        setRecommendedWorkouts(recommendedWorkouts);
 
     }, []);
 
@@ -103,10 +109,6 @@ const Workouts = () => {
                     <div className="scrollable-div m-0 rounded p-1 bg-gray-50 border border-gray-300 h-full max-h-screen">
                         <ul>
                             { recommendedWorkouts.map((workout) => {
-                                // likeRatio.forEach((likeR) => {
-                                //     {likeR.workoutID === workout._id && 
-                                //         setCurrentRatio(likeR.ratio);
-                                //     }})
                                 return (
                                     <li key={workout.name}
                                         onClick={()=>{navigate('/workout', { state: {workoutId: workout._id}})}}
@@ -123,11 +125,9 @@ const Workouts = () => {
                                             <div className="text-xs">
                                                 {workout.exercisesString}
                                             </div>
-
                                             <div className="text-right font-semibold mt-1 text-sm text-black">
                                                 {workout.exercises_info.length} exercises
                                             </div>
-                                            
                                         </div>
                                     </li>
                                 );
