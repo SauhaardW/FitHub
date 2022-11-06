@@ -60,20 +60,17 @@ const WorkoutHistory = () => {
 
                 {workoutHistorySubset && pastMonthHistory.map(workout => {
                         return (
-                            <WorkoutHistoryComponent key={workout.workout_history.workoutID} workout={workout.workout_history}/>
+                            <WorkoutHistoryComponent key={(new Date(workout.workout_history.date)).getTime()} workout={workout.workout_history}/>
                         )
                     })
                 }
 
                 {!workoutHistorySubset && allHistory.map(workout => {
                     return (
-                        <WorkoutHistoryComponent key={workout.workout_history.workoutID} workout={workout.workout_history}/>
+                        <WorkoutHistoryComponent key={(new Date(workout.workout_history.date)).getTime()} workout={workout.workout_history} date={(new Date(workout.workout_history.date)).getTime()}/>
                     )
                 })
                 }
-
-
-
             </div>
         </div>
     );
