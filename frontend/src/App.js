@@ -18,6 +18,7 @@ import Workouts from "./pages/Workouts";
 import ViewWorkout from "./pages/ViewWorkout";
 import LogWorkout from "./pages/LogWorkout";
 import LogBodyStats from "./pages/LogBodyStats";
+import WorkoutHistory from "./pages/WorkoutHistory";
 
 // Use cookies in requests
 axios.defaults.withCredentials = true;
@@ -47,7 +48,8 @@ const App = () => {
           <Route exact path="/workouts" element={<Workouts />} />
           <Route exact path="/workout" element={<ViewWorkout />} />
           <Route exact path="/workout/log" element={<LogWorkout />} />
-          
+          <Route exact path="/history/workouts" element={<WorkoutHistory />} />
+
         </Routes>
       </div>
     </Router>
