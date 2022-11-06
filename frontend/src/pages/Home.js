@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai"
+import {BsCheck2All} from "react-icons/bs"
 
 const Home = () => {
+    const {state} = useLocation();
+    const loggedWorkout = state !== null ? state.loggedWorkout : false;
     const navigate = useNavigate();
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
@@ -49,6 +52,10 @@ const Home = () => {
                 </div>
 
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
+
+                {loggedWorkout && <div className="text-green-500">
+                    <div className="flex items-center mb-2"><BsCheck2All/> <span className="pl-2">Workout successfully logged!</span></div>
+                </div>}
 
                 <div className="text-md m-1 font-semibold">
                     YOUR WORKOUTS

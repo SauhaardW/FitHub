@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import LogWorkoutExercise from "../components/LogWorkoutExercise";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LogWorkout = (props) => {
-  const { state } = useLocation();
+    const navigate = useNavigate();
+    const { state } = useLocation();
   const workout = state !== null ? state.workout : {};
 
   const [exerciseStats, setExerciseStats] = useState([]);
@@ -34,7 +36,8 @@ const LogWorkout = (props) => {
         exercises: exerciseStats,
       },
     });
-  }
+      navigate('/home', { state: {loggedWorkout: true}})
+    }
 
   return (
     <div className="p-4">
