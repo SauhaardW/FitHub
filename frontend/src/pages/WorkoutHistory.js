@@ -1,15 +1,41 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Pages.css';
+import axios from "axios";
 
 const WorkoutHistory = () => {
     const [workoutHistorySubset, setWorkoutHistorySubset] = useState(true);
+    const [pastMonthHistory, setPastMonthHistory] = useState({});
+    const [allHistory, setAllHistory] = useState({});
+
 
     const changeHistorySubsetSetting = (pastMonth) => {
-        if (workoutHistorySubset && !pastMonth || !workoutHistorySubset && pastMonth){
+        if ((workoutHistorySubset && !pastMonth) || (!workoutHistorySubset && pastMonth)){
             setWorkoutHistorySubset(!workoutHistorySubset);
         }
-
+        getAllHistoryData();
     }
+
+    const getAllHistoryData = () => {
+        if (Object.keys(allHistory).length === 0){
+            const url = "http://localhost:3001/api/workout-history?subset=false"
+            axios.get(url).then(res => {
+                const data = res.data.data;
+                console.log("all res");
+                console.log(data);
+                setAllHistory(data)
+            });
+        }
+    }
+
+    useEffect( () => {
+        const url = "http://localhost:3001/api/workout-history?subset=true"
+        axios.get(url).then(res => {
+            const data = res.data.data;
+            console.log("res");
+            console.log(data);
+            setPastMonthHistory(data)
+        });
+    }, []);
 
 
     return (
