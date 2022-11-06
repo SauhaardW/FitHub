@@ -59,7 +59,7 @@ const createSchemas = () => {
     const workoutHistorySchema = new mongoose.Schema({
         userID: {type: mongoose.Types.ObjectId, required:true},
         workout_streak: {
-            streak: {type: Number},
+            streak: {type: Number, default: 0},
             last_workout: {type: Date},
             _id: false,
         }
