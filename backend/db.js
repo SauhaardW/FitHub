@@ -62,7 +62,7 @@ const createSchemas = () => {
             streak: {type: Number, default: 0},
             last_workout: {type: Date},
             _id: false,
-        }
+        },
         workout_history: [{
             workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
             date: {type: Date, required:true},
