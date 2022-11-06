@@ -19,10 +19,7 @@ const WorkoutHistory = () => {
         if (Object.keys(allHistory).length === 0){
             const url = "http://localhost:3001/api/workout-history?subset=false"
             axios.get(url).then(res => {
-                const data = res.data.data;
-                console.log("all res");
-                console.log(data);
-                setAllHistory(data)
+                setAllHistory(res.data.data)
             });
         }
     }
@@ -30,10 +27,7 @@ const WorkoutHistory = () => {
     useEffect( () => {
         const url = "http://localhost:3001/api/workout-history?subset=true"
         axios.get(url).then(res => {
-            const data = res.data.data;
-            console.log("res");
-            console.log(data);
-            setPastMonthHistory(data)
+            setPastMonthHistory(res.data.data)
         });
     }, []);
 
