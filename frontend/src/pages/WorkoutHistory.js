@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import axios from "axios";
+import WorkoutHistoryComponent from '../components/WorkoutHistoryComponent';
 
 const WorkoutHistory = () => {
     const [workoutHistorySubset, setWorkoutHistorySubset] = useState(true);
-    const [pastMonthHistory, setPastMonthHistory] = useState({});
-    const [allHistory, setAllHistory] = useState({});
+    const [pastMonthHistory, setPastMonthHistory] = useState([]);
+    const [allHistory, setAllHistory] = useState([]);
 
 
     const changeHistorySubsetSetting = (pastMonth) => {
@@ -16,10 +17,12 @@ const WorkoutHistory = () => {
     }
 
     const getAllHistoryData = () => {
-        if (Object.keys(allHistory).length === 0){
+        if (allHistory.length === 0){
             const url = "http://localhost:3001/api/workout-history?subset=false"
             axios.get(url).then(res => {
-                setAllHistory(res.data.data)
+                console.log("all res");
+                console.log(res.data.data);
+                setAllHistory(res.data.data);
             });
         }
     }
@@ -27,7 +30,9 @@ const WorkoutHistory = () => {
     useEffect( () => {
         const url = "http://localhost:3001/api/workout-history?subset=true"
         axios.get(url).then(res => {
-            setPastMonthHistory(res.data.data)
+            console.log("all res");
+            console.log(res.data.data);
+            setPastMonthHistory(res.data.data);
         });
     }, []);
 
@@ -52,6 +57,23 @@ const WorkoutHistory = () => {
                 >
                     All History
                 </button>
+
+                {workoutHistorySubset && pastMonthHistory.map(workout => {
+                        return (
+                            <WorkoutHistoryComponent key={workout.workout_history.workoutID} workout={workout.workout_history}/>
+                        )
+                    })
+                }
+
+                {!workoutHistorySubset && allHistory.map(workout => {
+                    return (
+                        <WorkoutHistoryComponent key={workout.workout_history.workoutID} workout={workout.workout_history}/>
+                    )
+                })
+                }
+
+
+
             </div>
         </div>
     );
