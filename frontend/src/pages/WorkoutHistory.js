@@ -23,12 +23,10 @@ const WorkoutHistory = () => {
                 <button
                     className={"rounded-bl-lg rounded-tl-lg mt-4 text-xs px-4 " + (workoutHistorySubset ? 'p-2 bg-default-gradient text-white' : 'p-1.5 outline outline-2 outline-[#2980D1]')}
                     onClick={() => {changeHistorySubsetSetting(true)}}
-                // className='rounded-bl-lg rounded-tl-lg mt-4 bg-default-gradient text-white text-sm p-2'>
                 >
                     Past Month
                 </button>
                 <button
-                // className='rounded-br-lg rounded-tr-lg mt-4 bg-default-gradient text-white text-sm p-2'>
                     className={"rounded-br-lg rounded-tr-lg mt-4 text-xs  px-4 " + (!workoutHistorySubset ? 'p-2 bg-default-gradient text-white' : 'p-1.5 outline outline-2 outline-[#2980D1]')}
                     onClick={() => {changeHistorySubsetSetting(false)}}
                 >
