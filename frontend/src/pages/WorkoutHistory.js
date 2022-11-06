@@ -54,14 +54,14 @@ const WorkoutHistory = () => {
                     All History
                 </button>
 
-                {workoutHistorySubset && pastMonthHistory.map(workout => {
+                {workoutHistorySubset && pastMonthHistory.length !== 0 && pastMonthHistory.map(workout => {
                         return (
                             <WorkoutHistoryComponent key={(new Date(workout.workout_history.date)).getTime()} workout={workout.workout_history}/>
                         )
                     })
                 }
 
-                {!workoutHistorySubset && allHistory.map(workout => {
+                {!workoutHistorySubset && allHistory.length !== 0 && allHistory.map(workout => {
                     return (
                         <WorkoutHistoryComponent key={(new Date(workout.workout_history.date)).getTime()} workout={workout.workout_history} date={(new Date(workout.workout_history.date)).getTime()}/>
                     )
