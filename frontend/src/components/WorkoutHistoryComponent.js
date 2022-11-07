@@ -20,7 +20,7 @@ const WorkoutHistoryComponent = (props) => {
                     {isActive && <div className="px-6 pb-6 accordion-content flex flex-col ">
                         { props.workout.exercises.map(exercise => {
                             return (
-                                <ExerciseHistoryComponent key={props.date} exercise={exercise}/>
+                                <ExerciseHistoryComponent key={(new Date(props.workout.date)).getTime() + " " + exercise.exercise_info._id} exercise={exercise}/>
                             )
                         })
                         }

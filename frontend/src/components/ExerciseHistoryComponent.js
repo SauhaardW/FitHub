@@ -28,7 +28,7 @@ const ExerciseHistoryComponent = (props) => {
                         <hr className="mt-1 mb-2 h-px bg-gray-400 border-0"></hr>
                         {props.exercise.sets_info.map((set, index) => {
                             return(
-                                <div>
+                                <div key={index}>
                                     {(set.reps !== 0 || set.weight !== 0) && <div className="flex">
                                         <div className="w-1/3 pl-1">{index + 1}</div>
                                         <div className="w-1/3 pl-1">{set.reps}</div>
