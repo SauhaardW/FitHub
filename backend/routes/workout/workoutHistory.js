@@ -144,19 +144,13 @@ module.exports.checkBreakStreak = (req, res) => {
             } else if (workout_history == null) {
                 // user has no workout history, regardless of today's date just return streak 0
 
-                console.log("workout history DNE__________");
                 res.send({data: {streak: 0, last_updated: null}, success: true});
                 return;
             } else {
                 // user has workout history, check if today's date should reset streak to 0
 
-                console.log("workout history EXISTS__________");
-
-
                 const lastUpdated = workout_history.workout_streak.last_updated;
                 const today = new Date(req.body.date); //request body should have a date object for today
-                console.log("last workout " + lastUpdated);
-                console.log("today " + today);
 
                 if (lastUpdated.getFullYear() === today.getFullYear() && lastUpdated.getMonth() === today.getMonth()
                     && !(lastUpdated.getDate() === today.getDate() || lastUpdated.getDate() + 1 === today.getDate())){
@@ -175,17 +169,11 @@ module.exports.checkBreakStreak = (req, res) => {
                                 return;
                             } else {
                                 console.log(`[${dirName}] Saving logged workout was successful`);
-                                console.log("what form ");
-                                console.log(data.workout_streak);
                                 res.send({data: data.workout_streak, success: true});
                                 return;
                             }
                         });
-                    }else{
-                        console.log("already 0______");
                     }
-                }else{
-                    console.log("does not need to break_________");
                 }
             }
         })
