@@ -65,8 +65,7 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             // user has no workout history, create new workout history instance to store their workout logs
 
             const workoutHistory = new db.models.workoutHistory({userID: id, workout_history: workoutData});
-
-            workoutHistory.workout_streak = {streak: 1, last_workout: workoutData.date};
+            workoutHistory.workout_streak = {streak: 1, last_updated: workoutData.date};
 
             workoutHistory.save((err, workout_logged) => {
                 if (err) {
@@ -82,9 +81,7 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             })
         } else {
             // user has workout history
-
             updateStreak(workout_history, req.body.workout_history.date); //javascript is "pass by reference" if you try to modify contents of object
-
 
             workout_history.workout_history.push({
                 workoutID: req.body.workout_history.workoutID,
@@ -110,24 +107,91 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
 }
 
 const updateStreak = (workout_history, date) => {
-    const lastWorkout = new Date(workout_history.workout_streak.last_workout);
-    var updatedStreak = workout_history.workout_streak.streak;
+    const lastUpdated = new Date(workout_history.workout_streak.last_updated);
+    var streak = workout_history.workout_streak.streak;
 
-    if (lastWorkout.getFullYear() === date.getFullYear() && lastWorkout.getMonth() === date.getMonth()
-        && lastWorkout.getDate() + 1 === date.getDate()){
+    if (lastUpdated.getFullYear() === date.getFullYear() && lastUpdated.getMonth() === date.getMonth()
+        && lastUpdated.getDate() + 1 === date.getDate()){
 
-        updatedStreak = updatedStreak + 1;
-    }else if (lastWorkout.getFullYear() === date.getFullYear() && lastWorkout.getMonth() === date.getMonth()
-        && lastWorkout.getDate() + 1 < date.getDate()){
-        updatedStreak = 1;
+        streak = streak + 1;
+    }else if (lastUpdated.getFullYear() === date.getFullYear() && lastUpdated.getMonth() === date.getMonth()
+        && lastUpdated.getDate() === date.getDate() && streak === 0){ // streak broke today, but logged workout today
+
+        streak = 1;
+    }else if (lastUpdated.getFullYear() === date.getFullYear() && lastUpdated.getMonth() === date.getMonth()
+        && lastUpdated.getDate() + 1 < date.getDate()){
+        streak = 1;
     }
     //otherwise keep streak the same
 
-    workout_history.workout_streak.streak = updatedStreak;
-    workout_history.workout_streak.last_workout = date;
+    workout_history.workout_streak.streak = streak;
+    workout_history.workout_streak.last_updated = date;
 }
 
 
+module.exports.checkBreakStreak = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body.date)}`);
+
+    utils.verifyJWT(req, res, (req, res) => {
+        const id = mongoose.Types.ObjectId(req.JWT_data.id)
+
+        db.models.workoutHistory.findOne({"userID": id}, (err, workout_history) => {
+            if (err) {
+                console.log(`[${dirName}] ERROR: An error occurred finding the workout history for ${id}`);
+                console.log(err);
+                res.send({error: "Error occurred finding the workout history", success: false});
+                return;
+            } else if (workout_history == null) {
+                // user has no workout history, regardless of today's date just return streak 0
+
+                console.log("workout history DNE__________");
+                res.send({data: {streak: 0, last_updated: null}, success: true});
+                return;
+            } else {
+                // user has workout history, check if today's date should reset streak to 0
+
+                console.log("workout history EXISTS__________");
+
+
+                const lastUpdated = workout_history.workout_streak.last_updated;
+                const today = new Date(req.body.date); //request body should have a date object for today
+                console.log("last workout " + lastUpdated);
+                console.log("today " + today);
+
+                if (lastUpdated.getFullYear() === today.getFullYear() && lastUpdated.getMonth() === today.getMonth()
+                    && !(lastUpdated.getDate() === today.getDate() || lastUpdated.getDate() + 1 === today.getDate())){
+                    // Let the last day you worked out be day a. On days a, a+1 your streak will remain the same
+                    // on day a+2, you're streak will be set to 0 if you have not worked out since day a.
+
+                    if (workout_history.workout_streak.streak !== 0) {
+                        workout_history.workout_streak.streak = 0;
+                        workout_history.workout_streak.last_updated = today;
+
+                        workout_history.save((err, data) => {
+                            if (err) {
+                                console.log(`[${dirName}] ERROR: Failed to save updated streak`);
+                                console.log(err);
+                                res.send({error: "Error occurred updating streak", success: false});
+                                return;
+                            } else {
+                                console.log(`[${dirName}] Saving logged workout was successful`);
+                                console.log("what form ");
+                                console.log(data.workout_streak);
+                                res.send({data: data.workout_streak, success: true});
+                                return;
+                            }
+                        });
+                    }else{
+                        console.log("already 0______");
+                    }
+                }else{
+                    console.log("does not need to break_________");
+                }
+            }
+        })
+
+    });
+};
 
 module.exports.getLoggedWorkouts = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
