@@ -65,6 +65,9 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             // user has no workout history, create new workout history instance to store their workout logs
 
             const workoutHistory = new db.models.workoutHistory({userID: id, workout_history: workoutData});
+
+            workoutHistory.workout_streak = {streak: 1, last_workout: workoutData.date};
+
             workoutHistory.save((err, workout_logged) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Failed to save logged workout for ${id}`);
@@ -79,6 +82,9 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             })
         } else {
             // user has workout history
+
+            updateStreak(workout_history, req.body.workout_history.date); //javascript is "pass by reference" if you try to modify contents of object
+
 
             workout_history.workout_history.push({
                 workoutID: req.body.workout_history.workoutID,
@@ -101,6 +107,24 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             });
         }
     })
+}
+
+const updateStreak = (workout_history, date) => {
+    const lastWorkout = new Date(workout_history.workout_streak.last_workout);
+    var updatedStreak = workout_history.workout_streak.streak;
+
+    if (lastWorkout.getFullYear() === date.getFullYear() && lastWorkout.getMonth() === date.getMonth()
+        && lastWorkout.getDate() + 1 === date.getDate()){
+
+        updatedStreak = workout_history.workout_streak.streak + 1;
+    }else if (lastWorkout.getFullYear() === date.getFullYear() && lastWorkout.getMonth() === date.getMonth()
+        && lastWorkout.getDate() + 1 < date.getDate()){
+        updatedStreak = 1;
+    }
+    //otherwise keep streak the same
+
+    workout_history.workout_streak.streak = updatedStreak;
+    workout_history.workout_streak.last_workout = date;
 }
 
 
