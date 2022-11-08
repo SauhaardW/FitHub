@@ -116,7 +116,7 @@ const updateStreak = (workout_history, date) => {
     if (lastWorkout.getFullYear() === date.getFullYear() && lastWorkout.getMonth() === date.getMonth()
         && lastWorkout.getDate() + 1 === date.getDate()){
 
-        updatedStreak = workout_history.workout_streak.streak + 1;
+        updatedStreak = updatedStreak + 1;
     }else if (lastWorkout.getFullYear() === date.getFullYear() && lastWorkout.getMonth() === date.getMonth()
         && lastWorkout.getDate() + 1 < date.getDate()){
         updatedStreak = 1;
