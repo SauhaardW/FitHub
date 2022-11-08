@@ -112,7 +112,7 @@ module.exports.getScheduledWorkouts = (req, res) => {
                 let stages = [
                     { $match: {_id: mongoose.Types.ObjectId(id)}},
                 ]
-                stages = getExerciseInfo(stages);
+                stages = getWorkoutName(stages);
 
                 mongoose.connection.db.collection('users').aggregate(stages).toArray(function (err, data) {
                     if (err){
@@ -126,7 +126,7 @@ module.exports.getScheduledWorkouts = (req, res) => {
 
 
 
-const getExerciseInfo = (stages) => {
+const getWorkoutName= (stages) => {
     stages.push(
         {
             $lookup: {
@@ -170,30 +170,6 @@ const getExerciseInfo = (stages) => {
                 "workout_info": 0,
             }
         },
-    )
-    return stages;
-}
-
-
-
-
-
-const getWorkoutName = (stages) => {
-    stages.push(
-        { $lookup: {
-                from: 'workouts',
-                localField: 'workout_history.workoutID',
-                foreignField: '_id',
-                pipeline: [ {$project: {name: 1, _id: 0} } ],
-                as: 'workout_name'
-            }
-        },
-        { $unwind: "$workout_name" },
-        { $addFields: {
-                "workout_history.workout_name":  "$workout_name.name"  ,
-            }
-        },
-        { "$project": { "workout_name": 0 } }
     )
     return stages;
 }
