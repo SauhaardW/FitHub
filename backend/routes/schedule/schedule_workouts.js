@@ -1,5 +1,6 @@
 const db = require("../../db");
 const utils = require("../../utils");
+const mongoose = require("mongoose")
 
 const dirName = utils.getDirName(__dirname)
 
@@ -107,21 +108,68 @@ module.exports.getScheduledWorkouts = (req, res) => {
 
     utils.verifyJWT(req, res, (req, res) => {
         const id  = req.JWT_data.id
-        const username = req.JWT_data.username
 
-        db.models.user.findById(id, (err, curr_user) => {
-            if (err) {
-                console.log(`[${dirName}] ERROR: Error finding user ${id}`);
-                console.log(err);
-                res.send({error: "Error finding user", success: false});
-                return
-            }else if (curr_user == null){
-                res.send({error: "Current user does not exist", success: false});
-                return
-            }
+                let stages = [
+                    { $match: {_id: mongoose.Types.ObjectId(id)}},
+                ]
+                stages = getWorkoutName(stages);
 
-            if (curr_user.scheduled_workouts === undefined || curr_user.scheduled_workouts == null) curr_user.scheduled_workouts = []
-            res.send({ scheduledWorkouts: curr_user.scheduled_workouts, success: true});
-        });
+                mongoose.connection.db.collection('users').aggregate(stages).toArray(function (err, data) {
+                    if (err){
+                        console.log("Error converting collection to array");
+                    }
+                    res.send({success: true, data: data});
+                });
     })
 };
+
+
+
+
+const getWorkoutName= (stages) => {
+    stages.push(
+        {
+            $lookup: {
+                from: 'workouts',
+                localField: 'scheduled_workouts.workoutID',
+                foreignField: '_id',
+                as: 'workout_info'
+            }
+        },
+        { "$addFields": {
+                "scheduled_workouts": {
+                    "$map": {
+                        "input": "$scheduled_workouts",
+                        "in": {
+                            "$mergeObjects": [
+                                "$$this",
+                                { "workout_info": {
+                                        "$arrayElemAt": [
+                                            "$workout_info",
+                                            {
+                                                "$indexOfArray": [
+                                                    "$workout_info._id",
+                                                    "$$this.workoutID"
+                                                ]
+                                            }
+                                        ]
+                                    } }
+                            ]
+                        }
+                    }
+                }
+            } },
+        {
+            $project: {
+                "scheduled_workouts.workout_info.username": 0,
+                "scheduled_workouts.workout_info.exercises": 0,
+                "scheduled_workouts.workoutID": 0,
+                "scheduled_workouts.workout_info.__v": 0,
+                "scheduled_workouts.workout_info.dislike": 0,
+                "scheduled_workouts.workout_info.like": 0,
+                "workout_info": 0,
+            }
+        },
+    )
+    return stages;
+}

@@ -99,7 +99,7 @@ const createSchemas = () => {
             workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
             date: {type: String, required:true},
             time: {type: String, required:true},
-            friend: {type: String}
+            friend: {type: String},
         }],
     });
     const user = mongoose.model("user", userSchema);
