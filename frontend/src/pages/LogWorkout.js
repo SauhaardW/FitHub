@@ -14,7 +14,12 @@ const LogWorkout = (props) => {
   const [logWorkout, setLogWorkout] = useState("Finish Workout");
   const [workoutHistory, setWorkoutHistory] = useState([]);
 
-  
+  useEffect(()=>{
+    axios.get("http://localhost:3001/api/workout-history").then( res => {
+		var history = res.data.data
+		setWorkoutHistory(history);
+    })
+  }, [workout])
 
   const getExercisePrev = (exercise_id) => {
 	var ans = {
