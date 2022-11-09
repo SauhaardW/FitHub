@@ -44,6 +44,29 @@ const Home = () => {
         })
     }, []);
 
+    useEffect( () => {
+        var today = new Date("01/03/23");
+        today.setHours(23);
+        today.setDate(today.getDate());
+        axios.post("http://localhost:3001/api/workout-history/streak", {
+            date: today
+        }).then(res => {
+            if (res.success){
+                setStreak(res.data.data.streak)
+            }
+        })
+
+    }, []);
+
+    const myfunc = () => {
+        var today = new Date();
+        axios.post("http://localhost:3001/api/workout-history/streak", {
+            date: today
+        }).then(res => {
+            // TODO
+        })
+    }
+
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
             <div>

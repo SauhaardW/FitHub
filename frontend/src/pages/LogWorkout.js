@@ -14,8 +14,11 @@ const LogWorkout = (props) => {
   const [logWorkout, setLogWorkout] = useState("Finish Workout");
 
   function getTodaysDate(date = new Date()) {
+      var date = new Date("01/03/23");
+      date.setHours(23);
+      console.log("date " + date);
     return `${date.getFullYear()}-${(date.getMonth() + 1) //add one to month because getMonth returns 0-12
-      .toString()
+      .toString() 
       .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}T${date
       .getHours()
       .toString()
@@ -35,8 +38,10 @@ const LogWorkout = (props) => {
         date: getTodaysDate(),
         exercises: exerciseStats,
       },
+    }).then(res => {
+        navigate('/home', { state: {loggedWorkout: true}})
     });
-      navigate('/home', { state: {loggedWorkout: true}})
+
     }
 
   return (
