@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {ImCross} from "react-icons/im";
+import {GoPlus} from "react-icons/go";
 
 const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
   const [isActive, setIsActive] = useState(false);
@@ -39,6 +41,7 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
   };
 
   const validateInput = () => {
+    console.log(data)
     var res = data.map((x) => {
       if (x.reps >= 1 && x.weight >= 1) {
         return true;
@@ -92,16 +95,20 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
                 {exercise.comments}
                 <br></br>
               </div>
-              <div className="flex justify-between font-bold text-center mt-5">
-                <h1>Set</h1>
-                <h1>Prev</h1>
+              <div className="flex justify-between font-bold text-center mt-5 mr-1">
+                <h1 className="pl-7">Set</h1>
+                <h1 className="pl-2">Prev</h1>
                 <h1>Reps</h1>
                 <h1>Weight</h1>
               </div>
               <div className="gap-4 place-content-center">
                 {[...Array(data.length).keys()].map((id) => {
                   return (
-                    <div key={id} className="flex gap-4 space-y-2">
+                    <div key={id} className="flex items-center gap-4 space-y-2">
+                      <div className="pt-2 opacity-20"
+                        onClick={()=>{if (data.length != 1) {setData(data.filter((_, index) => index != id))}}}>
+                        <GoPlus className="w-5 h-5" style={{transform: 'rotate(45deg)'}} />
+                      </div>
                       <h1 className="w-8/12 mt-2">{id + 1}</h1>
                       <h1 className="w-8/12 ">Prev</h1>
                       <input
@@ -124,6 +131,10 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
                     </div>
                   );
                 })}
+              </div>
+              <div className="flex justify-end opacity-20 pt-3"
+                onClick={()=>{setData([...data, {reps: -1, weight: -1,}])}}>
+                <GoPlus className="w-5 h-5"/>
               </div>
               <div className="text-red-600 text-center">
                 {invalidDataMessage}
