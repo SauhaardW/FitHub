@@ -2,70 +2,65 @@ import React, { useState } from "react";
 
 const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
   const [isActive, setIsActive] = useState(false);
-  const [clicked, setClicked] = useState(false);
   const [saveButton, setSaveButton] = useState("Save");
+  const [invalidDataMessage, setInvalidDataMessage] = useState("** Invalid input for reps or weight **");
 
-  const val = [];
-
-  const data = [
-    {
-      id: 0,
-      reps: 0,
-      weight: 0,
-    },
-    {
-      id: 1,
-      reps: 0,
-      weight: 0,
-    },
-    {
-      id: 2,
-      reps: 0,
-      weight: 0,
-    },
-    {
-      id: 3,
-      reps: 0,
-      weight: 0,
-    },
-  ];
+  const [data, setData] = useState([{
+    reps: -1,
+    weight: -1,
+  }])
 
   const handleRepChange = (e, id) => {
-    const value = Number(e.target.value);
-
-    data.forEach((object) => {
-      if (object.id === id) {
-        data[id].reps = value;
-      }
-    });
+    const numberRegex = new RegExp("^[0-9]+$");
+    var value = -1
+    if (numberRegex.test(e.target.value)) {
+      value = Number(e.target.value);
+    } 
+  
+    const newData = data.map((obj, index) => {
+      if (index === id) { obj.reps = value }
+      return obj
+    })
+    setData(newData)
   };
 
   const handleWeightChange = (e, id) => {
-    const value = Number(e.target.value);
-
-    data.forEach((object) => {
-      if (object.id === id) {
-        data[id].weight = value;
-      }
-    });
+    const numberRegex = new RegExp("^[0-9]+$");
+    var value = -1
+    if (numberRegex.test(e.target.value)) {
+      value = Number(e.target.value);
+    } 
+  
+    const newData = data.map((obj, index) => {
+      if (index === id) { obj.weight = value }
+      return obj
+    })
+    setData(newData)
   };
 
-  function clickHandler() {
-    setClicked(true);
-    setSaveButton("Saved");
-    data.forEach((object) => {
-      val.push({
-        reps: object.reps,
-        weight: object.weight,
-      });
-    });
-
-    setExerciseStats((prev) => [
-      ...prev,
-      { exerciseID: exercise._id, sets_info: val },
-    ]);
+  const validateInput = () => {
+    var res = data.map((x) => {
+      if (x.reps >= 1 && x.weight >= 1) {
+        return true;
+      }
+      return false;
+    })
+    return res.every(v => v === true);
   }
 
+  function clickHandler() {
+    if (validateInput()) {
+      setInvalidDataMessage("");
+      setSaveButton("Saved");
+      setExerciseStats((prev) => [
+        ...prev,
+        { exerciseID: exercise._id, sets_info: data },
+      ]);
+    } else {
+      setInvalidDataMessage("** Invalid input for reps or weight **");
+      setSaveButton("Save");
+    }
+  }
 
   return (
     <div>
@@ -104,7 +99,7 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
                 <h1>Weight</h1>
               </div>
               <div className="gap-4 place-content-center">
-                {[0, 1, 2, 3].map((id) => {
+                {[...Array(data.length).keys()].map((id) => {
                   return (
                     <div key={id} className="flex gap-4 space-y-2">
                       <h1 className="w-8/12 mt-2">{id + 1}</h1>
@@ -130,10 +125,12 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
                   );
                 })}
               </div>
+              <div className="text-red-600 text-center">
+                {invalidDataMessage}
+              </div>
               <button
                 className="mt-5 items-center mx-9 py-2 rounded-md disabled:bg-disabled-gradient bg-default-gradient hover:bg-blue-700 text-white"
                 onClick={clickHandler}
-                disabled={clicked}
               >
                 {saveButton}
               </button>
