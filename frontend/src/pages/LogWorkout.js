@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import LogWorkoutExercise from "../components/LogWorkoutExercise";
 import axios from "axios";
@@ -12,6 +12,31 @@ const LogWorkout = (props) => {
   const [exerciseStats, setExerciseStats] = useState([]);
   const [workoutLogged, setWorkoutLogged] = useState(false);
   const [logWorkout, setLogWorkout] = useState("Finish Workout");
+  const [workoutHistory, setWorkoutHistory] = useState([]);
+
+  
+
+  const getExercisePrev = (exercise_id) => {
+	var ans = {
+		pr: "N/A",
+		prev: "N/A"
+	}
+	if (exercise_id === undefined || workoutHistory === [] || workoutHistory === undefined) { return ans }
+	const workoutExercises = workoutHistory.map(workout=>workout.workout_history.exercises);
+	const exerciseHistory = workoutExercises.map(workout=>workout.filter(ex => ex.exercise_info !== undefined && ex.exercise_info._id === exercise_id));
+	const pr = Math.max(...exerciseHistory.map(ex=>Math.max(...ex.map(e=>Math.max(...e.sets_info.map(ee=>ee.weight))))));
+	ans.pr = pr;
+
+	
+	const latestWorkout = workoutHistory.map(workout=>workout.workout_history)[0]
+	if (latestWorkout !== undefined) {
+		const latestExercise = latestWorkout.exercises.filter(ex=>ex.exercise_info._id === exercise_id)
+		const latestWeight = Math.max(...latestExercise.map(ex=>Math.max(...ex.sets_info.map(set=>set.weight))))
+		ans.prev = latestWeight
+	}
+
+	return ans
+  }
 
   function getTodaysDate(date = new Date()) {
     return `${date.getFullYear()}-${(date.getMonth() + 1)
@@ -55,8 +80,8 @@ const LogWorkout = (props) => {
             <LogWorkoutExercise
               key={exercise._id}
               exercise={exercise}
-              exerciseStats={exerciseStats}
               setExerciseStats={setExerciseStats}
+			  exerciseHistory={getExercisePrev(exercise._id)}
             />
           ))
         )}
