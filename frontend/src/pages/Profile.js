@@ -7,7 +7,6 @@ import 'react-dropdown/style.css';
 import axios from "axios";
 import { BsPersonCircle } from "react-icons/bs";
 import { useCookies } from "react-cookie";
-import Emoji from "../components/Emoji";
 
 const experienceOptions = ["Beginner", "Intermediate", "Experienced"];
 
@@ -151,7 +150,7 @@ const Profile = () => {
                 </div>
 
                 {streak.length !== 0 && <div className="text-2xl flex items-center px-3 rounded-md bg-[#F2F2F2] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <Emoji label="sheep" symbol="🔥"/>
+                    <span>{"🔥"}</span>
                     <span className="ml-1">{streak}</span>
                 </div>}
             </div>

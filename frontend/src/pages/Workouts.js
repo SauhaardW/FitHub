@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai";
-import Emoji from "../components/Emoji";
 
 const Workouts = () => {
     const navigate = useNavigate();
@@ -61,7 +60,7 @@ const Workouts = () => {
                     </div>
 
                     {streak.length !== 0 && <div className="text-2xl flex items-center px-3 rounded-md bg-[#F2F2F2] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Emoji label="sheep" symbol="🔥"/>
+                        <span>{"🔥"}</span>
                         <span className="ml-1">{streak}</span>
                     </div>}
                 </div>

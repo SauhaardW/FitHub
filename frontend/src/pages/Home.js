@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai";
 import {BsCheck2All} from "react-icons/bs";
-import Emoji from "../components/Emoji";
 
 const Home = () => {
     const {state} = useLocation();
@@ -68,7 +67,7 @@ const Home = () => {
                     </div>
 
                     {streak.length !== 0 && <div className="text-2xl flex items-center px-3 rounded-md bg-[#F2F2F2] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Emoji label="sheep" symbol="🔥"/>
+                        <span>{"🔥"}</span>
                         <span className="ml-1">{streak}</span>
                     </div>}
                 </div>
