@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const ScheduleWorkout = (props) => {
+const ScheduleWorkout = () => {
   const navigate = useNavigate();
   const [workoutPicked, setWorkoutPicked] = useState("");
   const [withFriend, setWithFriend] = useState(false);
@@ -146,9 +146,7 @@ const ScheduleWorkout = (props) => {
       <div className="block mx-5 mt-2">
         <p className="text-xl font-semibold mt-2 mb-1">Choose a workout</p>
         <select
-          onChange={(event) => {
-              getSelectedWorkoutId(event);
-          }}
+          onChange={getSelectedWorkoutId}
           className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
           defaultValue={"default"}
         >
@@ -157,7 +155,7 @@ const ScheduleWorkout = (props) => {
           </option>
           {userWorkouts.map((workout) => {
             return (
-              <option key={workout._id} id={workout._id} value={workout.name}>
+              <option key={workout._id} id={workout._id}>
                 {workout.name}
               </option>
             );
@@ -165,7 +163,7 @@ const ScheduleWorkout = (props) => {
           <option disabled>Created by FitHub:</option>
           {recommendedWorkouts.map((workout) => {
             return (
-              <option key={workout._id} id={workout._id} value={workout.name}>
+              <option key={workout._id} id={workout._id}>
                 {workout.name}
               </option>
             );
