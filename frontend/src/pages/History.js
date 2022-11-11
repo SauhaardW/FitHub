@@ -31,25 +31,25 @@ const History = () => {
                 </div>  
 
                 <div className='inputInfo'>
-        <p>Statistic Type</p>
-            <select 
+            <p>Statistic Type</p>
+                <select 
 
 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-              focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
-              dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option>Please select statistic type</option>
-                  <option value={NameOptions[1]}>Height</option>
-                  <option value={NameOptions[0]}>Weight</option>
-                  <option value={NameOptions[2]}>Upper arm circumference</option>
-                  <option value={NameOptions[3]}>Forearm circumference</option>
-                  <option value={NameOptions[4]}>Chest circumference</option>
-                  <option value={NameOptions[5]}>Thigh circumference</option>
-                  <option value={NameOptions[6]}>Calf circumference</option>
-                  <option value={NameOptions[7]}>Waist circumference</option>
-                  <option value={NameOptions[8]}>Shoulder circumference</option>
-              </select>
-        </div>   
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
+                dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>Please select statistic type</option>
+                    <option value={NameOptions[1]}>Height</option>
+                    <option value={NameOptions[0]}>Weight</option>
+                    <option value={NameOptions[2]}>Upper arm circumference</option>
+                    <option value={NameOptions[3]}>Forearm circumference</option>
+                    <option value={NameOptions[4]}>Chest circumference</option>
+                    <option value={NameOptions[5]}>Thigh circumference</option>
+                    <option value={NameOptions[6]}>Calf circumference</option>
+                    <option value={NameOptions[7]}>Waist circumference</option>
+                    <option value={NameOptions[8]}>Shoulder circumference</option>
+                </select>
+            </div>   
 
 
             <button
