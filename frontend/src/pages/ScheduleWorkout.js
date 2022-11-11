@@ -35,7 +35,7 @@ const ScheduleWorkout = (props) => {
     if (
       datePicked === "" ||
       timePicked === "" ||
-      workoutPicked === "Created by You:"
+      workoutPicked === "Created by You:" || (withFriend && friendPicked.length === 0)
     ) {
       setAllFieldsInput(false);
     } else {
@@ -49,6 +49,14 @@ const ScheduleWorkout = (props) => {
     setFriendPicked(friend);
    }
   }, []);
+
+    useEffect(() => {
+        //Runs on the first render and any time any dependency value changes
+        allFieldsInputted()
+        // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
+        // that give warnings but should not be added. If you add new deps consider whether they should be included in deps array of useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [datePicked, timePicked, workoutPicked, withFriend, friendPicked]);
 
 
   useEffect(() => {
@@ -140,7 +148,6 @@ const ScheduleWorkout = (props) => {
         <select
           onChange={(event) => {
               getSelectedWorkoutId(event);
-              allFieldsInputted();
           }}
           className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
           defaultValue={"default"}
@@ -179,7 +186,6 @@ const ScheduleWorkout = (props) => {
             type="date"
             onChange={(event) => {
               setDatePicked(event.target.value);
-              allFieldsInputted();
             }}
             min={getTodaysDate()}
           />
@@ -198,8 +204,7 @@ const ScheduleWorkout = (props) => {
             className="px-3 rounded-l"
             type="time"
             onChange={(event) => {
-              setTimePicked(event.target.value);
-              allFieldsInputted();
+                setTimePicked(event.target.value);
             }}
           />
         </div>
@@ -261,7 +266,6 @@ const ScheduleWorkout = (props) => {
                         className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
                         onClick={() => {
                           setFriendPicked(friend);
-                          allFieldsInputted();
                         }}
                       >
                         Add
