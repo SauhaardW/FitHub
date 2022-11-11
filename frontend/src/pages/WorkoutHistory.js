@@ -32,6 +32,17 @@ const WorkoutHistory = () => {
         });
     }, []);
 
+    useEffect( () => {
+        //hide topbar on mount
+        document.getElementById('top-bar-hamburger-menu').style.display = "none"
+        document.getElementById('top-bar-back-arrow').style.display = "initial"
+
+        return () => {
+            //show topbar on unmount
+            document.getElementById('top-bar-hamburger-menu').style.display = "initial"
+            document.getElementById('top-bar-back-arrow').style.display = "none"
+        }
+    }, []);
 
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
