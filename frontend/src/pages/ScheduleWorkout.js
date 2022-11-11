@@ -58,6 +58,18 @@ const ScheduleWorkout = () => {
     });
   }, []);
 
+  useEffect( () => {
+    //hide topbar on mount
+    document.getElementById('top-bar-hamburger-menu').style.display = "none"
+    document.getElementById('top-bar-back-arrow').style.display = "initial"
+
+    return () => {
+      //show topbar on unmount
+      document.getElementById('top-bar-hamburger-menu').style.display = "initial"
+      document.getElementById('top-bar-back-arrow').style.display = "none"
+    }
+  }, []);
+
   function scheduleWithFriend(event) {
     if (event.target.value === "Yes") {
       setWithFriend(true);

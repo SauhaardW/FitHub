@@ -26,6 +26,19 @@ const ViewWorkout = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    useEffect( () => {
+        //hide topbar on mount
+        document.getElementById('top-bar-hamburger-menu').style.display = "none"
+        document.getElementById('top-bar-back-arrow').style.display = "initial"
+
+        return () => {
+            //show topbar on unmount
+            document.getElementById('top-bar-hamburger-menu').style.display = "initial"
+            document.getElementById('top-bar-back-arrow').style.display = "none"
+        }
+    }, []);
+
     useEffect( () => {
         if (workoutId !== ""){ //state changes to null when hamburger menu is opened, so workoutID will update to ""
             const params = {id: workoutId}

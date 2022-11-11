@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
 import LogWorkoutExercise from "../components/LogWorkoutExercise";
 import axios from "axios";
@@ -12,6 +12,18 @@ const LogWorkout = (props) => {
   const [exerciseStats, setExerciseStats] = useState([]);
   const [workoutLogged, setWorkoutLogged] = useState(false);
   const [logWorkout, setLogWorkout] = useState("Finish Workout");
+
+    useEffect( () => { // does not save set info if go back to prev page
+        //hide topbar on mount
+        document.getElementById('top-bar-hamburger-menu').style.display = "none"
+        document.getElementById('top-bar-back-arrow').style.display = "initial"
+
+        return () => {
+            //show topbar on unmount
+            document.getElementById('top-bar-hamburger-menu').style.display = "initial"
+            document.getElementById('top-bar-back-arrow').style.display = "none"
+        }
+    }, []);
 
   function getTodaysDate(date = new Date()) {
     return `${date.getFullYear()}-${(date.getMonth() + 1) //add one to month because getMonth returns 0-12
