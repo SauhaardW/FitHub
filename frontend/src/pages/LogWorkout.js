@@ -5,8 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const LogWorkout = (props) => {
-    const navigate = useNavigate();
-    const { state } = useLocation();
+  const navigate = useNavigate();
+  const { state } = useLocation();
   const workout = state !== null ? state.workout : {};
 
   const [exerciseStats, setExerciseStats] = useState([]);
@@ -15,7 +15,7 @@ const LogWorkout = (props) => {
 
   function getTodaysDate(date = new Date()) {
     return `${date.getFullYear()}-${(date.getMonth() + 1) //add one to month because getMonth returns 0-12
-      .toString() 
+      .toString()
       .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}T${date
       .getHours()
       .toString()
@@ -29,16 +29,18 @@ const LogWorkout = (props) => {
     setWorkoutLogged(true);
     setLogWorkout("Workout logged");
     const url = "http://localhost:3001/api/workout-history";
-    axios.post(url, {
-      workout_history: {
-        workoutID: workout._id,
-        date: getTodaysDate(),
-        exercises: exerciseStats,
-      },
-    }).then(res => {
-        navigate('/home', { state: {loggedWorkout: true}})
-    });
-    }
+    axios
+      .post(url, {
+        workout_history: {
+          workoutID: workout._id,
+          date: getTodaysDate(),
+          exercises: exerciseStats,
+        },
+      })
+      .then((res) => {
+        navigate("/home", { state: { loggedWorkout: true } });
+      });
+  }
 
   return (
     <div className="p-4">
@@ -47,7 +49,9 @@ const LogWorkout = (props) => {
         Created by: {workout.username}
       </div>
       <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
-
+      <p className="text-center font-bold mt-2 text-default-gradient">
+        Workout started. Good luck!
+      </p>
       <div className="container h-max-[calc(100vh-60px)] overflow-scroll">
         {workout.exercises_info === undefined ? (
           <div>No exercises to display</div>
