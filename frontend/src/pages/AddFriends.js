@@ -85,7 +85,7 @@ const AddFriends = () => {
                   </p>
                 </div>
                 <button
-                  className={"p-1 m-1 outline outline-1 rounded-lg w-3/12 text-white font-semibold " + (addPressed ? 'bg-green-500' : 'bg-default-gradient')}
+                  className={"p-1 m-1 outline outline-1 rounded-lg w-3/12 text-white font-semibold " + (addPressed ? 'bg-green-600' : 'bg-default-gradient')}
                   onClick={() => {
                     sendFriendRequest(friend.username);
                   }}
