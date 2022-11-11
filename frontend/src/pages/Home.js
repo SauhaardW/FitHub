@@ -3,8 +3,9 @@ import './Pages.css';
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
-import {AiOutlineLike} from "react-icons/ai"
-import {BsCheck2All} from "react-icons/bs"
+import {AiOutlineLike} from "react-icons/ai";
+import {BsCheck2All} from "react-icons/bs";
+import Emoji from "../components/Emoji";
 
 const Home = () => {
     const {state} = useLocation();
@@ -13,6 +14,7 @@ const Home = () => {
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
     const [name, setName] = useState("");
+    const [streak, setStreak] = useState("");
 
     useEffect( () => {
         axios.get("http://localhost:3001/api/current-user").then(res => {
@@ -49,16 +51,26 @@ const Home = () => {
         axios.post("http://localhost:3001/api/workout-history/streak", {
             date: today
         }).then(res => {
-            //TODO
+            axios.get("http://localhost:3001/api/workout-history/streak").then((res) => {
+                if (res.data.success){
+                    setStreak(res.data.data.streak);
+                }
+            })
         })
-
     }, []);
 
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
             <div>
-                <div className="text-4xl font-bold">
-                    Hello, {name}!
+                <div className="flex justify-between">
+                    <div className="text-4xl font-bold">
+                        Hello, {name}!
+                    </div>
+
+                    {streak.length !== 0 && <div className="text-2xl flex items-center px-3 rounded-md bg-[#F2F2F2] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Emoji label="sheep" symbol="🔥"/>
+                        <span className="ml-1">{streak}</span>
+                    </div>}
                 </div>
 
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>

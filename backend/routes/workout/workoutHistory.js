@@ -187,6 +187,30 @@ module.exports.checkBreakStreak = (req, res) => {
     });
 };
 
+module.exports.getStreak = (req, res) => {
+    utils.verifyJWT(req, res, (req, res) => {
+        const id = mongoose.Types.ObjectId(req.JWT_data.id)
+        console.log(`[${dirName}] ${req.method} streak ${id}`);
+
+        db.models.workoutHistory.findOne({"userID": id}, (err, workout_history) => {
+            if (err) {
+                console.log(`[${dirName}] ERROR: An error occurred finding the workout history for ${id}`);
+                console.log(err);
+                res.send({error: "Error occurred finding the workout history", success: false});
+                return;
+            } else if (workout_history == null) {
+                // user has no workout history, regardless of today's date just return streak 0
+                res.send({data: {streak: 0, last_updated: null}, success: true});
+                return;
+            } else {
+                // user has workout history
+                res.send({data: workout_history.workout_streak, success: true});
+                return;
+            }
+        })
+    });
+};
+
 const saveWorkoutHistory = (workout_history, res) => {
     workout_history.save((err, data) => {
         if (err) {

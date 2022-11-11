@@ -245,9 +245,9 @@ const ScheduleWorkout = () => {
             </div>
           </div>
         )}
-        <div className="block m-5">
+        <div className="sticky bottom-4 text-center mt-14">
           <button
-            className="px-10 py-4 rounded-xl disabled:bg-disabled-gradient bg-default-gradient hover:bg-blue-700 text-xl text-white w-full rounded-xl"
+            className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
             disabled={!allFieldsInput}
             onClick={() => {
               sendScheduleData();

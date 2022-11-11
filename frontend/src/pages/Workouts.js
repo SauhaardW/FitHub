@@ -3,12 +3,15 @@ import './Pages.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
-import {AiOutlineLike} from "react-icons/ai"
+import {AiOutlineLike} from "react-icons/ai";
+import Emoji from "../components/Emoji";
 
 const Workouts = () => {
     const navigate = useNavigate();
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
+    const [streak, setStreak] = useState(""); // do not want to display streak before GET streak value so can't set this
+    // to zero since streak can be zero in other situations
 
     useEffect( () => {
         const myWorkouts = []
@@ -36,13 +39,32 @@ const Workouts = () => {
         })
     }, []);
 
+    useEffect( () => {
+        var today = new Date();
+        axios.post("http://localhost:3001/api/workout-history/streak", {
+            date: today
+        }).then(res => {
+            axios.get("http://localhost:3001/api/workout-history/streak").then((res) => {
+                if (res.data.success){
+                    setStreak(res.data.data.streak);
+                }
+            })
+        })
+    }, []);
+
     return (
         <div className="pages mx-3 page-font flex flex-col justify-between">
             <div>
-                <div className="text-4xl font-normal">
-                    Workouts
-                </div>
+                <div className="flex justify-between">
+                    <div className="text-4xl font-bold">
+                        Workouts
+                    </div>
 
+                    {streak.length !== 0 && <div className="text-2xl flex items-center px-3 rounded-md bg-[#F2F2F2] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Emoji label="sheep" symbol="🔥"/>
+                        <span className="ml-1">{streak}</span>
+                    </div>}
+                </div>
                 <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
 
                 <div className="text-md m-1 font-semibold">
