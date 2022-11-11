@@ -78,7 +78,7 @@ const CreateWorkout = () => {
                     <div className="exercises-label text-4xl mb-2">Exercises</div>
                     
                     {list_exercises.length===0 ? <div>Add exercises to see them displayed here</div> : list_exercises.map(exercise=>(
-                        <div className={"filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100"}>
+                        <div key={exercise._id} className={"filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100"}>
                             <div className='grid justify-items-center'>
                                 <div className="flex justify-items-between align-middle py-4">
                                     <div className='w-80 font-medium'>{exercise.name}</div>
