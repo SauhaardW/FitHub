@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {BsCheck2All} from "react-icons/bs";
 
 const AddFriends = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -84,13 +85,16 @@ const AddFriends = () => {
                   </p>
                 </div>
                 <button
-                  className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold disabled:bg-disabled-gradient"
+                  className={"p-1 m-1 outline outline-1 rounded-lg w-3/12 text-white font-semibold " + (addPressed ? 'bg-green-500' : 'bg-default-gradient')}
                   onClick={() => {
                     sendFriendRequest(friend.username);
                   }}
                   disabled={addPressed}
                 >
-                  {addText}
+                    <div className={addPressed ? "flex items-center" : ""}>
+                        {addPressed && <BsCheck2All/>}
+                        {addText}
+                    </div>
                 </button>
               </li>
             );
