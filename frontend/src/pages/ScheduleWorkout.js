@@ -35,8 +35,8 @@ const ScheduleWorkout = () => {
     if (
       datePicked === "" ||
       timePicked === "" ||
-      workoutPicked === "Created by You:" || (withFriend && friendPicked.length === 0)
-    ) {
+      workoutPicked === "" || (withFriend && friendPicked.length === 0)
+    ) { //if no workout was chosen, then dropdown will show Created By You:, and workoutPicked will not have been set
       setAllFieldsInput(false);
     } else {
       setAllFieldsInput(true);
@@ -48,11 +48,11 @@ const ScheduleWorkout = () => {
     setWithFriend(true);
     setFriendPicked(friend);
    }
-  }, []);
+  }, [friend]); //add dependency to dep array to clear warnings (even though we only care about this useEffect running on first render)
 
     useEffect(() => {
         //Runs on the first render and any time any dependency value changes
-        allFieldsInputted()
+      allFieldsInputted()
         // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
         // that give warnings but should not be added. If you add new deps consider whether they should be included in deps array of useEffect
         // eslint-disable-next-line react-hooks/exhaustive-deps
