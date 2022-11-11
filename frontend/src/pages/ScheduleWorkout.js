@@ -4,6 +4,7 @@ import { scheduleWorkout } from "./../strings";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+
 const ScheduleWorkout = (props) => {
   const navigate = useNavigate();
   const [workoutPicked, setWorkoutPicked] = useState("");
@@ -43,13 +44,9 @@ const ScheduleWorkout = (props) => {
   }
   
   useEffect(() => {
-   if(friend !== null && friend !== undefined && friend.length !== 0){
-    console.log("goes")
+   if(friend.length !== 0){
     setWithFriend(true);
     setFriendPicked(friend);
-   }
-   else{
-    console.log("failed")
    }
   }, []);
 
@@ -83,10 +80,11 @@ const ScheduleWorkout = (props) => {
     }
   }, []);
 
-  function scheduleWithFriend(event) {
-    if (event.target.value === "Yes") {
+
+  function scheduleWithFriend(isWithFriend) {
+    if (isWithFriend) {
       setWithFriend(true);
-    } else if (event.target.value === "No") {
+    } else {
       setWithFriend(false);
       setFriendPicked("");
     }
@@ -140,7 +138,10 @@ const ScheduleWorkout = (props) => {
       <div className="block mx-5 mt-2">
         <p className="text-xl font-semibold mt-2 mb-1">Choose a workout</p>
         <select
-          onChange={getSelectedWorkoutId}
+          onChange={(event) => {
+              getSelectedWorkoutId(event);
+              allFieldsInputted();
+          }}
           className="flex px-4 py-4 outline outline-1 outline-gray-300 rounded-xl bg-gray-200 w-full"
           defaultValue={"default"}
         >
@@ -149,7 +150,7 @@ const ScheduleWorkout = (props) => {
           </option>
           {userWorkouts.map((workout) => {
             return (
-              <option key={workout._id} id={workout._id}>
+              <option key={workout._id} id={workout._id} value={workout.name}>
                 {workout.name}
               </option>
             );
@@ -157,7 +158,7 @@ const ScheduleWorkout = (props) => {
           <option disabled>Created by FitHub:</option>
           {recommendedWorkouts.map((workout) => {
             return (
-              <option key={workout._id} id={workout._id}>
+              <option key={workout._id} id={workout._id} value={workout.name}>
                 {workout.name}
               </option>
             );
@@ -213,11 +214,12 @@ const ScheduleWorkout = (props) => {
         <div className="flex mx-5 mt-3 mb-3 justify-between">
           <h1 className="text-xl font-semibold my-2">Workout with a friend:</h1>
           <select
-            onChange={scheduleWithFriend}
+              value={withFriend}
+              onChange={(event) => scheduleWithFriend(event.target.value)}
             className=" px-2 py-2 rounded-xl bg-gray-200 w-3/12"
           >
-            <option>No</option>
-            <option>Yes</option>
+            <option value={false}>No</option>
+            <option value={true}>Yes</option>
           </select>
         </div>
         <hr
@@ -272,7 +274,7 @@ const ScheduleWorkout = (props) => {
         )}
         <div className="sticky bottom-4 text-center mt-14">
           <button
-            className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
+            className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl disabled:bg-disabled-gradient"
             disabled={!allFieldsInput}
             onClick={() => {
               sendScheduleData();

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './Pages.css';
 import axios from "axios";
-
+import { BsArrowRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-
 
 const History = () => {
     const navigate = useNavigate();
@@ -70,7 +69,18 @@ const History = () => {
                 </select>
             </div>   
 
-
+            <div className='redirect flex justify-end'>
+                <button onClick={() => {
+                            navigate("/history/workouts");
+                        }}
+                    className="flex pt-1 items-center font-normal text-gray-600 dark:text-gray-500 underline"
+                >
+                    <div className="flex items-center">
+                    <span className="pr-2">View workout history</span>
+                    <BsArrowRight/>
+                    </div>
+                </button>
+            </div>
 
             <button
                     className="absolute bottom-10 bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"

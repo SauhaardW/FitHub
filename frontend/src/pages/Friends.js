@@ -41,6 +41,7 @@ const Friends = () => {
   }, []);
 
   const navigate = useNavigate();
+
   const onScheduleClicked = (friend) => {
     console.log(friend)
     navigate("/calendar/schedule-workout", { state: {friend: friend}})
