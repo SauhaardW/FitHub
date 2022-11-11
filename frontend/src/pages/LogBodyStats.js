@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import "./Pages.css";
 
@@ -24,8 +24,20 @@ const LogBodyStats = () => {
           }
         })
       }
+
+    useEffect( () => {
+        //hide topbar on mount
+        document.getElementById('top-bar-hamburger-menu').style.display = "none"
+        document.getElementById('top-bar-back-arrow').style.display = "initial"
+
+        return () => {
+            //show topbar on unmount
+            document.getElementById('top-bar-hamburger-menu').style.display = "initial"
+            document.getElementById('top-bar-back-arrow').style.display = "none"
+        }
+    }, []);
+
   return (
-    
     <div className="pages">
         <div className="flex justify-between px-4">
             <div className="text-4xl font-semibold mb-2">Log your stats</div>
