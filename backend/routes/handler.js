@@ -42,6 +42,7 @@ router.post("/api/workout-history", workoutHistory.logWorkout);
 router.get("/api/workout-history", workoutHistory.getLoggedWorkouts);
 
 router.post("/api/workout-history/streak", workoutHistory.checkBreakStreak);
+router.get("/api/workout-history/streak", workoutHistory.getStreak);
 
 router.post("/api/schedule-workout", schedule.scheduleWorkouts);
 router.get("/api/scheduled-workouts", schedule.getScheduledWorkouts);
