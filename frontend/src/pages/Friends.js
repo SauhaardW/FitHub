@@ -41,8 +41,9 @@ const Friends = () => {
   }, []);
 
   const navigate = useNavigate();
-  const onScheduleClicked = () => {
-    //to do
+
+  const onScheduleClicked = (friend) => {
+    navigate("/calendar/schedule-workout", { state: {friend: friend}})
   };
   return (
       <Fragment>
@@ -71,7 +72,7 @@ const Friends = () => {
 
                         <button
                             className="px-2 py-1 bg-default-gradient rounded-lg w-30 text-white text-sm"
-                            onClick={onScheduleClicked}
+                            onClick={()=>{onScheduleClicked(friend)}}
                         >
                           {schedule}
                         </button>

@@ -3,6 +3,7 @@ import "./Pages.css";
 import { scheduleWorkout } from "./../strings";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const ScheduleWorkout = () => {
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ const ScheduleWorkout = () => {
   const [timePicked, setTimePicked] = useState("");
   const [friendPicked, setFriendPicked] = useState("");
   const [allFieldsInput, setAllFieldsInput] = useState(false);
-
+  const { state } = useLocation();
+  const friend = state !== null ? state.friend : "";
   function convertToTwoDigits(num) {
     return num.toString().padStart(2, "0");
   }
@@ -33,13 +35,29 @@ const ScheduleWorkout = () => {
     if (
       datePicked === "" ||
       timePicked === "" ||
-      workoutPicked === "Created by You:"
-    ) {
+      workoutPicked === "" || (withFriend && friendPicked.length === 0)
+    ) { //if no workout was chosen, then dropdown will show Created By You:, and workoutPicked will not have been set
       setAllFieldsInput(false);
     } else {
       setAllFieldsInput(true);
     }
   }
+  
+  useEffect(() => {
+   if(friend.length !== 0){
+    setWithFriend(true);
+    setFriendPicked(friend);
+   }
+  }, [friend]); //add dependency to dep array to clear warnings (even though we only care about this useEffect running on first render)
+
+    useEffect(() => {
+        //Runs on the first render and any time any dependency value changes
+      allFieldsInputted()
+        // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
+        // that give warnings but should not be added. If you add new deps consider whether they should be included in deps array of useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [datePicked, timePicked, workoutPicked, withFriend, friendPicked]);
+
 
   useEffect(() => {
     const myWorkouts = [];
@@ -70,10 +88,11 @@ const ScheduleWorkout = () => {
     }
   }, []);
 
-  function scheduleWithFriend(event) {
-    if (event.target.value === "Yes") {
+
+  function scheduleWithFriend(isWithFriend) {
+    if (isWithFriend) {
       setWithFriend(true);
-    } else if (event.target.value === "No") {
+    } else {
       setWithFriend(false);
       setFriendPicked("");
     }
@@ -165,7 +184,6 @@ const ScheduleWorkout = () => {
             type="date"
             onChange={(event) => {
               setDatePicked(event.target.value);
-              allFieldsInputted();
             }}
             min={getTodaysDate()}
           />
@@ -184,8 +202,7 @@ const ScheduleWorkout = () => {
             className="px-3 rounded-l"
             type="time"
             onChange={(event) => {
-              setTimePicked(event.target.value);
-              allFieldsInputted();
+                setTimePicked(event.target.value);
             }}
           />
         </div>
@@ -200,11 +217,12 @@ const ScheduleWorkout = () => {
         <div className="flex mx-5 mt-3 mb-3 justify-between">
           <h1 className="text-xl font-semibold my-2">Workout with a friend:</h1>
           <select
-            onChange={scheduleWithFriend}
+              value={withFriend}
+              onChange={(event) => scheduleWithFriend(event.target.value)}
             className=" px-2 py-2 rounded-xl bg-gray-200 w-3/12"
           >
-            <option>No</option>
-            <option>Yes</option>
+            <option value={false}>No</option>
+            <option value={true}>Yes</option>
           </select>
         </div>
         <hr
@@ -246,7 +264,6 @@ const ScheduleWorkout = () => {
                         className="p-1 m-1 bg-default-gradient outline outline-1 rounded-lg w-3/12 text-white font-semibold"
                         onClick={() => {
                           setFriendPicked(friend);
-                          allFieldsInputted();
                         }}
                       >
                         Add
@@ -259,7 +276,7 @@ const ScheduleWorkout = () => {
         )}
         <div className="sticky bottom-4 text-center mt-14">
           <button
-            className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
+            className="bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl disabled:bg-disabled-gradient"
             disabled={!allFieldsInput}
             onClick={() => {
               sendScheduleData();
