@@ -3,8 +3,8 @@ import "./Pages.css";
 import { scheduleWorkout } from "./../strings";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-const ScheduleWorkout = () => {
+import { useLocation } from "react-router-dom";
+const ScheduleWorkout = (props) => {
   const navigate = useNavigate();
   const [workoutPicked, setWorkoutPicked] = useState("");
   const [withFriend, setWithFriend] = useState(false);
@@ -16,7 +16,8 @@ const ScheduleWorkout = () => {
   const [timePicked, setTimePicked] = useState("");
   const [friendPicked, setFriendPicked] = useState("");
   const [allFieldsInput, setAllFieldsInput] = useState(false);
-
+  const { state } = useLocation();
+  const friend = state !== null ? state.friend : "";
   function convertToTwoDigits(num) {
     return num.toString().padStart(2, "0");
   }
@@ -40,6 +41,18 @@ const ScheduleWorkout = () => {
       setAllFieldsInput(true);
     }
   }
+  
+  useEffect(() => {
+   if(friend !== null && friend !== undefined && friend.length !== 0){
+    console.log("goes")
+    setWithFriend(true);
+    setFriendPicked(friend);
+   }
+   else{
+    console.log("failed")
+   }
+  }, []);
+
 
   useEffect(() => {
     const myWorkouts = [];
