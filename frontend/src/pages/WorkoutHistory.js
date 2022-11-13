@@ -91,6 +91,9 @@ const WorkoutHistory = () => {
                         )
                     })
                 }
+                {workoutHistorySubset && pastMonthHistory.length === 0 && <div className="mt-8 text-black text-sm p-1">
+                    No workout history to display!
+                </div>}
 
                 {!workoutHistorySubset && allHistory.length !== 0 && allHistory.map(workout => {
                     return (
@@ -98,6 +101,9 @@ const WorkoutHistory = () => {
                     )
                 })
                 }
+                {!workoutHistorySubset && allHistory.length === 0 && <div className="mt-8 text-black text-sm p-1">
+                    No workout history to display!
+                </div>}
             </div>
         </div>
     );
