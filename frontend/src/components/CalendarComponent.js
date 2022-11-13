@@ -4,6 +4,7 @@ import { add, eachDayOfInterval, endOfMonth, format, getDay, isEqual, isSameDay,
 import React, { Fragment, useState, useEffect } from 'react'
 import axios from "axios";
 import { Menu, Transition } from '@headlessui/react'
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -147,7 +148,7 @@ export default function CalendarComponent() {
             <ol className="mt-4 scrollable-div h-36 space-y-1 text-sm leading-6 text-gray-500 b">
               {selectedDayWorkouts.length > 0 ? (
                 selectedDayWorkouts.map((workout) => (
-                  <Workout workout={workout} key={workout._id} />
+                  <Workout workout={workout} key={workout._id} today={today} selectedDay={selectedDay}/>
                 ))
               ) : (
                 <p>No workouts for today.</p>
@@ -160,14 +161,29 @@ export default function CalendarComponent() {
   )
 }
 
-function Workout({ workout }) {
+function Workout({ workout, today, selectedDay }) {
+  const navigate = useNavigate();
 
- 
-  
   return (
     //this is where the scheduled workouts for that date will be displayed
     <div className='border-2 rounded-2xl border-gray-300'>
-    <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+    <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100"
+      onClick={() => {
+        // console.log("selected day " + selectedDay.getDate());
+        // console.log("today " + (today.getDate() === selectedDay.getDate()));
+        // console.log("is it equal " + (selectedDay.getFullYear() === today.getFullYear() && selectedDay.getMonth() === today.getMonth()
+        // && selectedDay.getDate() === today.getDate()));
+
+        const selectedDayIsToday = (selectedDay.getFullYear() === today.getFullYear() && selectedDay.getMonth() === today.getMonth()
+            && selectedDay.getDate() === today.getDate());
+        console.log(workout);
+
+        if (selectedDayIsToday){
+          navigate('/workout', { state: {workoutId: workout.workout_info._id, friend: workout.friend}});
+        }
+       }
+      }
+    >
       <div className="flex-auto">
           <div className="text-black font-semibold">{workout.workout_info.name}</div>
 

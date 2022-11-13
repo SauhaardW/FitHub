@@ -8,8 +8,9 @@ const LogWorkout = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const workout = state !== null ? state.workout : {};
+    const friend = state !== null ? state.friend : "";
 
-  const [exerciseStats, setExerciseStats] = useState([]);
+    const [exerciseStats, setExerciseStats] = useState([]);
   const [workoutLogged, setWorkoutLogged] = useState(false);
   const [logWorkout, setLogWorkout] = useState("Finish Workout");
 
@@ -46,6 +47,7 @@ const LogWorkout = (props) => {
         workout_history: {
           workoutID: workout._id,
           date: getTodaysDate(),
+            friend: friend,
           exercises: exerciseStats,
         },
       })
@@ -57,9 +59,12 @@ const LogWorkout = (props) => {
   return (
     <div className="p-4">
       <div className="mt-20 text-4xl">{workout.name}</div>
-      <div className="mt-1 text-sm text-gray-600">
-        Created by: {workout.username}
-      </div>
+        <div className="flex justify-between mt-1 text-sm text-gray-600">
+          <div>
+            Created by: {workout.username}
+          </div>
+            { friend !== null && friend !== undefined && friend.length !== 0 && <div>Scheduled with: {friend}</div>}
+        </div>
       <hr className="mt-3 mb-1 h-px bg-gray-300 border-0"></hr>
       <p className="text-center font-bold mt-2 text-default-gradient">
         Workout started. Good luck!
