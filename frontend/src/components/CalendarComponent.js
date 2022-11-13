@@ -169,14 +169,8 @@ function Workout({ workout, today, selectedDay }) {
     <div className='border-2 rounded-2xl border-gray-300'>
     <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100"
       onClick={() => {
-        // console.log("selected day " + selectedDay.getDate());
-        // console.log("today " + (today.getDate() === selectedDay.getDate()));
-        // console.log("is it equal " + (selectedDay.getFullYear() === today.getFullYear() && selectedDay.getMonth() === today.getMonth()
-        // && selectedDay.getDate() === today.getDate()));
-
         const selectedDayIsToday = (selectedDay.getFullYear() === today.getFullYear() && selectedDay.getMonth() === today.getMonth()
             && selectedDay.getDate() === today.getDate());
-        console.log(workout);
 
         if (selectedDayIsToday){
           navigate('/workout', { state: {workoutId: workout.workout_info._id, friend: workout.friend}});
