@@ -95,8 +95,7 @@ const Home = () => {
                 </div>}
 
                 {todaysWorkouts !== null && todaysWorkouts !== undefined && todaysWorkouts.length !== 0 &&
-                   <div>
-                        <div className="horizontal-scrollable-div">
+                        <div className="horizontal-scrollable-div mb-3">
                             <ul className="flex">
                                 {
                                     todaysWorkouts.map((workout) => {
@@ -126,12 +125,11 @@ const Home = () => {
                                     );
                                 })}
                             </ul>
-                        </div>
                     </div>}
 
 
 
-                <div className="text-md m-1 mt-3 font-semibold">
+                <div className="text-md m-1 font-semibold">
                     YOUR WORKOUTS
                 </div>
 
