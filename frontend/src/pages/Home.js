@@ -102,12 +102,12 @@ const Home = () => {
                                     return (
                                         <li key={workout.workout_info.name}
                                             onClick={() => {navigate('/workout', { state: {workoutId: workout.workout_info._id, friend: workout.friend}})}}
-                                            className="flex w-60 justify-between p-3 m-1 mr-3 bg-default-gradient rounded">
+                                            className="flex w-72 justify-between p-3 m-1 mr-3 bg-default-gradient rounded">
                                             <div
                                                 key={workout.workout_info.name}
-                                                className="w-60 text-white"
+                                                className="w-72 text-white"
                                             >
-                                                <div className="font-semibold text-xl text-slate-100">Today's Workout</div>
+                                                <div className="font-semibold text-xl text-slate-100 mt-1">Today's Workout</div>
                                                 <div className="text-slate-100 mb-4">
                                                     <span className='w-80 text-xs mt-1'>{workout.date}, at {workout.time}</span>
                                                     {workout.friend !== null && workout.friend !== undefined && workout.friend.length !== 0
@@ -117,7 +117,7 @@ const Home = () => {
                                                         </span>}
                                                 </div>
 
-                                                <div className="font-medium text-2xl">
+                                                <div className="font-medium text-2xl mb-1">
                                                     {workout.workout_info.name.toUpperCase()}
                                                 </div>
                                             </div>
