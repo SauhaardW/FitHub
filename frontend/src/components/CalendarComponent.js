@@ -6,8 +6,6 @@ import axios from "axios";
 import { Menu, Transition } from '@headlessui/react'
 import { useNavigate } from "react-router-dom";
 
-
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
