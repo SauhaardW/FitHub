@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai";
 import {BsCheck2All} from "react-icons/bs";
-import { add, eachDayOfInterval, endOfMonth, format, getDay, isEqual, isSameDay, isSameMonth, isToday, parse, parseISO, startOfToday } from 'date-fns'
+import { isSameDay, parseISO, startOfToday } from 'date-fns'
 
 const Home = () => {
     const {state} = useLocation();
@@ -16,7 +16,7 @@ const Home = () => {
     const [name, setName] = useState("");
     const [streak, setStreak] = useState("");
     const [todaysWorkouts, setTodaysWorkouts] = useState([]);
-    let today = startOfToday()
+    const today = startOfToday()
 
 
     useEffect( () => {
@@ -51,23 +51,14 @@ const Home = () => {
 
     useEffect( () => {
         axios.get("http://localhost:3001/api/scheduled-workouts").then(res => {
-
              if (res.data.success && res.data.data.length !== 0) {
                  const scheduledForToday = res.data.data[0].scheduled_workouts.filter((workout) => isSameDay(parseISO(workout.date), today));
-
-                 scheduledForToday.forEach((workout, index) => {
-                     const params = {id: workout.workout_info._id}
-                     axios.get("http://localhost:3001/api/workout", {params}).then( (res) => {
-                         var workout_obj = res.data.data[0];
-
-                         scheduledForToday[index].workout_info.exercises = workout_obj.exercises;
-                         scheduledForToday[index].workout_info.exercisesString = workout_obj.exercises_info.map(exercise => exercise.name).join(", ");
-                     })
-                 })
-
                  setTodaysWorkouts(scheduledForToday);
             }
         })
+        // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
+        // that give warnings but should not be added. If you add new deps consider whether they should be included in deps array of useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect( () => {
@@ -103,10 +94,8 @@ const Home = () => {
                     <div className="flex items-center mb-2"><BsCheck2All/> <span className="pl-2">Workout successfully logged!</span></div>
                 </div>}
 
-                {(todaysWorkouts === null || todaysWorkouts === undefined || todaysWorkouts.length === 0)
-                    ? <div className="text-sm ml-1 text-[#3898F2]">You have no workouts scheduled for today!</div>
-                    : <div>
-
+                {todaysWorkouts !== null && todaysWorkouts !== undefined && todaysWorkouts.length !== 0 &&
+                   <div>
                         <div className="horizontal-scrollable-div">
                             <ul className="flex">
                                 {
@@ -119,8 +108,8 @@ const Home = () => {
                                                 key={workout.workout_info.name}
                                                 className="w-60 text-white"
                                             >
-                                                <div className="font-semibold text-xl text-gray-200 ">Today's Workout</div>
-                                                <div className="text-gray-200 mb-4">
+                                                <div className="font-semibold text-xl text-slate-100">Today's Workout</div>
+                                                <div className="text-slate-100 mb-4">
                                                     <span className='w-80 text-xs mt-1'>{workout.date}, at {workout.time}</span>
                                                     {workout.friend !== null && workout.friend !== undefined && workout.friend.length !== 0
                                                         && <span>
@@ -142,7 +131,7 @@ const Home = () => {
 
 
 
-                <div className="text-md m-1 font-semibold">
+                <div className="text-md m-1 mt-3 font-semibold">
                     YOUR WORKOUTS
                 </div>
 
