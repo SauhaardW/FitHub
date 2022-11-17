@@ -48,5 +48,6 @@ router.post("/api/schedule-workout", schedule.scheduleWorkouts);
 router.get("/api/scheduled-workouts", schedule.getScheduledWorkouts);
 
 router.post("/api/stats", stats.log_stat);
+router.get("/api/get-stats", stats.get_stat);
 
 module.exports = router;
