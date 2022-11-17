@@ -88,7 +88,7 @@ module.exports.get_stat = (req, res) => {
                 return
             }
             // Check if current userId has a body stats entry
-            db.models.workout.findOne({"userID": mongoose.Types.ObjectId(id)}, (err, curr_stat) => {
+            db.models.stats.findOne({"userID": mongoose.Types.ObjectId(id)}, (err, curr_stat) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Error finding body stat for ${id}`);
                     console.log(err);
