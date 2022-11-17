@@ -65,9 +65,7 @@ const LogWorkoutExercise = ({ exercise, setExerciseStats, exerciseHistory }) => 
       setSaveButton("Save");
     }
   }
-
-  console.log(exerciseHistory)
-
+  
   return (
     <div>
       <div className="filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100">
