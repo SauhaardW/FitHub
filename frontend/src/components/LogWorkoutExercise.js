@@ -109,7 +109,7 @@ const LogWorkoutExercise = ({ exercise, setExerciseStats, exerciseHistory }) => 
                   return (
                     <div key={id} className="flex items-center gap-4 space-y-2">
                       <div className="pt-2 opacity-20"
-                        onClick={()=>{if (data.length != 1) {setData(data.filter((_, index) => index != id))}}}>
+                        onClick={()=>{if (data.length !== 1) {setData(data.filter((_, index) => index !== id))}}}>
                         <GoPlus className="w-5 h-5" style={{transform: 'rotate(45deg)'}} />
                       </div>
                       <h1 className="w-8/12 mt-2">{id + 1}</h1>

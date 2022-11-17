@@ -65,6 +65,8 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             // user has no workout history, create new workout history instance to store their workout logs
 
             const workoutHistory = new db.models.workoutHistory({userID: id, workout_history: workoutData});
+            workoutHistory.workout_streak = {streak: 1, last_updated: workoutData.date};
+
             workoutHistory.save((err, workout_logged) => {
                 if (err) {
                     console.log(`[${dirName}] ERROR: Failed to save logged workout for ${id}`);
@@ -79,6 +81,7 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
             })
         } else {
             // user has workout history
+            updateStreak(workout_history, req.body.workout_history.date); //javascript is "pass by reference" if you try to modify contents of object
 
             workout_history.workout_history.push({
                 workoutID: req.body.workout_history.workoutID,
@@ -103,7 +106,125 @@ const logWorkout = (id, workoutData, exercise_ids, exercises_data, req, res) => 
     })
 }
 
+const updateStreak = (workout_history, date) => {
+    const lastUpdated = new Date(workout_history.workout_streak.last_updated);
+    var streak = workout_history.workout_streak.streak;
+    var lastUpdatedNextDay = new Date(lastUpdated.getTime()); //clone date
+    lastUpdatedNextDay.setDate(lastUpdatedNextDay.getDate() + 1);
 
+    if (lastUpdatedNextDay.getFullYear() === date.getFullYear() && lastUpdatedNextDay.getMonth() === date.getMonth()
+        && lastUpdatedNextDay.getDate() === date.getDate()){ // logged workout one day after last updated, streak increases
+
+        streak = streak + 1;
+    }else if (lastUpdated.getFullYear() === date.getFullYear() && lastUpdated.getMonth() === date.getMonth()
+        && lastUpdated.getDate() === date.getDate()){
+        // if logged workout in the same day as last updated, only update streak if the streak just broke today (and that's why last updated is today)
+        if (streak === 0){
+            streak = 1;
+        }//otherwise keep streak the same
+    }else{
+        streak = 1;
+    }
+
+    workout_history.workout_streak.streak = streak;
+    workout_history.workout_streak.last_updated = date;
+}
+
+
+module.exports.checkBreakStreak = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.body.date)}`);
+
+    utils.verifyJWT(req, res, (req, res) => {
+        const id = mongoose.Types.ObjectId(req.JWT_data.id)
+
+        db.models.workoutHistory.findOne({"userID": id}, (err, workout_history) => {
+            if (err) {
+                console.log(`[${dirName}] ERROR: An error occurred finding the workout history for ${id}`);
+                console.log(err);
+                res.send({error: "Error occurred finding the workout history", success: false});
+                return;
+            } else if (workout_history == null) {
+                // user has no workout history, regardless of today's date just return streak 0
+                res.send({data: {streak: 0, last_updated: null}, success: true});
+                return;
+            } else {
+                // user has workout history, check if today's date should reset streak to 0
+                const today = new Date(req.body.date); //request body should have a date object for today
+
+                if (workout_history.workout_streak === null || workout_history.workout_streak.last_updated === undefined){
+                    // handle existing workout histories before streak feature (since streak has default value of 0, workout_streak may already exist in database)
+                    workout_history.workout_streak = {streak: 0, last_updated: today}
+                    saveWorkoutHistory(workout_history, res);
+                    return;
+                }
+
+                const lastUpdated = workout_history.workout_streak.last_updated;
+                var lastUpdatedNextDay = new Date(lastUpdated.getTime()); //clone date
+                lastUpdatedNextDay.setDate(lastUpdatedNextDay.getDate() + 1);
+
+                const lastUpdatedToday = (lastUpdated.getFullYear() === today.getFullYear()
+                    && lastUpdated.getMonth() === today.getMonth() && lastUpdated.getDate() === today.getDate());
+
+                const lastUpdatedYesterday = (lastUpdatedNextDay.getFullYear() === today.getFullYear()
+                    && lastUpdatedNextDay.getMonth() === today.getMonth() && lastUpdatedNextDay.getDate() === today.getDate());
+
+                if (!lastUpdatedToday && !lastUpdatedYesterday){
+                    // Let the last day you worked out be day a. On days a, a+1 your streak will remain the same
+                    // on day a+2, you're streak will be set to 0 if you have not worked out since day a.
+                    if (workout_history.workout_streak.streak !== 0) {
+                        workout_history.workout_streak.streak = 0;
+                        workout_history.workout_streak.last_updated = today;
+
+                        saveWorkoutHistory(workout_history, res);
+                        return;
+                    }
+                }
+
+                res.send({data: workout_history.workout_streak, success: true});
+                return;
+            }
+        })
+    });
+};
+
+module.exports.getStreak = (req, res) => {
+    utils.verifyJWT(req, res, (req, res) => {
+        const id = mongoose.Types.ObjectId(req.JWT_data.id)
+        console.log(`[${dirName}] ${req.method} streak ${id}`);
+
+        db.models.workoutHistory.findOne({"userID": id}, (err, workout_history) => {
+            if (err) {
+                console.log(`[${dirName}] ERROR: An error occurred finding the workout history for ${id}`);
+                console.log(err);
+                res.send({error: "Error occurred finding the workout history", success: false});
+                return;
+            } else if (workout_history == null) {
+                // user has no workout history, regardless of today's date just return streak 0
+                res.send({data: {streak: 0, last_updated: null}, success: true});
+                return;
+            } else {
+                // user has workout history
+                res.send({data: workout_history.workout_streak, success: true});
+                return;
+            }
+        })
+    });
+};
+
+const saveWorkoutHistory = (workout_history, res) => {
+    workout_history.save((err, data) => {
+        if (err) {
+            console.log(`[${dirName}] ERROR: Failed to save updated streak`);
+            console.log(err);
+            res.send({error: "Error occurred updating streak", success: false});
+            return;
+        } else {
+            console.log(`[${dirName}] Saving logged workout was successful`);
+            res.send({data: data.workout_streak, success: true});
+            return;
+        }
+    });
+}
 
 module.exports.getLoggedWorkouts = (req, res) => {
     console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
