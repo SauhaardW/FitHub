@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import {GoPlus} from "react-icons/go";
+import {VscHistory} from "react-icons/vsc";
+import {AiOutlineTrophy} from "react-icons/ai"
 
-const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
+const LogWorkoutExercise = ({ exercise, setExerciseStats, exerciseHistory }) => {
   const [isActive, setIsActive] = useState(false);
   const [saveButton, setSaveButton] = useState("Save");
   const [invalidDataMessage, setInvalidDataMessage] = useState("** Invalid input for reps or weight **");
@@ -64,6 +66,8 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
     }
   }
 
+  console.log(exerciseHistory)
+
   return (
     <div>
       <div className="filters-container bg-disabled-gradient-lighter rounded-lg mt-3 shadow-gray-100">
@@ -109,7 +113,10 @@ const LogWorkoutExercise = ({ exercise, exerciseStats, setExerciseStats }) => {
                         <GoPlus className="w-5 h-5" style={{transform: 'rotate(45deg)'}} />
                       </div>
                       <h1 className="w-8/12 mt-2">{id + 1}</h1>
-                      <h1 className="w-8/12 ">Prev</h1>
+                      <div className="flex flex-col w-8/12">
+                        <div className="flex items-center text-xs"><VscHistory className="h-3 w-3"/>{exerciseHistory.prev}</div>
+                        <div className="flex items-center text-xs"><AiOutlineTrophy className="h-3 w-3"/>{exerciseHistory.pr}</div>
+                      </div>
                       <input
                         className="w-8/12 rounded-xl px-2"
                         type="text"
