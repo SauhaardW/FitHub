@@ -3,6 +3,12 @@ import './Pages.css';
 import axios from "axios";
 import { BsArrowRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { Chart, Line } from 'react-chartjs-2';
+import {Chart as ChartJS, Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement, Filler} from 'chart.js';
+
+ChartJS.register(
+    Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement, Filler
+)
 
 const History = () => {
     const navigate = useNavigate();
@@ -23,6 +29,58 @@ const History = () => {
             })
         })
     }, []);
+
+    const [data, setData]= useState({
+        labels:["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
+        datasets:[
+            {
+                label:"Height",
+                hidden: true,
+                data:[10, 20, 30, 42, 51, 82, 31, 59, 61, 73, 91, 58],
+                backgroundColor:'Black',
+                borderColor:'Red',
+                tension:0.2,
+                // fill: true,
+                pointStyle: 'circle',
+                pointBorderColor: 'Black'
+            },
+            {
+                label:"Weight",
+
+                data:[40, 35, 50, 60, 28, 39, 31, 59, 41, 50, 54, 58],
+                backgroundColor:'Black',
+                borderColor:'Green',
+                tension:0.2,
+                // fill: true,
+                pointStyle: 'circle',
+                pointBorderColor: 'Black'
+            },
+            {
+                label:"Forearm Circumference",
+                hidden: true,
+                data:[10, 11, 21, 14, 8, 12, 6, 9, 11, 16, 18, 14],
+                backgroundColor:'Black',
+                borderColor:'Blue',
+                tension:0.2,
+                // fill: true,
+                pointStyle: 'circle',
+                pointBorderColor: 'Black'
+            },
+            {
+                label:"Calf Circumference",
+                hidden: true,
+                data:[5, 2, 3, 1, 4, 2, 3, 2, 6, 2, 4, 3],
+                backgroundColor:'Black',
+                borderColor:'Brown',
+                tension:0.2,
+                // fill: true,
+                pointStyle: 'circle',
+                pointBorderColor: 'Black'
+            }
+
+        ]
+    })
 
 
     return (
@@ -52,25 +110,12 @@ const History = () => {
                 </button>
             </div>
 
-                <div className='inputInfo'>
-            <p>Statistic Type</p>
-                <select 
 
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-                focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400
-                dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option>Please select statistic type</option>
-                    <option value={NameOptions[1]}>Height</option>
-                    <option value={NameOptions[0]}>Weight</option>
-                    <option value={NameOptions[2]}>Upper arm circumference</option>
-                    <option value={NameOptions[3]}>Forearm circumference</option>
-                    <option value={NameOptions[4]}>Chest circumference</option>
-                    <option value={NameOptions[5]}>Thigh circumference</option>
-                    <option value={NameOptions[6]}>Calf circumference</option>
-                    <option value={NameOptions[7]}>Waist circumference</option>
-                    <option value={NameOptions[8]}>Shoulder circumference</option>
-                </select>
-            </div>   
+
+
+            <Line data={data} className="mt-8" height={"300%"}>
+
+            </Line>
 
             <button
                     className="absolute bottom-10 bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
@@ -81,6 +126,7 @@ const History = () => {
                     Add Stats
                 </button>
         </div>
+        
         
         
     );
