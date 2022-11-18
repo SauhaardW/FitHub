@@ -26,7 +26,7 @@ const LogWorkout = (props) => {
 		pr: "N/A",
 		prev: "N/A"
 	}
-	if (exercise_id === undefined || workoutHistory === [] || workoutHistory === undefined) { return ans }
+	if (exercise_id === undefined || workoutHistory.length === 0 || workoutHistory === undefined) { return ans }
 	const workoutExercises = workoutHistory.map(workout=>workout.workout_history.exercises);
 	const exerciseHistory = workoutExercises.map(workout=>workout.filter(ex => ex.exercise_info !== undefined && ex.exercise_info._id === exercise_id));
 	const pr = Math.max(...exerciseHistory.map(ex=>Math.max(...ex.map(e=>Math.max(...e.sets_info.map(ee=>ee.weight))))));
