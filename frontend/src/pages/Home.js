@@ -5,8 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai";
 import {BsCheck2All} from "react-icons/bs";
+
 import graphComponent from "../components/GraphComponent";
 import GraphComponent from '../components/GraphComponent';
+
+import { isSameDay, parseISO, startOfToday } from 'date-fns'
+
 
 const Home = () => {
     const {state} = useLocation();
@@ -16,6 +20,9 @@ const Home = () => {
     const [recommendedWorkouts, setRecommendedWorkouts] = useState([]);
     const [name, setName] = useState("");
     const [streak, setStreak] = useState("");
+    const [todaysWorkouts, setTodaysWorkouts] = useState([]);
+    const today = startOfToday()
+
 
     useEffect( () => {
         axios.get("http://localhost:3001/api/current-user").then(res => {
@@ -45,6 +52,18 @@ const Home = () => {
                 setRecommendedWorkouts(recWorkouts);
             })
         })
+    }, []);
+
+    useEffect( () => {
+        axios.get("http://localhost:3001/api/scheduled-workouts").then(res => {
+             if (res.data.success && res.data.data.length !== 0) {
+                 const scheduledForToday = res.data.data[0].scheduled_workouts.filter((workout) => isSameDay(parseISO(workout.date), today));
+                 setTodaysWorkouts(scheduledForToday);
+            }
+        })
+        // be careful with the line below, it removes all eslint warnings about dependencies that should be added to dep array. Using it here because there are deps
+        // that give warnings but should not be added. If you add new deps consider whether they should be included in deps array of useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect( () => {
@@ -79,6 +98,41 @@ const Home = () => {
                 {loggedWorkout && <div className="text-green-500">
                     <div className="flex items-center mb-2"><BsCheck2All/> <span className="pl-2">Workout successfully logged!</span></div>
                 </div>}
+
+                {todaysWorkouts !== null && todaysWorkouts !== undefined && todaysWorkouts.length !== 0 &&
+                        <div className="horizontal-scrollable-div mb-3">
+                            <ul className="flex">
+                                {
+                                    todaysWorkouts.map((workout) => {
+                                    return (
+                                        <li key={workout.workout_info.name}
+                                            onClick={() => {navigate('/workout', { state: {workoutId: workout.workout_info._id, friend: workout.friend}})}}
+                                            className="flex w-72 justify-between p-3 m-1 mr-3 bg-default-gradient rounded">
+                                            <div
+                                                key={workout.workout_info.name}
+                                                className="w-72 text-white"
+                                            >
+                                                <div className="font-semibold text-xl text-slate-100 mt-1">Today's Workout</div>
+                                                <div className="text-slate-100 mb-4">
+                                                    <span className='w-80 text-xs mt-1'>{workout.date}, at {workout.time}</span>
+                                                    {workout.friend !== null && workout.friend !== undefined && workout.friend.length !== 0
+                                                        && <span>
+                                                            <span className='w-80 text-xs mt-1'>, with: </span>
+                                                            <span className='w-80 text-xs mt-1'>{workout.friend}</span>
+                                                        </span>}
+                                                </div>
+
+                                                <div className="font-medium text-2xl mb-1">
+                                                    {workout.workout_info.name.toUpperCase()}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                    </div>}
+
+
 
                 <div className="text-md m-1 font-semibold">
                     YOUR WORKOUTS
