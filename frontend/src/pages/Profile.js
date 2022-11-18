@@ -62,21 +62,22 @@ const Profile = () => {
     }, [age, weight, height, name, username, experience, email]);
 
     const validateInput = () => {
+        let emailRegex = new RegExp('^[A-Za-z][^@]*@[^@]+$');
         setInvalidDataMessage("")
         if (age !== "" && height !== "" && weight !== "" && name !== "" && email !== "" && username !== "" && experience !== ""){
             //validate they are all positive integers since type="number" allows negatives, decimals, etc
             const numberRegex = new RegExp("^[0-9]+$");
-            if (numberRegex.test(age) && numberRegex.test(weight) && numberRegex.test(height)){
+            if (numberRegex.test(age) && numberRegex.test(weight) && numberRegex.test(height) && emailRegex.test(email)){
                 setDisableDoneButton(false)
             }
             else{
                 setDisableDoneButton(true)
-                setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
+                setInvalidDataMessage("** Age, weight, height must be positive numeric values, and email must be valid email address **")
             }
         }
         else{
             setDisableDoneButton(true)
-            setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
+            setInvalidDataMessage("** Age, weight, height must be positive numeric values, and email must be valid email address **")
         }
     }
 
