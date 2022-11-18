@@ -5,6 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai";
 import {BsCheck2All} from "react-icons/bs";
+import graphComponent from "../components/GraphComponent";
+import GraphComponent from '../components/GraphComponent';
 
 const Home = () => {
     const {state} = useLocation();
@@ -167,10 +169,14 @@ const Home = () => {
                     </div>
                 </div>}
             </div>
+            <div className="text-md m-1 mt-3 font-semibold">
+                    YOUR HISTORY
+                </div>
+            <GraphComponent></GraphComponent>
 
-            <div className="text-center mt-14">
+            <div className="text-center mt-6 mb-10">
                 <button
-                    className="absolute bottom-10 bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
+                    className=" bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
                     onClick={() => {
                         navigate("/workouts/create");
                     }}
