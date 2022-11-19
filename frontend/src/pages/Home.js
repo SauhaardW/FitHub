@@ -227,7 +227,7 @@ const Home = () => {
                 </div>
             <GraphComponent></GraphComponent>
 
-            <div className="text-center mt-6 mb-10">
+            <div className="sticky bottom-4 text-center mt-6 mb-10">
                 <button
                     className=" bg-default-gradient text-white py-4 px-10 w-3/4 left-[calc(12.5vw)] rounded text-xl"
                     onClick={() => {
