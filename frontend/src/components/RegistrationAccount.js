@@ -1,6 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext, isUsernameUnique}) => {
+
+    const [invalidEmailMessage, setInvalidEmailMessage] = useState("");
+
 
     useEffect(() => {
         //Runs on the first render and any time any dependency value changes
@@ -11,7 +14,17 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
     }, [formData.username, formData.email, formData.password]);
 
     const validateInput = () => {
-        if (formData.username !== "" && formData.email !== "" && formData.password !== ""){
+        let regex = new RegExp('^[A-Za-z][^@]*@[^@]+$');
+        const emailInvalid = formData.email !== "" && !regex.test(formData.email);
+
+        if (emailInvalid){
+            setInvalidEmailMessage("Email address provided is not valid");
+            setDisableNext(true)
+        }else{
+            setInvalidEmailMessage("");
+        }
+
+        if (formData.username !== "" && formData.email !== "" && formData.password !== "" && !emailInvalid){
             setDisableNext(false)
         }
         else if (!disableNext){
@@ -53,6 +66,7 @@ const RegistrationAccount = ({formData, setFormData, disableNext, setDisableNext
 
           }
           />
+          <div className="text-red-500">{invalidEmailMessage}</div>
       </div>
       <div className='inputInfo'>
           <p>Password</p>
