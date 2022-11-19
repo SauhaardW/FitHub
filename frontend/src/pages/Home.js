@@ -6,7 +6,6 @@ import {CreateWorkout } from "./../strings";
 import {AiOutlineLike} from "react-icons/ai";
 import {BsCheck2All} from "react-icons/bs";
 
-import graphComponent from "../components/GraphComponent";
 import GraphComponent from '../components/GraphComponent';
 
 import { isSameDay, parseISO, startOfToday } from 'date-fns'
