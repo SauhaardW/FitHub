@@ -49,15 +49,15 @@ For Sprint 4, we want to build on the fundamental functionlalities that we creat
 Points completed in Sprint 1: 102
 Points completed in Sprint 2: 85
 Points completed in Sprint 3: 74
-Points completed in Sprint 4: 136
+Points completed in Sprint 4: 98
 
 
-Average: (102 + 85 + 74 + 136)/ 4 = 99.25
+Average: (102 + 85 + 74 + 136)/ 4 = 89.75
 
-Sprint Velocity = 99.25 
-Team Capacity = 6*6 = 36
-Focus Factor = Sprint Velocity / Team Capacity = 99.25 / 36 = 2.76
-Effective Team Capacity = 2.76 *(6*6*6) = 595.5h
+Sprint Velocity = 89.75 
+Team Capacity = 6*7 = 42
+Focus Factor = Sprint Velocity / Team Capacity = 99.25 / 36 = 2.137
+Effective Team Capacity = 2.137 *(6*7*6) = 538.5h
 ```
 
 This is our final estimate.
