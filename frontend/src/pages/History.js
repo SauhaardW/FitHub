@@ -16,6 +16,7 @@ const History = () => {
     const NameOptions = ["weight", "height", "upper_arm_circumference", "forearm_circumference", "chest_circumference", "thigh_circumference", "calf_circumference", "waist_circumference","shoulder_circumference"];
 
     const [streak, setStreak] = useState("");
+    const [user_stats, set_user_stats] = useState([]);
 
     useEffect( () => {
         var today = new Date();
@@ -26,9 +27,18 @@ const History = () => {
                 if (res.data.success){
                     setStreak(res.data.data.streak);
                 }
-            })
+            })  
         })
     }, []);
+
+    useEffect( () => {
+        axios.get("http://localhost:3001/api/get-stats").then(res => {
+    
+    ;      if (res.data.success && res.data.data.length !== 0) {
+        set_user_stats(res.data.data);
+          }
+        })
+      }, []);
 
     const [data, setData]= useState({
         labels:["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -84,6 +94,7 @@ const History = () => {
 
 
     return (
+
         <div className="page-title mx-3 pages">
             <div className="flex justify-between">
                 <div className="text-4xl font-bold">
