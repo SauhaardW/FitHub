@@ -18,6 +18,7 @@ const History = () => {
       
     const navigate = useNavigate();
 
+
     const [streak, setStreak] = useState("");
 
 
