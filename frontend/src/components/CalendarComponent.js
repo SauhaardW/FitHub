@@ -4,8 +4,7 @@ import { add, eachDayOfInterval, endOfMonth, format, getDay, isEqual, isSameDay,
 import React, { Fragment, useState, useEffect } from 'react'
 import axios from "axios";
 import { Menu, Transition } from '@headlessui/react'
-
-
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -21,9 +20,11 @@ export default function CalendarComponent() {
   
 
   useEffect( () => {
-    axios.get("http://localhost:3001/api/current-user").then(res => {
+    axios.get("http://localhost:3001/api/scheduled-workouts").then(res => {
 
-        set_scheduled_workouts(res.data.data.scheduled_workouts);
+;      if (res.data.success && res.data.data.length !== 0) {
+        set_scheduled_workouts(res.data.data[0].scheduled_workouts);
+      }
     })
   }, []);
 
@@ -145,7 +146,7 @@ export default function CalendarComponent() {
             <ol className="mt-4 scrollable-div h-36 space-y-1 text-sm leading-6 text-gray-500 b">
               {selectedDayWorkouts.length > 0 ? (
                 selectedDayWorkouts.map((workout) => (
-                  <Workout workout={workout} key={workout._id} />
+                  <Workout workout={workout} key={workout._id} today={today} selectedDay={selectedDay}/>
                 ))
               ) : (
                 <p>No workouts for today.</p>
@@ -158,19 +159,38 @@ export default function CalendarComponent() {
   )
 }
 
-function Workout({ workout }) {
+function Workout({ workout, today, selectedDay }) {
+  const navigate = useNavigate();
 
- 
-  
   return (
     //this is where the scheduled workouts for that date will be displayed
     <div className='border-2 rounded-2xl border-gray-300'>
-    <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+    <li className="flex items-center px-4 py-0 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100"
+      onClick={() => {
+        const selectedDayIsToday = (selectedDay.getFullYear() === today.getFullYear() && selectedDay.getMonth() === today.getMonth()
+            && selectedDay.getDate() === today.getDate());
+
+        if (selectedDayIsToday){
+          navigate('/workout', { state: {workoutId: workout.workout_info._id, friend: workout.friend}});
+        }
+       }
+      }
+    >
       <div className="flex-auto">
-        <h1 className='font-normal text-gray-800'>{workout.friend}</h1>
-        <p className="mt-0.5">
-          {workout.time}
+          <div className="text-black font-semibold">{workout.workout_info.name}</div>
+
+      <div className="flex justify-between text-sm">
+      <p className="mt-0.5">
+          {workout.date},
+           at <span className="text-black font-semibold">{workout.time}</span>
         </p>
+        {workout.friend !== null && workout.friend.length !== 0 && <div>
+          <span className="text-xs">with:</span>
+          <span className='font-normal text-gray-800'> {workout.friend}</span>
+        </div>
+        }
+      </div>
+
       </div>
 
       <Menu

@@ -58,6 +58,11 @@ const createSchemas = () => {
 
     const workoutHistorySchema = new mongoose.Schema({
         userID: {type: mongoose.Types.ObjectId, required:true},
+        workout_streak: {
+            streak: {type: Number, default: 0},
+            last_updated: {type: Date},
+            _id: false,
+        },
         workout_history: [{
             workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
             date: {type: Date, required:true},
@@ -94,7 +99,7 @@ const createSchemas = () => {
             workoutID: {type: mongoose.Schema.Types.ObjectId, required:true},
             date: {type: String, required:true},
             time: {type: String, required:true},
-            friend: {type: String}
+            friend: {type: String},
         }],
     });
     const user = mongoose.model("user", userSchema);

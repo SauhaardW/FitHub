@@ -70,3 +70,39 @@ module.exports.log_stat = (req, res) => {
         });
     })
 }
+
+module.exports.get_stat = (req, res) => {
+    console.log(`[${dirName}] ${req.method} ${JSON.stringify(req.query)}`);
+    utils.verifyJWT(req, res, (req, res) => {
+        const id = req.JWT_data.id
+        const username = req.JWT_data.username
+
+        db.models.user.findById(id, (err, curr_user) => {
+            if (err) {
+                console.log(`[${dirName}] ERROR: Error finding user ${username}`);
+                console.log(err);
+                res.send({error: "Error finding user", success: false});
+                return
+            }else if (curr_user == null){
+                res.send({error: "Current user does not exist", success: false});
+                return
+            }
+            // Check if current userId has a body stats entry
+            db.models.stats.findOne({"userID": id}, (err, curr_stat) => {
+                if (err) {
+                    console.log(`[${dirName}] ERROR: Error finding body stat for ${id}`);
+                    console.log(err);
+                    res.send({error: "Error finding body stat for current user", success: false});
+                    return
+                }else if (curr_stat == null){
+                    res.send({error: "Body stat for current user does not exist", success: false});
+                    return
+                }else {
+                    console.log(`[${dirName}] Getting body stat for ${id} was successful`);
+                    res.send({success: true, data: curr_stat});
+                }
+
+            });
+        });
+    })
+}

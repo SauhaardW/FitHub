@@ -14,6 +14,8 @@ import {AiFillDislike} from "react-icons/ai";
 const ViewWorkout = () => {
     const {state} = useLocation();
     const workoutId = state !== null ? state.workoutId : "";
+    const friend = state !== null ? state.friend : "";
+
     const [workout, setWorkout] = useState({});
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -26,6 +28,19 @@ const ViewWorkout = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    useEffect( () => {
+        //hide topbar on mount
+        document.getElementById('top-bar-hamburger-menu').style.display = "none"
+        document.getElementById('top-bar-back-arrow').style.display = "initial"
+
+        return () => {
+            //show topbar on unmount
+            document.getElementById('top-bar-hamburger-menu').style.display = "initial"
+            document.getElementById('top-bar-back-arrow').style.display = "none"
+        }
+    }, []);
+
     useEffect( () => {
         if (workoutId !== ""){ //state changes to null when hamburger menu is opened, so workoutID will update to ""
             const params = {id: workoutId}
@@ -119,7 +134,7 @@ const ViewWorkout = () => {
                     ))}
             </div>
             <button 
-                onClick={() => { navigate("log", { state: {workout: workout}}) }}
+                onClick={() => { navigate("log", { state: {workout: workout, friend: friend}}) }}
                 className='sticky bottom-4 mt-4 w-[calc(100vw-32px)] h-[calc(5vh)] bg-default-gradient hover:bg-blue-700 text-white disabled:bg-disabled-gradient font-bold px-8 rounded'>
                 Log Workout
             </button>

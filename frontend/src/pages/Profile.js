@@ -19,6 +19,7 @@ const Profile = () => {
     const [height, setHeight] = useState("");
     const [editMode, setEditMode] = useState("");
     const [experience, setExperience] = useState("");
+    const [streak, setStreak] = useState("");
 
     const [invalidDataMessage, setInvalidDataMessage] = useState("");
     const [disableDoneButton, setDisableDoneButton] = useState("")
@@ -39,6 +40,19 @@ const Profile = () => {
         })
     }, []);
 
+    useEffect( () => {
+        var today = new Date();
+        axios.post("http://localhost:3001/api/workout-history/streak", {
+            date: today
+        }).then(res => {
+            axios.get("http://localhost:3001/api/workout-history/streak").then((res) => {
+                if (res.data.success){
+                    setStreak(res.data.data.streak);
+                }
+            })
+        })
+    }, []);
+
     useEffect(() => {
         //Runs on the first render and any time any dependency value changes
         validateInput()
@@ -48,21 +62,22 @@ const Profile = () => {
     }, [age, weight, height, name, username, experience, email]);
 
     const validateInput = () => {
+        let emailRegex = new RegExp('^[A-Za-z][^@]*@[^@]+$');
         setInvalidDataMessage("")
         if (age !== "" && height !== "" && weight !== "" && name !== "" && email !== "" && username !== "" && experience !== ""){
             //validate they are all positive integers since type="number" allows negatives, decimals, etc
             const numberRegex = new RegExp("^[0-9]+$");
-            if (numberRegex.test(age) && numberRegex.test(weight) && numberRegex.test(height)){
+            if (numberRegex.test(age) && numberRegex.test(weight) && numberRegex.test(height) && emailRegex.test(email)){
                 setDisableDoneButton(false)
             }
             else{
                 setDisableDoneButton(true)
-                setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
+                setInvalidDataMessage("** Age, weight, height must be positive numeric values, and email must be valid email address **")
             }
         }
         else{
             setDisableDoneButton(true)
-            setInvalidDataMessage("** Age, weight, height must be positive numeric values **")
+            setInvalidDataMessage("** Age, weight, height must be positive numeric values, and email must be valid email address **")
         }
     }
 
@@ -130,10 +145,17 @@ const Profile = () => {
 
     return (
         <div className="page-font mx-4">
-            <div className="font-semibold text-3xl mt-20">
-                {myAccountLabel}
+            <div className="flex justify-between mt-20">
+                <div className="font-semibold text-3xl">
+                    {myAccountLabel}
+                </div>
+
+                {streak.length !== 0 && <div className="text-2xl flex items-center px-3 rounded-md bg-[#F2F2F2] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <span>{"🔥"}</span>
+                    <span className="ml-1">{streak}</span>
+                </div>}
             </div>
-            <hr className="my-3 h-px bg-black border-0"></hr>
+            <hr className="mt-1 mb-5 h-px bg-black border-0"></hr>
 
             <div className="flex">
                 <BsPersonCircle size={70} className="mr-3"/>
