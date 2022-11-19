@@ -66,9 +66,13 @@ Our database of choice is MongoDB. We have a general database handler, `backend/
 - `GET /api/scheduled-workouts`  
     Gets all scheduled workouts for the authenticated user.  
 - `POST /api/workout-history`
-    Logs a new workout in the workout history for a user, expects a workout object in body.
+    Logs a new workout in the workout history for a user, expects a workout object in body. Updates workout streak if needed.  
 - `GET /api/workout-history`
     Gets a users workout history. Uses JWT token to gather data, no body needed.
+- `POST /api/workout-history/streak`
+  Checks if a users streak needs to be broken, based on the date passed into the request body and the date of the last time the streak was updated (stored in database). Streak needs to be broken (set to 0) if the streak is nonzero and the date passed in is >= 2 calendar days after the last time the streak was updated. 
+- `GET /api/workout-history/streak`
+    Gets a users workout streak. Uses JWT token to gather data, no body needed.
 
 ### Others
 #### utils.js
